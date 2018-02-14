@@ -1,3 +1,5 @@
+![build status on #master:](https://travis-ci.org/gusbocju/DIT168.svg?branch=master)
+
 ## DIT168 V18 Project: Industrial IT and Embedded Systems
 
 The group will during the spring term of 2018 design and implement software for a mini car to drive autonomously under stable conditions. The car should be able to, in addition to self-driving, follow a line, do safe handling of intersections, pass other vehicles and park. To accomplish this the car is equipped with sensors. The project will be done in C/C++ with focus on quality assurance, effective design and testing throughout. 
