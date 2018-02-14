@@ -2,6 +2,6 @@ language: cpp
 
 before_install:
           - sudo add-apt-repository --yes ppa:chrberger/libcluon
-          - sudo apt-get update
-          - sudo apt-get upgrade
+          # - sudo apt-get update
+          # - sudo apt-get upgrade
           - sudo apt-get install libcluon
