@@ -7,8 +7,8 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Werror")
 
 include_directories(SYSTEM ${CMAKE_BINARY_DIR})
 
-# find_package(libcluon REQUIRED)
-# include_directories(SYSTEM ${CLUON_INCLUDE_DIRS})
+find_package(libcluon REQUIRED)
+include_directories(SYSTEM ${CLUON_INCLUDE_DIRS})
 
 add_executable(
         ${PROJECT_NAME}.Sender
