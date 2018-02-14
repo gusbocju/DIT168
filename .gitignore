@@ -1,0 +1,28 @@
+# Some files and folders #
+##########################
+
+*.dump
+*.iml
+.iws
+.idea/
+/out/
+/cmake-build-debug/
+
+# Compiled sources #
+####################
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so
+
+# OS generated files #
+######################
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
