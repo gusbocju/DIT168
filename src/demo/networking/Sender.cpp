@@ -5,8 +5,7 @@
 #include <chrono>
 #include <iostream>
 
-#include "cluon/UDPSender.hpp"
-#include "cluon/UDPReceiver.hpp"
+#include "cluon/Receiver.hpp"
 
 int main(int /*argc*/, char** /*argv*/) {
 
