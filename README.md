@@ -17,7 +17,7 @@ We will be using individual branches per feature; they’ll be merged using pull
 ### TEST
 
 ### CONTRIBUTING:
-Please read the [CONTRIBUTING.md] (DIT168/CONTRIBUTING.md) on how to contribute to this project.
+Please read the [CONTRIBUTING.md](DIT168/CONTRIBUTING.md) on how to contribute to this project.
 
 ### LICENSE:
 This project is licensed under MIT- see [LICENSE.md](DIT168/LICENSE) for more details.
