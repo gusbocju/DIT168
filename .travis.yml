@@ -1,12 +1,12 @@
 language: cpp
 sudo: required
-dist: precise
+dist: trusty
 
 before_install:
-          # - sudo rm -rf /etc/apt/sources.list.d/rwky-redis.list
+          - sudo rm -rf /etc/apt/sources.list.d/rwky-redis.list
+          - sudo sed -i s/us.archive.ubuntu/old-releases.ubuntu/g /etc/apt/sources.list
+          - sudo sed -i s/security.ubuntu/old-releases.ubuntu/g /etc/apt/sources.list
           - sudo add-apt-repository ppa:chris-lea/redis-server -y
           - sudo add-apt-repository ppa:chrberger/libcluon -y
-          # - sudo sed -i s/us.archive.ubuntu/old-releases.ubuntu/g /etc/apt/sources.list
-          # - sudo sed -i s/security.ubuntu/old-releases.ubuntu/g /etc/apt/sources.list
           - sudo apt-get update -q
           - sudo apt-get install libcluon -y
