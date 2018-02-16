@@ -17,11 +17,11 @@ We will be using individual branches per feature; they’ll be merged using pull
 `docker run --rm -ti --net=host myrepository/mydockerimage`
 
 
-docker save myrepository/mydockerimage > mydockerimage.tar
+`docker save myrepository/mydockerimage > mydockerimage.tar´
 
 (upload to Docker hub)
 
-cat mydockerimage.tar | docker load
+`cat mydockerimage.tar | docker load´
 
 
 ### CONTRIBUTING:
