@@ -11,12 +11,18 @@ We will be using individual branches per feature; they’ll be merged using pull
 ### CLONING
 `$ git clone https://github.com/gusbocju/DIT168.git`
 
-### BUILD 
+### BUILD AND BUILD
 `docker build -t myrepository/mydockerimage` 
 
 `docker run --rm -ti --net=host myrepository/mydockerimage`
 
-### TEST
+
+docker save myrepository/mydockerimage > mydockerimage.tar
+
+(upload to Docker hub)
+
+cat mydockerimage.tar | docker load
+
 
 ### CONTRIBUTING:
 Please read the [CONTRIBUTING.md](DIT168/CONTRIBUTING.md) on how to contribute to this project.
