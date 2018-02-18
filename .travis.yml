@@ -3,14 +3,12 @@ dist: trusted
 
 language: cpp
 
-services:
-  - docker
-
 before_install:
-  - docker build -t dit168.marble -f Dockerfile .
+  - sudo apt-get update
+  - sudo apt-get -y -o Dpkg::Options::="--force-confnew" install docker-ce
 
 script:
-#  ...
+  - docker build -t dit168.marble -f Dockerfile .
 
 after_success:
 #  - if [ "$TRAVIS_BRANCH" == "master" ]; then

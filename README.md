@@ -26,6 +26,7 @@ We will be using individual branches per feature; they’ll be merged using pull
 #### DEMOS:
 `docker run --rm -ti --net=host dit168.marble /opt/MARBLE.Networking.Demo.Sender`\
 `docker run --rm -ti --net=host dit168.marble /opt/MARBLE.Networking.Demo.Receiver`\
+\
 (the receiving process has to be terminated using `docker sp` and `docker stop <container id>`)
 
 ### CONTRIBUTING:
