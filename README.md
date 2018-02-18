@@ -12,20 +12,20 @@ We will be using individual branches per feature; they’ll be merged using pull
 `$ git clone https://github.com/gusbocju/DIT168.git`
 
 ### BUILD AND DEPLOY
-`docker build -t dit168.marble -f Dockerfile .`
+`$ docker build -t dit168.marble -f Dockerfile .`
 
-(successful builds will be automatically uploaded to Docker Hub using TravisCI)
+(successful builds originating master will be pushed to `gusbocju/dit168.marble:latest` on Docker Hub using TravisCI)
 
 #### SAVE AND RESTORE:
-`docker save dit168.marble > dit168.marble.tar`\
-`cat dit168.marble.tar | docker load`
+`$ docker save dit168.marble > dit168.marble.tar`\
+`$ cat dit168.marble.tar | docker load`
 
 #### RUN:
-`docker run --rm -ti --net=host dit168.marble /opt/MARBLE`
+`$ docker run --rm -ti --net=host dit168.marble /opt/MARBLE`
 
 #### DEMOS:
-`docker run --rm -ti --net=host dit168.marble /opt/MARBLE.Networking.Demo.Sender`\
-`docker run --rm -ti --net=host dit168.marble /opt/MARBLE.Networking.Demo.Receiver`\
+`$ docker run --rm -ti --net=host dit168.marble /opt/MARBLE.Networking.Demo.Sender`\
+`$ docker run --rm -ti --net=host dit168.marble /opt/MARBLE.Networking.Demo.Receiver`\
 \
 (the receiving process has to be terminated using `docker sp` and `docker stop <container id>`)
 
