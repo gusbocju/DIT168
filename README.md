@@ -14,7 +14,7 @@ We will be using individual branches per feature; they’ll be merged using pull
 ### BUILD AND DEPLOY
 `docker build -t dit168.marble -f Dockerfile .`
 
-(successful builds will automatically be uploaded to Docker Hub using TravisCI)
+(successful builds will be automatically uploaded to Docker Hub using TravisCI)
 
 #### SAVE AND RESTORE:
 `docker save dit168.marble > dit168.marble.tar`
@@ -23,10 +23,10 @@ We will be using individual branches per feature; they’ll be merged using pull
 #### RUN:
 `docker run --rm -ti --net=host dit168.marble /opt/MARBLE`
 
-##### DEMOS:
+#### DEMOS:
 `docker run --rm -ti --net=host dit168.marble /opt/MARBLE.Networking.Demo.Sender`
 `docker run --rm -ti --net=host dit168.marble /opt/MARBLE.Networking.Demo.Receiver`
-(the receiving process is to be terminated using `docker sp` and `docker stop <container id>`)
+(the receiving process has to be terminated using `docker sp` and `docker stop <container id>`)
 
 ### CONTRIBUTING:
 Please read the [CONTRIBUTING.md](DIT168/CONTRIBUTING.md) on how to contribute to this project.
