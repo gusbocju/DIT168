@@ -11,18 +11,22 @@ We will be using individual branches per feature; they’ll be merged using pull
 ### CLONING
 `$ git clone https://github.com/gusbocju/DIT168.git`
 
-### BUILD AND BUILD
-`docker build -t myrepository/mydockerimage` 
+### BUILD AND DEPLOY
+`docker build -t dit168.marble -f Dockerfile .`
 
-`docker run --rm -ti --net=host myrepository/mydockerimage`
+(successful builds will automatically be uploaded to Docker Hub using TravisCI)
 
+#### SAVE AND RESTORE:
+`docker save dit168.marble > dit168.marble.tar`
+`cat dit168.marble.tar | docker load`
 
-`docker save myrepository/mydockerimage > mydockerimage.tar`
+#### RUN:
+`docker run --rm -ti --net=host dit168.marble /opt/MARBLE`
 
-(upload to Docker hub)
-
-`cat mydockerimage.tar | docker load`
-
+##### DEMOS:
+`docker run --rm -ti --net=host dit168.marble /opt/MARBLE.Networking.Demo.Sender`
+`docker run --rm -ti --net=host dit168.marble /opt/MARBLE.Networking.Demo.Receiver`
+(the receiving process is to be terminated using `docker sp` and `docker stop <container id>`)
 
 ### CONTRIBUTING:
 Please read the [CONTRIBUTING.md](DIT168/CONTRIBUTING.md) on how to contribute to this project.
