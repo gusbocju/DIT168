@@ -11,8 +11,11 @@ addons:
     packages:
       - docker-ce
 
-script:
+before_install:
   - docker build -t dit168.marble -f Dockerfile .
+
+script:
+#  ...
 
 after_success:
 #  - if [ "$TRAVIS_BRANCH" == "master" ]; then
