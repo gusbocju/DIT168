@@ -1,8 +1,6 @@
-//TO BE MODIFIED
-
 # docker run --rm -ti -v $PWD:/opt/sources alpine:3.7 /bin/sh
 FROM alpine:3.7 as builder
-MAINTAINER Christian Berger christian.berger@gu.se
+MAINTAINER Julian Bock gusbocju@student.gu.se
 RUN apk update && \
     apk --no-cache add \
         ca-certificates \
@@ -16,14 +14,16 @@ RUN cd /opt/sources && \
     mkdir build && \
     cd build && \
     cmake -D CMAKE_BUILD_TYPE=Release .. && \
-    make && make test && cp helloworld /tmp
+    make && \
+    cd src/networking/demo && \
+    cp MARBLE.Networking.Demo.Sender /tmp && cp MARBLE.Networking.Demo.Receiver /tmp
 
 # Deploy.
 FROM alpine:3.7
-MAINTAINER Christian Berger christian.berger@gu.se
+MAINTAINER Julian Bock gusbocju@student.gu.se
 RUN apk update && \
     apk add libcluon --no-cache --repository https://chrberger.github.io/libcluon/alpine/v3.7 --allow-untrusted && \
     mkdir /opt
 WORKDIR /opt
-COPY --from=builder /tmp/helloworld .
-CMD ["/opt/helloworld"]
+COPY --from=builder /tmp/MARBLE.Networking.Demo.Sender .
+COPY --from=builder /tmp/MARBLE.Networking.Demo.Receiver .

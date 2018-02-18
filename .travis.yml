@@ -1,16 +1,21 @@
 sudo: true
-dist: xenial
+dist: trusted
 
 language: cpp
 
-before_install:
-  - sudo add-apt-repository -y ppa:chrberger/libcluon
-  - sudo apt-get -qq update
-  - sudo apt-get -y install cmake build-essential
-  - sudo apt-get -y install libcluon
+services:
+  - docker
+
+addons:
+  apt:
+    packages:
+      - docker-ce
 
 script:
-  - mkdir build
-  - cd build
-  - cmake ..
-  - make
+  - docker build -t dit168.marble -f Dockerfile .
+
+after_success:
+#  - if [ "$TRAVIS_BRANCH" == "master" ]; then
+#    docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD";
+#    docker push USER/REPO;
+#    fi
