@@ -12,34 +12,46 @@ Following the original folder structure, please make sure to place all generated
 Within the `src/` folder for anything code related; within additional sub-directories (keeping precise naming in mind) per feature (e.g. `src/networking/` for anything network related); and within supporting `test/` and `demo/` sub-directories for inherent demos and tests accordingly.
 
 ### CLONING
+Cloning requires nothing more than a local Git setup and the following command:
+
 `$ git clone https://github.com/gusbocju/DIT168.git`
 
 ### BUILD AND DEPLOY
+In order to keep build and deploy processes as platform independent and straightforward as possible, we strongly encourage the use of [Docker](https://www.docker.com/community-edition) and the supplied [Dockerfile](Dockerfile). To build the project on your local machine, simply clone the repository (as described above) and run the following command from it's root directory:
+
 `$ docker build -t dit168.marble -f Dockerfile .`
 
-(successful builds originating master will be pushed to `gusbocju/dit168.marble:latest` on Docker Hub using Travis CI)
+Successful builds originating #master will be pushed to `gusbocju/dit168.marble:latest` on Docker Hub using Travis CI.\
+\
+(Refer to [https://docs.docker.com](https://docs.docker.com) for any unanswered questions.)
 
 #### SAVE AND RESTORE:
+Use the following snippets to save and/ or restore a local Docker image:
+
 `$ docker save dit168.marble > dit168.marble.tar`\
 `$ cat dit168.marble.tar | docker load`
 
 #### PULL:
-`$ docker pull gusbocju/dit168.marble`
+As an alternative to the above, the latest Docker image (originating from the #master branch) can be fetched directly from Docker Hub:
+
+`$ docker pull gusbocju/dit168.marble:latest`
 
 #### RUN:
+Running different modules/ features from any of our Docker images can be done using the `$ docker run`, the following is an excerpt of currently available executables and standalone features: 
+
 `$ docker run --rm -ti --net=host dit168.marble /opt/MARBLE`
 
 #### DEMOS:
 `$ docker run --rm -ti --net=host dit168.marble /opt/MARBLE.Networking.Demo.Sender`\
 `$ docker run --rm -ti --net=host dit168.marble /opt/MARBLE.Networking.Demo.Receiver`\
 \
-(the receiving process has to be terminated using `$ docker sp` and `$ docker stop <container id>`)
+(Both processes have to be terminated using `$ docker sp` and `$ docker stop <container id>`.)
 
 ### CONTRIBUTING:
 Please read the [CONTRIBUTING.md](CONTRIBUTING.md) on how to contribute to this project.
 
 ### LICENSE:
-This project is licensed under MIT- see [LICENSE.md](LICENSE.md) for more details.
+This project is licensed under MIT, see [LICENSE.md](LICENSE.md) for more details.
 
 
 
