@@ -37,7 +37,7 @@ Use the following snippets to save and/ or restore a local Docker image whenever
 ### RUN
 Running different modules/ features from any of our Docker images can be done using the `$ docker run`, the following is just an excerpt of currently available executables and standalone features: 
 
-##### MODULES AND FEATURES:
+##### MODULES AND FEATURES
 `$ docker run --rm -ti --net=host dit168.marble /opt/MARBLE`
 
 ##### DEMOS
