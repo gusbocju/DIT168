@@ -17,13 +17,13 @@ Cloning requires nothing more than a local Git setup and the following command:
 `$ git clone https://github.com/gusbocju/DIT168.git`
 
 ### BUILD AND DEPLOY
-In order to keep build and deploy processes as platform independent and straightforward as possible, we strongly encourage the use of [Docker](https://www.docker.com/community-edition) and the supplied [Dockerfile](Dockerfile). To build the project on your local machine, simply clone the repository (as described above) and run the following command from it's root directory:
+In order to keep build and deploy processes as platform independent and straightforward as possible, we strongly encourage the use of [Docker](https://www.docker.com/community-edition) and the supplied [Dockerfile](Dockerfile). To build the project on your local machine, simply clone the repository (as described above) and run the following command from it's root directory:\
+\
+(Refer to [https://docs.docker.com](https://docs.docker.com) to resolve any uncertainties.)
 
 `$ docker build -t dit168.marble -f Dockerfile .`
 
-Successful builds originating *master* will be pushed to `gusbocju/dit168.marble:latest` on Docker Hub using Travis CI.\
-\
-(Refer to [https://docs.docker.com](https://docs.docker.com) for any unanswered questions.)
+Successful builds originating *master* will be pushed to `gusbocju/dit168.marble:latest` on Docker Hub using Travis CI.
 
 #### SAVE AND RESTORE:
 Use the following snippets to save and/ or restore a local Docker image:
@@ -45,7 +45,7 @@ Running different modules/ features from any of our Docker images can be done us
 `$ docker run --rm -ti --net=host dit168.marble /opt/MARBLE.Networking.Demo.Sender`\
 `$ docker run --rm -ti --net=host dit168.marble /opt/MARBLE.Networking.Demo.Receiver`\
 \
-Both processes have to be terminated using `$ docker sp` and `$ docker stop <container id>`.
+The above processes can be terminated using `$ docker sp` and `$ docker stop <container id>`.
 
 ### CONTRIBUTING:
 Please read the [CONTRIBUTING.md](CONTRIBUTING.md) on how to contribute to this project.
