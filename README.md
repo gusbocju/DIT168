@@ -1,10 +1,10 @@
 ![build status on #master:](https://travis-ci.org/gusbocju/DIT168.svg?branch=master)
 
-## DIT168 V18 Project: Industrial IT and Embedded Systems
+# DIT168 V18 Project: Industrial IT and Embedded Systems
 
 During the spring term of 2018 - and as part of DIT168 V18 at the University of Gothenburg, this repository will be used to design and implement software for a mini car to drive autonomously under stable conditions. The car should be able to, in addition to self-driving, follow a line, do safe handling of intersections, pass other vehicles and park. To accomplish this the car is equipped with sensors. The project will be done in C/C++ and built upon [OpenDaVINCI](http://opendavinci.cse.chalmers.se/www/) - with a high focus on quality assurance, effective design and testing throughout. 
 
-### GIT LAYOUT:
+## GIT LAYOUT
 
 Please keep individual branches per feature in mind; they’ll be merged using pull requests that have to approved by at least one other contributor/ group member. There shall be no direct pushes to the master branch; prototypes will only evolve by pulling completed features into the release branch. In addition to the feature branches, each contributor creates a separate branch from the feature branch for which they push their code to.\
 \
@@ -16,7 +16,7 @@ Cloning requires nothing more than a local Git setup and the following command:
 
 `$ git clone https://github.com/gusbocju/DIT168.git`
 
-### BUILD AND DEPLOY
+## BUILD AND DEPLOY
 In order to keep build and deploy processes as platform independent and straightforward as possible, we strongly encourage the use of [Docker](https://www.docker.com/community-edition) and the supplied [Dockerfile](Dockerfile). To build the project on your local machine, simply clone the repository (as described above) and run the following command from it's root directory:
 
 `$ docker build -t dit168.marble -f Dockerfile .`
@@ -24,32 +24,30 @@ In order to keep build and deploy processes as platform independent and straight
 Successful builds originating *master* will be pushed to `gusbocju/dit168.marble:latest` on Docker Hub using Travis CI.\
 Refer to [https://docs.docker.com](https://docs.docker.com) to resolve any uncertainties.
 
-#### PULL, SAVE AND RESTORE:
-Thanks to Travis CI, the latest Docker image (originating *master*) can be fetched directly from Docker Hub - no manual building required:
-
-`$ docker pull gusbocju/dit168.marble:latest`
+### PULL, SAVE AND RESTORE
+Thanks to Travis CI, the latest Docker image (originating *master*) can be fetched directly from Docker Hub - no manual building required: `$ docker pull gusbocju/dit168.marble:latest`
 
 Use the following snippets to save and/ or restore a local Docker image whenever needed:
 
 `$ docker save dit168.marble > dit168.marble.tar`\
 `$ cat dit168.marble.tar | docker load`
 
-#### RUN:
+### RUN
 Running different modules/ features from any of our Docker images can be done using the `$ docker run`, the following is just an excerpt of currently available executables and standalone features: 
 
 ##### MODULES AND FEATURES:
 `$ docker run --rm -ti --net=host dit168.marble /opt/MARBLE`
 
-##### DEMOS:
+##### DEMOS
 `$ docker run --rm -ti --net=host dit168.marble /opt/MARBLE.Networking.Demo.Sender`\
 `$ docker run --rm -ti --net=host dit168.marble /opt/MARBLE.Networking.Demo.Receiver`\
 \
 The above processes can be terminated using `$ docker sp` and `$ docker stop <container id>`.
 
-### CONTRIBUTING:
+## CONTRIBUTING
 Please read the [CONTRIBUTING.md](CONTRIBUTING.md) on how to contribute to this project.
 
-### LICENSE:
+## LICENSE
 This project is licensed under MIT, see [LICENSE.md](LICENSE.md) for more details.
 
 
