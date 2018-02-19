@@ -30,10 +30,10 @@ We will be using individual branches per feature; they’ll be merged using pull
 (the receiving process has to be terminated using `docker sp` and `docker stop <container id>`)
 
 ### CONTRIBUTING:
-Please read the [CONTRIBUTING.md](DIT168/CONTRIBUTING.md) on how to contribute to this project.
+Please read the [CONTRIBUTING.md](CONTRIBUTING.md) on how to contribute to this project.
 
 ### LICENSE:
-This project is licensed under MIT- see [LICENSE.md](DIT168/LICENSE) for more details.
+This project is licensed under MIT- see [LICENSE.md](LICENSE.md) for more details.
 
 
 
