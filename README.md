@@ -21,7 +21,7 @@ In order to keep build and deploy processes as platform independent and straight
 
 `$ docker build -t dit168.marble -f Dockerfile .`
 
-Successful builds originating #master will be pushed to `gusbocju/dit168.marble:latest` on Docker Hub using Travis CI.\
+Successful builds originating *master* will be pushed to `gusbocju/dit168.marble:latest` on Docker Hub using Travis CI.\
 \
 (Refer to [https://docs.docker.com](https://docs.docker.com) for any unanswered questions.)
 
@@ -32,7 +32,7 @@ Use the following snippets to save and/ or restore a local Docker image:
 `$ cat dit168.marble.tar | docker load`
 
 #### PULL:
-As an alternative to the above, the latest Docker image (originating from the #master branch) can be fetched directly from Docker Hub:
+Additionally, the latest image (originating *master*) can also be directly fetched from Docker Hub:
 
 `$ docker pull gusbocju/dit168.marble:latest`
 
@@ -45,7 +45,7 @@ Running different modules/ features from any of our Docker images can be done us
 `$ docker run --rm -ti --net=host dit168.marble /opt/MARBLE.Networking.Demo.Sender`\
 `$ docker run --rm -ti --net=host dit168.marble /opt/MARBLE.Networking.Demo.Receiver`\
 \
-(Both processes have to be terminated using `$ docker sp` and `$ docker stop <container id>`.)
+Both processes have to be terminated using `$ docker sp` and `$ docker stop <container id>`.
 
 ### CONTRIBUTING:
 Please read the [CONTRIBUTING.md](CONTRIBUTING.md) on how to contribute to this project.
