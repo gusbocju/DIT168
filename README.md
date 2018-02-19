@@ -17,13 +17,18 @@ Cloning requires nothing more than a local Git setup and the following command:
 `$ git clone https://github.com/gusbocju/DIT168.git`
 
 ### BUILD AND DEPLOY
-In order to keep build and deploy processes as platform independent and straightforward as possible, we strongly encourage the use of [Docker](https://www.docker.com/community-edition) and the supplied [Dockerfile](Dockerfile). To build the project on your local machine, simply clone the repository (as described above) and run the following command from it's root directory:\
-\
-(Refer to [https://docs.docker.com](https://docs.docker.com) to resolve any uncertainties.)
+In order to keep build and deploy processes as platform independent and straightforward as possible, we strongly encourage the use of [Docker](https://www.docker.com/community-edition) and the supplied [Dockerfile](Dockerfile). To build the project on your local machine, simply clone the repository (as described above) and run the following command from it's root directory:
 
 `$ docker build -t dit168.marble -f Dockerfile .`
 
-Successful builds originating *master* will be pushed to `gusbocju/dit168.marble:latest` on Docker Hub using Travis CI.
+Successful builds originating *master* will be pushed to `gusbocju/dit168.marble:latest` on Docker Hub using Travis CI.\
+\
+Refer to [https://docs.docker.com](https://docs.docker.com) to resolve any uncertainties.
+
+#### PULL:
+Thanks to Travis CI, the latest Docker image (originating *master*) can be fetched from Docker Hub directly - no manual building required:
+
+`$ docker pull gusbocju/dit168.marble:latest`
 
 #### SAVE AND RESTORE:
 Use the following snippets to save and/ or restore a local Docker image:
@@ -31,17 +36,13 @@ Use the following snippets to save and/ or restore a local Docker image:
 `$ docker save dit168.marble > dit168.marble.tar`\
 `$ cat dit168.marble.tar | docker load`
 
-#### PULL:
-Additionally, the latest image (originating *master*) can also be directly fetched from Docker Hub:
-
-`$ docker pull gusbocju/dit168.marble:latest`
-
 #### RUN:
-Running different modules/ features from any of our Docker images can be done using the `$ docker run`, the following is an excerpt of currently available executables and standalone features: 
+Running different modules/ features from any of our Docker images can be done using the `$ docker run`, the following is just an excerpt of currently available executables and standalone features: 
 
+##### MODULES AND FEATURES:
 `$ docker run --rm -ti --net=host dit168.marble /opt/MARBLE`
 
-#### DEMOS:
+##### DEMOS:
 `$ docker run --rm -ti --net=host dit168.marble /opt/MARBLE.Networking.Demo.Sender`\
 `$ docker run --rm -ti --net=host dit168.marble /opt/MARBLE.Networking.Demo.Receiver`\
 \
