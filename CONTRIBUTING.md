@@ -3,13 +3,13 @@ In order to contribute, pick an issue describing a bug or a desired feature from
 \
 While developing your contribution, commit frequently and include a descriptive message each time (i.e. *no* `fixing stuff`, *but instead* `refactoring variable names`, or `correcting an accidental endless loop`). When you have completed your addition of code, create a pull request to initiate the peer review and eventually make your contribution to master. Your pull request has to be reviewed by at least one accredited contributor before it'll be merged into master.
 
-All new functionalities and additions to existing code should be commented properly. There should be a description over each function, preferably in /* …*/ style, and it should follow the template described below.
+All new functionalities and additions to existing code should be commented properly. There should be a description over each function, preferably in `/* ... */` style, and it should follow the template described below:
 
 /*
 	Input: <input, in natural language><br />
 	Output: <output, in natural language><br />
 	==========<br />
-	short description (Optional, but preferable)
+	<short description; optional, but preferable>
 */<br />
 
 Example comment:<br />
@@ -20,11 +20,11 @@ Example comment:<br />
 	This method returns the bigger of two integers.
 */<br />
 
-## TO THINK ABOUT:
-* Warnings to be treated as errors.<br />
-* Keep C++14 standard.<br />
-* Highest possible warning level.<br />
-* Keep it platform independent (C++ standard libraries).<br />
+### ADDITIONAL GUIDELINES TO KEEP IN MIND:
+* Warnings shall be treated as errors.<br />
+* Keep the highest possible warning levels.<br />
+* Keep your code platform independent (stick to the C++ standard libraries).<br />
+* Stick to the the C++14 standard.<br />
 
 
 ## HOW TO PACKAGE AND RELEASE BINARIES OF THIS SOFTWARE
