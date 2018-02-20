@@ -1,4 +1,4 @@
-![build status on #master:](https://travis-ci.org/gusbocju/DIT168.svg?branch=master)
+![build status on 'master'](https://travis-ci.org/gusbocju/DIT168.svg?branch=master)
 
 # DIT168 V18 Project: Industrial IT and Embedded Systems
 
@@ -22,7 +22,8 @@ In order to keep build and deploy processes as platform independent and straight
 `$ docker build -t dit168.marble -f Dockerfile .`
 
 Successful builds originating *master* will be pushed to `gusbocju/dit168.marble:latest` on Docker Hub using Travis CI.\
-Refer to [https://docs.docker.com](https://docs.docker.com) to resolve any uncertainties.
+\
+Don't forget to add new CMake configurations and (if necessary) extensions to the existing (respectively a new) Dockerfile to include new features/ modules. Refer to [https://docs.docker.com](https://docs.docker.com) to resolve any uncertainties.
 
 ### PULL, SAVE AND RESTORE
 Thanks to Travis CI, the latest Docker image (originating *master*) can be fetched directly from Docker Hub - no manual building required: 
