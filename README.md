@@ -44,7 +44,7 @@ Running different modules/ features from any of our Docker images can be done us
 `$ docker run --rm -ti --net=host dit168.marble /opt/MARBLE.Networking.Demo.Sender`\
 `$ docker run --rm -ti --net=host dit168.marble /opt/MARBLE.Networking.Demo.Receiver`\
 \
-The above processes can be terminated using `$ docker sp` and `$ docker stop <container id>`.
+The above processes can be terminated using `$ docker ps` and `$ docker stop <container id>`.
 
 ## CONTRIBUTING
 Please read the [CONTRIBUTING.md](CONTRIBUTING.md) on how to contribute to this project.
