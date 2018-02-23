@@ -1,5 +1,5 @@
 # docker run --rm -ti -v $PWD:/opt/sources alpine:3.7 /bin/sh
-FROM alpine:3.7 as builder
+FROM alpine:3.7 AS builder
 MAINTAINER Julian Bock gusbocju@student.gu.se
 RUN apk update && \
     apk --no-cache add \
@@ -27,3 +27,4 @@ RUN apk update && \
 WORKDIR /opt
 COPY --from=builder /tmp/MARBLE.Networking.Demo.Sender .
 COPY --from=builder /tmp/MARBLE.Networking.Demo.Receiver .
+CMD ["/bin/sh"]
