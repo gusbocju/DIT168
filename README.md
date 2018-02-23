@@ -21,14 +21,15 @@ In order to keep build and deploy processes as platform independent and straight
 
 `$ docker build -t dit168.marble -f Dockerfile .`
 
-Successful builds originating *master* will be pushed to `gusbocju/dit168.marble:latest` on Docker Hub using Travis CI.\
+Successful builds originating *master* will be pushed to `gusbocju/dit168.marble:latest` (x86_64) and `gusbocju/dit168.marble:latest-armhf` (for ARM based platforms) on Docker Hub using Travis CI.\
 \
 Don't forget to add new CMake configurations and (if necessary) extensions to the existing (respectively a new) Dockerfile to include new features/ modules. Refer to [https://docs.docker.com](https://docs.docker.com) to resolve any uncertainties.
 
 ### PULL, SAVE AND RESTORE
 Thanks to Travis CI, the latest Docker image (originating *master*) can be fetched directly from Docker Hub - no manual building required: 
 
-`$ docker pull gusbocju/dit168.marble:latest`
+`$ docker pull gusbocju/dit168.marble:latest` (x86_64)\
+`$ docker pull gusbocju/dit168.marble:latest-armhf` (ARM)
 
 Use the following snippets to save and/ or restore a local Docker image whenever needed:
 
