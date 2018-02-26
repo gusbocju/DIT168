@@ -2,7 +2,7 @@
 # is required to support different (technically independent) CMakeLists.txt in
 # our subdirectories...
 
-cmake_minimum_required(VERSION 3.9)
+cmake_minimum_required(VERSION 3.5)
 
 # Just add the path to any emerging (sub-)project to the following list:
 
