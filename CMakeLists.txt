@@ -4,7 +4,7 @@
 
 cmake_minimum_required(VERSION 3.5)
 
-# Just add the path to any emerging (sub-)project to the following list:
+# Add the path to any emerging (sub-)project to the list below:
 
 add_subdirectory(src/)
 add_subdirectory(src/networking/demo)

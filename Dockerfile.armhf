@@ -19,8 +19,11 @@ RUN cd /opt/sources && \
     cd build && \
     cmake -D CMAKE_BUILD_TYPE=Release .. && \
     make && \
-    cd src/networking/demo && \
-    cp MARBLE.Networking.Demo.Sender /tmp && cp MARBLE.Networking.Demo.Receiver /tmp
+    cd src/ && \
+    cp MARBLE /tmp && \
+    cd networking/demo && \
+    cp MARBLE.Networking.Demo.Sender /tmp && \
+    cp MARBLE.Networking.Demo.Receiver /tmp
 RUN ["cross-build-end"]
 
 # Deploy.
