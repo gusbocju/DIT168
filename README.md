@@ -52,7 +52,7 @@ The above processes can be terminated using `$ docker ps` and `$ docker stop <co
 Please read the [CONTRIBUTING.md](CONTRIBUTING.md) on how to contribute to this project.
 
 ## LICENSE
-This project is licensed under MIT, see [LICENSE.md](LICENSE.md) for more details.
+This project is licensed under GPL 3.0, see [LICENSE.md](LICENSE.md) for more details.
 
 
 
