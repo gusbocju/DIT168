@@ -42,7 +42,7 @@ int main(int /*argc*/, char **/*argv*/) {
         auto now = std::chrono::high_resolution_clock::now();
         auto dur = now -last;
         auto ms = std::chrono::duration_cast<std::chrono::milliseconds>(dur).count();
-        if (ms >= 2000) {
+        if (ms >= 1000) {
             SteeringInstruction brake;
             brake.pedalPosition(0);
             brake.steeringAngle(0);
