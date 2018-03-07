@@ -16,7 +16,8 @@ RUN cd /opt/sources && \
     cmake -D CMAKE_BUILD_TYPE=Release .. && \
     make && \
     cd src/ && \
-    cp MARBLE /tmp && \
+    cp MARBLE.Main /tmp && \
+    cp MARBLE.RemoteControl /tmp && \
     cd networking/demo && \
     cp MARBLE.Networking.Demo.Sender /tmp && \
     cp MARBLE.Networking.Demo.Receiver /tmp
@@ -28,7 +29,8 @@ RUN apk update && \
     apk add libcluon --no-cache --repository https://chrberger.github.io/libcluon/alpine/v3.7 --allow-untrusted && \
     mkdir /opt
 WORKDIR /opt
-COPY --from=builder /tmp/MARBLE .
+COPY --from=builder /tmp/MARBLE.Main .
+COPY --from=builder /tmp/MARBLE.RemoteControl .
 COPY --from=builder /tmp/MARBLE.Networking.Demo.Sender .
 COPY --from=builder /tmp/MARBLE.Networking.Demo.Receiver .
 CMD ["/bin/sh"]
