@@ -1,6 +1,6 @@
 message SteeringInstruction [id = 2001] {
-    int8 pedalPosition [id = 1];
-    uint8 steeringAngle [id = 2];
+    float pedalPosition [id = 1];
+    float steeringAngle [id = 2];
 }
 
 message opendlv.proxy.PedalPositionReading [id = 1041] {
