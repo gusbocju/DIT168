@@ -9,7 +9,7 @@
 
 #include "cluon/OD4Session.hpp"
 #include "cluon/Envelope.hpp"
-#include "messages.hpp"
+#include "DemoMessages.hpp"
 
 int main(int /*argc*/, char** /*argv*/) {
 

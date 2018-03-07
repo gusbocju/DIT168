@@ -9,7 +9,7 @@
 
 #include "cluon/OD4Session.hpp"
 #include "cluon/Envelope.hpp"
-#include "messages.hpp"
+#include "DemoMessages.hpp"
 
 int main(int /*argc*/, char** /*argv*/) {
 
@@ -18,13 +18,15 @@ int main(int /*argc*/, char** /*argv*/) {
     std::string name, text;
     std::cout << "Please enter your name: ";
     std::getline(std::cin, name);
-    std::cout << "Please enter your message: ";
-    std::getline(std::cin, text);
+    std::cout << "Alright, you're all set to spam! ";
 
-    TextMessage msg;
-    msg.sender(name);
-    msg.text(text);
-    od4.send(msg);
+    while (1) {
+      std::cout << ">> ";
+      std::getline(std::cin, text);
 
-    return 0;
+      TextMessage msg;
+      msg.sender(name);
+      msg.text(text);
+      od4.send(msg);
+    }
 }
