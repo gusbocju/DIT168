@@ -8,6 +8,8 @@
 #include "RemoteControlMessages.hpp"
 
 cluon::OD4Session *internal, *external;
+
+using namespace std::chrono;
 auto last = std::chrono::high_resolution_clock::now();
 
 int main(int /*argc*/, char **/*argv*/) {
@@ -18,7 +20,7 @@ int main(int /*argc*/, char **/*argv*/) {
         }
         else if (envelope.dataType() == opendlv::proxy::PedalPositionReading::ID()) {
             opendlv::proxy::PedalPositionReading receivedMsg = cluon::extractMessage<opendlv::proxy::PedalPositionReading>(std::move(envelope));
-            std::cout << "PedalPosition sent!" << receivedMsg.position() << std::endl;
+            std::cout << "PedalPosition sent! " << receivedMsg.position() << std::endl;
         }
     });
 
@@ -38,7 +40,7 @@ int main(int /*argc*/, char **/*argv*/) {
 
     while (1) {
         auto now = std::chrono::high_resolution_clock::now();
-        auto dur = last -now;
+        auto dur = now -last;
         auto ms = std::chrono::duration_cast<std::chrono::milliseconds>(dur).count();
         if (ms >= 1000) {
             SteeringInstruction brake;
