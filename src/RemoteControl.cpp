@@ -15,9 +15,9 @@ int main(int /*argc*/, char** /*argv*/) {
         std::getline(std::cin, input);
         switch (input.at(0)) {
             case 'w': ins.pedalPosition(0.5); ins.steeringAngle(0); break;
-            case 'a': ins.pedalPosition(0.25); ins.steeringAngle(-45); break;
+            case 'a': ins.pedalPosition(0.25); ins.steeringAngle(45); break;
             case 's': ins.pedalPosition(0); ins.steeringAngle(0); break;
-            case 'd': ins.pedalPosition(0.25); ins.steeringAngle(45); break;
+            case 'd': ins.pedalPosition(0.25); ins.steeringAngle(-45); break;
             default:  ins.pedalPosition(0); ins.steeringAngle(0);
         }
         std::cout << "sending " << ins.pedalPosition() << " / " << ins.steeringAngle() << " ..." << std::endl;
