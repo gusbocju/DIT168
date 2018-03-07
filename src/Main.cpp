@@ -7,9 +7,8 @@
 #include "cluon/Envelope.hpp"
 #include "RemoteControlMessages.hpp"
 
-long last_instruction_timestamp = 0;
 cluon::OD4Session *internal, *external;
-
+auto last = std::chrono::high_resolution_clock::now();
 
 int main(int /*argc*/, char **/*argv*/) {
      internal = new cluon::OD4Session(111, [](cluon::data::Envelope &&envelope) noexcept {
@@ -33,17 +32,20 @@ int main(int /*argc*/, char **/*argv*/) {
             msgPedal.position(ins.pedalPosition());
             internal->send(msgSteering);
             internal->send(msgPedal);
+            last = std::chrono::high_resolution_clock::now();
         }
     });
 
     while (1) {
-        std::chrono::system_clock::time_point now = std::chrono::system_clock::now();
-        if (now.time_since_epoch().count() -last_instruction_timestamp > 5000) {
+        auto now = std::chrono::high_resolution_clock::now();
+        auto dur = last -now;
+        auto ms = std::chrono::duration_cast<std::chrono::milliseconds>(dur).count();
+        if (ms >= 1000) {
             SteeringInstruction brake;
             brake.pedalPosition(0);
             brake.steeringAngle(0);
             external->send(brake);
+            last = std::chrono::high_resolution_clock::now();
         }
-        last_instruction_timestamp = now.time_since_epoch().count();
     }
 }
