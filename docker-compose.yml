@@ -22,7 +22,7 @@ services:
 
     # Your microservice.
     MARBLE.Main:
-        image: dit168.marble:latest-armhf
+        image: gusbocju/dit168.marble:latest-armhf
         network_mode: "host"
         restart: always
         command: "/opt/MARBLE.Main --cid=11 --freq=50 --id=2"
