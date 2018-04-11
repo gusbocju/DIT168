@@ -20,7 +20,9 @@ RUN cd /opt/sources && \
     cp MARBLE.RemoteControl /tmp && \
     cd networking/demo && \
     cp MARBLE.Networking.Demo.Sender /tmp && \
-    cp MARBLE.Networking.Demo.Receiver /tmp
+    cp MARBLE.Networking.Demo.Receiver /tmp && \
+    cd ../../ps4controller/demo && \
+    cp MARBLE.PS4Controller.Demo /tmp && \
 
 # Deploy.
 FROM alpine:3.7
@@ -33,4 +35,5 @@ COPY --from=builder /tmp/MARBLE.Main .
 COPY --from=builder /tmp/MARBLE.RemoteControl .
 COPY --from=builder /tmp/MARBLE.Networking.Demo.Sender .
 COPY --from=builder /tmp/MARBLE.Networking.Demo.Receiver .
+COPY --from=builder /tmp/MARBLE.PS4Controller.Demo .
 CMD ["/bin/sh"]
