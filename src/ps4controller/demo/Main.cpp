@@ -7,31 +7,91 @@
 #include <fstream>
 #include <unistd.h>
 
+#define PATH "/dev/input/js1"
+
+#define PRESSED  1
+#define RELEASED 0
+#define MIN -32767
+#define MAX  32767
+
+typedef enum {
+    X = 0,
+    Circle = 1,
+    Triangle = 2,
+    Square = 3,
+    L1 = 4,
+    R1 = 5,
+    L2 = 6,
+    R2 = 7,
+    Share = 8,
+    Options = 9,
+    PS = 10,
+    LStick = 11,
+    RStick = 12
+} DS4Button;
+
+typedef enum {
+    LStickX = 0,
+    LStickY = 1,
+    L2Y = 2,
+    RStickX = 3,
+    RStickY = 4,
+    R2Y = 5,
+    PadX = 6,
+    PadY = 7
+} DS4Axis;
+
 typedef struct {
-    char timestamp_b0;
-    char timestamp_b1;
-    char timestamp_b2;
-    char timestamp_b3;
-    char data_b0;
-    char data_b1;
-    char type;
-    char id;
-} PS4ControllerEvent;
+    uint32_t timestamp;
+    int16_t  data;
+    uint8_t  type;
+    uint8_t  id;
+} DS4Event;
 
 int main()
 {
     while (true) {
-        FILE *file = fopen("/dev/input/js0", "r");
+        FILE *file = fopen(PATH, "r");
         if (file != nullptr) {
-            char *line;
-            size_t len;
-            ssize_t read;
-            while ((read = getline(&line, &len, file)) != -1) {
-                char type = line[6];
-                char id = line[7];
-                printf("type -> %x, id -> %x\n", type, id);
+            DS4Event *event = (DS4Event *)malloc(sizeof(DS4Event));
+            while (!feof(file)) {
+                if (fread(event, sizeof(DS4Event), 1, file)) {
+                    if ((event->type &0x0F) == 1) {
+                        std::cout << "[DS4Button] ";
+                        switch (event->id) {
+                            case X: std::cout << "X " << event->data << std::endl; break;
+                            case Circle: std::cout << "Circle " << event->data << std::endl; break;
+                            case Triangle: std::cout << "Triangle " << event->data << std::endl; break;
+                            case Square: std::cout << "Square " << event->data << std::endl; break;
+                            case L1: std::cout << "L1 " << event->data << std::endl; break;
+                            case R1: std::cout << "R1 " << event->data << std::endl; break;
+                            case L2: std::cout << "L2 " << event->data << std::endl; break;
+                            case R2: std::cout << "R2 " << event->data << std::endl; break;
+                            case Share: std::cout << "Share " << event->data << std::endl; break;
+                            case Options: std::cout << "Options " << event->data << std::endl; break;
+                            case PS: std::cout << "PS " << event->data << std::endl; break;
+                            case LStick: std::cout << "LStick " << event->data << std::endl; break;
+                            case RStick: std::cout << "RStick " << event->data << std::endl; break;
+                            default: std::cout << "¯\\_(ツ)_/¯" << std::endl;;
+                        }
+                    }
+                    else if ((event->type &0x0F) == 2) {
+                        std::cout << "[DS4Axis] ";
+                        switch (event->id) {
+                            case LStickX: std::cout << "LStickX " << event->data << std::endl; break;
+                            case LStickY: std::cout << "LStickY " << event->data << std::endl; break;
+                            case L2Y: std::cout << "L2Y " << event->data << std::endl; break;
+                            case RStickX: std::cout << "RStickX " << event->data << std::endl; break;
+                            case RStickY: std::cout << "RStickY " << event->data << std::endl; break;
+                            case R2Y: std::cout << "R2Y " << event->data << std::endl; break;
+                            case PadX: std::cout << "PadX " << event->data << std::endl; break;
+                            case PadY: std::cout << "PadY " << event->data << std::endl; break;
+                            default: std::cout << "¯\\_(ツ)_/¯" << std::endl;;
+                        }
+                    }
+                }
             }
-            usleep(1000);
+            free(event);
         }
         else break;
     }
