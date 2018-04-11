@@ -25,4 +25,4 @@ services:
         image: gusbocju/dit168.marble:latest-armhf
         network_mode: "host"
         restart: always
-        command: "/opt/MARBLE.Main --cid=11 --freq=50 --id=2"
+        command: "/opt/MARBLE.Main --internal=111 --external=112 --freq=5"
