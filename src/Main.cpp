@@ -3,51 +3,74 @@
 //
 
 #include <chrono>
+#include <iostream>
 #include "cluon/OD4Session.hpp"
 #include "cluon/Envelope.hpp"
 #include "RemoteControlMessages.hpp"
 
 cluon::OD4Session *internal, *external;
-
-using namespace std::chrono;
 auto last = std::chrono::high_resolution_clock::now();
 
-int main(int /*argc*/, char **/*argv*/) {
-     internal = new cluon::OD4Session(111, [](cluon::data::Envelope &&envelope) noexcept {
-        if (envelope.dataType() == opendlv::proxy::GroundSteeringReading::ID()) {
-            opendlv::proxy::GroundSteeringReading receivedMsg = cluon::extractMessage<opendlv::proxy::GroundSteeringReading>(std::move(envelope));
-            std::cout << "GroundSteering sent! " << receivedMsg.groundSteering() << std::endl;
-        }
-        else if (envelope.dataType() == opendlv::proxy::PedalPositionReading::ID()) {
-            opendlv::proxy::PedalPositionReading receivedMsg = cluon::extractMessage<opendlv::proxy::PedalPositionReading>(std::move(envelope));
-            std::cout << "PedalPosition sent! " << receivedMsg.position() << std::endl;
-        }
-    });
+using namespace std::chrono;
 
-    external = new cluon::OD4Session(112, [](cluon::data::Envelope &&envelope) noexcept {
-        if (envelope.dataType() == 2001) {
-            std::cout << "SteeringInstruction received!" << std::endl;
-            SteeringInstruction ins = cluon::extractMessage<SteeringInstruction>(std::move(envelope));
-            opendlv::proxy::GroundSteeringReading msgSteering;
-            opendlv::proxy::PedalPositionReading msgPedal;
-            msgSteering.groundSteering(ins.steeringAngle());
-            msgPedal.position(ins.pedalPosition());
-            internal->send(msgSteering);
-            internal->send(msgPedal);
-            last = std::chrono::high_resolution_clock::now();
-        }
-    });
+int main(int argc, char **argv) {
+    int retVal = 0;
+    auto commandlineArguments = cluon::getCommandlineArguments(argc, argv);
+    if (0 == commandlineArguments.count("internal") || 0 == commandlineArguments.count("external") ||
+        0 == commandlineArguments.count("freq")) {
+        std::cerr << argv[0] << " translates/ relays instructions from the RC to the respective component on the BeagleBone."
+                  << std::endl;
+        std::cerr << "Usage:   " << argv[0]
+                  << " --freq=<frequency> --internal=<OD4Session components> --external=<OD4Session remoteControl>"
+                  << std::endl;
+        std::cerr << "Example: " << argv[0] << " --freq=10 --internal=111 --external=112" << std::endl;
+        retVal = 1;
+    } else {
+        uint16_t const INTERNAL_CID = (uint16_t) std::stoi(commandlineArguments["internal"]);
+        uint16_t const EXTERNAL_CID = (uint16_t) std::stoi(commandlineArguments["external"]);
+        float const FREQ = std::stof(commandlineArguments["freq"]);
 
-    while (1) {
-        auto now = std::chrono::high_resolution_clock::now();
-        auto dur = now -last;
-        auto ms = std::chrono::duration_cast<std::chrono::milliseconds>(dur).count();
-        if (ms >= 1000) {
-            SteeringInstruction brake;
-            brake.pedalPosition(0);
-            brake.steeringAngle(0);
-            external->send(brake);
-            last = std::chrono::high_resolution_clock::now();
-        }
+        internal = new cluon::OD4Session(INTERNAL_CID, [](cluon::data::Envelope &&envelope) noexcept {
+            if (envelope.dataType() == opendlv::proxy::GroundSteeringReading::ID()) {
+                opendlv::proxy::GroundSteeringReading receivedMsg = cluon::extractMessage<opendlv::proxy::GroundSteeringReading>(
+                        std::move(envelope));
+                std::cout << "GroundSteering sent! " << receivedMsg.groundSteering() << std::endl;
+            } else if (envelope.dataType() == opendlv::proxy::PedalPositionReading::ID()) {
+                opendlv::proxy::PedalPositionReading receivedMsg = cluon::extractMessage<opendlv::proxy::PedalPositionReading>(
+                        std::move(envelope));
+                std::cout << "PedalPosition sent! " << receivedMsg.position() << std::endl;
+            }
+        });
+
+        external = new cluon::OD4Session(EXTERNAL_CID, [](cluon::data::Envelope &&envelope) noexcept {
+            if (envelope.dataType() == 2001) {
+                std::cout << "SteeringInstruction received!" << std::endl;
+                SteeringInstruction ins = cluon::extractMessage<SteeringInstruction>(std::move(envelope));
+                opendlv::proxy::GroundSteeringReading msgSteering;
+                opendlv::proxy::PedalPositionReading msgPedal;
+                msgSteering.groundSteering(ins.steeringAngle());
+                msgPedal.position(ins.pedalPosition());
+                internal->send(msgSteering);
+                internal->send(msgPedal);
+                last = std::chrono::high_resolution_clock::now();
+            }
+        });
+
+        auto dur;
+        auto atFrequency{[&external, &dur, &last]() -> bool {
+            dur = std::chrono::high_resolution_clock::now() - last;
+            auto ms = std::chrono::duration_cast<std::chrono::milliseconds>(dur).count();
+            if (ms >= 1000) {
+                SteeringInstruction brake;
+                brake.pedalPosition(0);
+                brake.steeringAngle(0);
+                external->send(brake);
+                last = std::chrono::high_resolution_clock::now();
+            }
+            return true;
+        }};
+        internal->timeTrigger(FREQ, atFrequency);
     }
+
+    return retVal;
 }
