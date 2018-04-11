@@ -21,18 +21,18 @@ typedef struct {
 int main()
 {
     while (true) {
-        FILE *file = fopen("/dev/input/js0", "rb");
-        fseek(file, 0L, SEEK_END);
-        long size = ftell(file);
-        fseek(file, 0L, SEEK_SET);
-        if (size >= 7) {
-            PS4ControllerEvent *event = (PS4ControllerEvent *) malloc(sizeof(PS4ControllerEvent));
-            while (!feof(file)) {
-                if (fread(event, sizeof(PS4ControllerEvent), 1, file))
-                    std::cout << "event.Type: " << event->type << " / event.Id: " << event->id << std::endl;
+        FILE *file = fopen("/dev/input/js0", "r");
+        if (file != nullptr) {
+            char *line;
+            size_t len;
+            ssize_t read;
+            while ((read = getline(&line, &len, file)) != -1) {
+                char type = line[6];
+                char id = line[7];
+                printf("type -> %x, id -> %x\n", type, id);
             }
             usleep(1000);
         }
-
+        else break;
     }
 }
