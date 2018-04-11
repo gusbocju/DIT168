@@ -6,13 +6,10 @@
 #include <iostream>
 #include <fstream>
 #include <unistd.h>
+#include <iomanip>
 
 #define PATH "/dev/input/js1"
-
-#define PRESSED  1
-#define RELEASED 0
-#define MIN -32767
-#define MAX  32767
+#define MAX  32767.0
 
 typedef enum {
     X = 0,
@@ -48,6 +45,8 @@ typedef struct {
     uint8_t  id;
 } DS4Event;
 
+float absToPercentage(int16_t data);
+
 int main()
 {
     while (true) {
@@ -76,16 +75,16 @@ int main()
                         }
                     }
                     else if ((event->type &0x0F) == 2) {
-                        std::cout << "[DS4Axis] ";
+                        std::cout << "[DS4Axis] " << std::fixed << std::setprecision(3);
                         switch (event->id) {
-                            case LStickX: std::cout << "LStickX " << event->data << std::endl; break;
-                            case LStickY: std::cout << "LStickY " << event->data << std::endl; break;
-                            case L2Y: std::cout << "L2Y " << event->data << std::endl; break;
-                            case RStickX: std::cout << "RStickX " << event->data << std::endl; break;
-                            case RStickY: std::cout << "RStickY " << event->data << std::endl; break;
-                            case R2Y: std::cout << "R2Y " << event->data << std::endl; break;
-                            case PadX: std::cout << "PadX " << event->data << std::endl; break;
-                            case PadY: std::cout << "PadY " << event->data << std::endl; break;
+                            case LStickX: std::cout << "LStickX " << absToPercentage(event->data) << std::endl; break;
+                            case LStickY: std::cout << "LStickY " << absToPercentage(event->data) << std::endl; break;
+                            case L2Y: std::cout << "L2Y " << absToPercentage(event->data) << std::endl; break;
+                            case RStickX: std::cout << "RStickX " << absToPercentage(event->data) << std::endl; break;
+                            case RStickY: std::cout << "RStickY " << absToPercentage(event->data) << std::endl; break;
+                            case R2Y: std::cout << "R2Y " << absToPercentage(event->data) << std::endl; break;
+                            case PadX: std::cout << "PadX " << absToPercentage(event->data) << std::endl; break;
+                            case PadY: std::cout << "PadY " << absToPercentage(event->data) << std::endl; break;
                             default: std::cout << "¯\\_(ツ)_/¯" << std::endl;;
                         }
                     }
@@ -95,4 +94,8 @@ int main()
         }
         else break;
     }
+}
+
+float absToPercentage(int16_t data) {
+    return abs(data)/MAX *(data >= 0 ? 1 : -1);
 }
