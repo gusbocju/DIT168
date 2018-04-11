@@ -9,7 +9,6 @@
 #include "RemoteControlMessages.hpp"
 
 cluon::OD4Session *internal, *external;
-auto last = std::chrono::high_resolution_clock::now();
 
 using namespace std::chrono;
 
@@ -29,6 +28,7 @@ int main(int argc, char **argv) {
         uint16_t const INTERNAL_CID = (uint16_t) std::stoi(commandlineArguments["internal"]);
         uint16_t const EXTERNAL_CID = (uint16_t) std::stoi(commandlineArguments["external"]);
         float const FREQ = std::stof(commandlineArguments["freq"]);
+        auto last = std::chrono::high_resolution_clock::now();
 
         internal = new cluon::OD4Session(INTERNAL_CID, [](cluon::data::Envelope &&envelope) noexcept {
             if (envelope.dataType() == opendlv::proxy::GroundSteeringReading::ID()) {
@@ -42,7 +42,7 @@ int main(int argc, char **argv) {
             }
         });
 
-        external = new cluon::OD4Session(EXTERNAL_CID, [](cluon::data::Envelope &&envelope) noexcept {
+        external = new cluon::OD4Session(EXTERNAL_CID, [&last](cluon::data::Envelope &&envelope) noexcept {
             if (envelope.dataType() == 2001) {
                 std::cout << "SteeringInstruction received!" << std::endl;
                 SteeringInstruction ins = cluon::extractMessage<SteeringInstruction>(std::move(envelope));
@@ -56,9 +56,8 @@ int main(int argc, char **argv) {
             }
         });
 
-        auto dur;
-        auto atFrequency{[&external, &dur, &last]() -> bool {
-            dur = std::chrono::high_resolution_clock::now() - last;
+        auto atFrequency{[&external, &last]() -> bool {
+            auto dur = std::chrono::high_resolution_clock::now() - last;
             auto ms = std::chrono::duration_cast<std::chrono::milliseconds>(dur).count();
             if (ms >= 1000) {
                 SteeringInstruction brake;
