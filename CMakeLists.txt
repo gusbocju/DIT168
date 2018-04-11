@@ -8,3 +8,4 @@ cmake_minimum_required(VERSION 3.5)
 
 add_subdirectory(src/)
 add_subdirectory(src/networking/demo)
+add_subdirectory(src/ps4controller/demo)
