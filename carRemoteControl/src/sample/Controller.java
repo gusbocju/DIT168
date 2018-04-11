@@ -66,13 +66,4 @@ public class Controller {
         reverse.setImage(reverseButtonReleased);
     }
 
-    //Stop Car button:
-    public void stopCar() {
-        stop.setImage(stopButton);
-    }
-
-    public void notStop() {
-        stop.setImage(stopButton);
-
-    }
 }

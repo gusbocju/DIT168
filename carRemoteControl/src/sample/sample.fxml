@@ -38,13 +38,5 @@
         </image>
     </ImageView>
 
-    <ImageView fx:id="stopCar" GridPane.columnIndex="2" GridPane.rowIndex="2" onMousePressed="#stopCar"
-               onMouseReleased="#notStop">
-        <image>
-            <Image url="@stopButton.png"></Image>
-        </image>
-    </ImageView>
-
-
 
 </GridPane>
