@@ -5,14 +5,12 @@
 *.iml
 .iws
 .idea/
-/out/
 /cmake-build-debug/
 /build/
 
 # Compiled sources #
 ####################
 *.com
-*.class
 *.dll
 *.exe
 *.o

@@ -1,0 +1,7 @@
+/snap/clion/17/bin/cmake/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /home/vinny/ada/Projects/DIT168/carRemoteControl/src/sample
+-- JNI DETECTED!
+-- JNI_INCLUDE_DIRS=/usr/lib/jvm/java-8-oracle/include;/usr/lib/jvm/java-8-oracle/include/linux;/usr/lib/jvm/java-8-oracle/include
+-- JNI_LIBRARIES=/usr/lib/jvm/java-8-oracle/jre/lib/amd64/libjawt.so;/usr/lib/jvm/java-8-oracle/jre/lib/amd64/server/libjvm.so
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/vinny/ada/Projects/DIT168/carRemoteControl/src/sample/cmake-build-debug

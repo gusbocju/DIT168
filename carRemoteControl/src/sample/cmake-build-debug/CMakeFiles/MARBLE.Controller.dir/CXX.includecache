@@ -1,0 +1,26 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/vinny/ada/Projects/DIT168/carRemoteControl/src/sample/Controller.cpp
+/usr/lib/jvm/java-8-oracle/include/jni.h
+-
+sample_Controller.h
+/home/vinny/ada/Projects/DIT168/carRemoteControl/src/sample/sample_Controller.h
+
+/home/vinny/ada/Projects/DIT168/carRemoteControl/src/sample/sample_Controller.h
+jni.h
+-
+
+/usr/lib/jvm/java-8-oracle/include/jni.h
+stdio.h
+-
+stdarg.h
+-
+jni_md.h
+/usr/lib/jvm/java-8-oracle/include/jni_md.h
+
