@@ -47,21 +47,23 @@ int main(int argc, char** argv)
                         }
                         else if ((event->type &0x0F) == 2) {
                             switch (event->id) {
-                                case LStickX:
+                                case LStickX: {
                                     std::cout << "[DS4Controller] sending new GroundSteeringReading..." << std::endl;
                                     opendlv::proxy::GroundSteeringReading steeringReading;
                                     steeringReading.groundSteering(absToPercentage(event->data));
                                     od4.send(steeringReading);
+                                }
                                 break;
                                 case LStickY: break;
                                 case L2Y: break;
                                 case RStickX: break;
                                 case RStickY: break;
-                                case R2Y:
+                                case R2Y: {
                                     std::cout << "[DS4Controller] sending new PedalPositionReading..." << std::endl;
                                     opendlv::proxy::PedalPositionReading pedalPositionReading;
                                     pedalPositionReading.position(absToPercentage(event->data));
                                     od4.send(pedalPositionReading);
+                                }
                                 break;
                                 case PadX: break;
                                 case PadY: break;
