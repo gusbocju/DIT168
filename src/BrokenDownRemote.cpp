@@ -3,6 +3,7 @@
 //
 
 #include <iostream>
+#include <sample_Controller.h>
 #include "cluon/OD4Session.hpp"
 #include "cluon/Envelope.hpp"
 #include "RemoteControlMessages.hpp"

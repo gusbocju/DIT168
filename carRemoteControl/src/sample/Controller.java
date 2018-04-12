@@ -31,6 +31,8 @@ public class Controller {
     Image stopButton = new Image("sample/stopButton.png");
 
 
+    public native boolean press(char i);
+
     //Forward button:
     public void forwardPressed() {
         forward.setImage(forwardButtonPressed);
