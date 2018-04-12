@@ -20,44 +20,46 @@ int main(int argc, char** argv)
         const uint16_t FREQ = (uint16_t) std::stoi(commandlineArguments["freq"]);
         const uint16_t CID = (uint16_t) std::stoi(commandlineArguments["cid"]);
 
+        float pedalPosition = 0;
+        float steeringAngle = 0;
+
         cluon::OD4Session od4(CID, [](cluon::data::Envelope /*&&envelope*/) noexcept {});
-        auto atFrequency{[]() -> bool {
+        auto atFrequency{[&od4, &DEV, &FREQ, &CID, &pedalPosition, &steeringAngle]() -> bool {
             FILE *file = fopen(DEV.c_str(), "rb");
             if (file != nullptr) {
                 DS4Event *event = (DS4Event *)malloc(sizeof(DS4Event));
                 while (!feof(file)) {
                     if (fread(event, sizeof(DS4Event), 1, file)) {
                         if ((event->type &0x0F) == 1) {
-                            std::cout << "[DS4Button] ";
                             switch (event->id) {
-                                case X: std::cout << "X " << event->data << std::endl; break;
-                                case Circle: std::cout << "Circle " << event->data << std::endl; break;
-                                case Triangle: std::cout << "Triangle " << event->data << std::endl; break;
-                                case Square: std::cout << "Square " << event->data << std::endl; break;
-                                case L1: std::cout << "L1 " << event->data << std::endl; break;
-                                case R1: std::cout << "R1 " << event->data << std::endl; break;
-                                case L2: std::cout << "L2 " << event->data << std::endl; break;
-                                case R2: std::cout << "R2 " << event->data << std::endl; break;
-                                case Share: std::cout << "Share " << event->data << std::endl; break;
-                                case Options: std::cout << "Options " << event->data << std::endl; break;
-                                case PS: std::cout << "PS " << event->data << std::endl; break;
-                                case LStick: std::cout << "LStick " << event->data << std::endl; break;
-                                case RStick: std::cout << "RStick " << event->data << std::endl; break;
-                                default: std::cout << "¯\\_(ツ)_/¯" << std::endl;;
+                                case X: break;
+                                case Circle: break;
+                                case Triangle: break;
+                                case Square: break;
+                                case L1: break;
+                                case R1: break;
+                                case L2: break;
+                                case R2: break;
+                                case Share: break;
+                                case Options: break;
+                                case PS: break;
+                                case LStick: break;
+                                case RStick: break;
+                                default:;
                             }
                         }
                         else if ((event->type &0x0F) == 2) {
                             std::cout << "[DS4Axis] " << std::fixed << std::setprecision(3);
                             switch (event->id) {
-                                case LStickX: std::cout << "LStickX " << absToPercentage(event->data) << std::endl; break;
-                                case LStickY: std::cout << "LStickY " << absToPercentage(event->data) << std::endl; break;
-                                case L2Y: std::cout << "L2Y " << absToPercentage(event->data) << std::endl; break;
-                                case RStickX: std::cout << "RStickX " << absToPercentage(event->data) << std::endl; break;
-                                case RStickY: std::cout << "RStickY " << absToPercentage(event->data) << std::endl; break;
-                                case R2Y: std::cout << "R2Y " << absToPercentage(event->data) << std::endl; break;
-                                case PadX: std::cout << "PadX " << absToPercentage(event->data) << std::endl; break;
-                                case PadY: std::cout << "PadY " << absToPercentage(event->data) << std::endl; break;
-                                default: std::cout << "¯\\_(ツ)_/¯" << std::endl;;
+                                case LStickX: steeringAngle = absToPercentage(event->data); break;
+                                case LStickY: break;
+                                case L2Y: break;
+                                case RStickX: break;
+                                case RStickY: break;
+                                case R2Y: pedalPosition = absToPercentage(event->data); break;
+                                case PadX: break;
+                                case PadY: break;
+                                default:;
                             }
                         }
                     }
@@ -65,10 +67,14 @@ int main(int argc, char** argv)
                     else if (feof(file)) std::cout << "[ERROR] EOF reached!" << std::endl;
                 }
                 free(event);
+                opendlv::proxy::GroundSteeringReading steeringReading;
+                steeringReading.groundSteering(steeringAngle);
+                od4.send(steeringReading);
+                opendlv::proxy::PedalPositionReading pedalPositionReading;
+                pedalPositionReading.position(pedalPosition);
+                od4.send(pedalPositionReading);
             }
-            else {
-                std::cout << "[ERROR] file at '" << DEV << "' cannot be accessed!" << std::endl; break;
-            }
+            else std::cout << "[ERROR] file at '" << DEV << "' cannot be accessed!" << std::endl;
         }};
         od4.timeTrigger(FREQ, atFrequency);
     }

@@ -22,7 +22,7 @@ target_link_libraries(${PROJECT_NAME}.Main ${CLUON_LIBRARIES})
 add_executable(${PROJECT_NAME}.RemoteControl ${CMAKE_CURRENT_SOURCE_DIR}/RemoteControl.cpp ${CMAKE_BINARY_DIR}/RemoteControlMessages.cpp)
 target_link_libraries(${PROJECT_NAME}.RemoteControl ${CLUON_LIBRARIES})
 
-add_executable(${PROJECT_NAME}.DS4RemoteControl ${CMAKE_CURRENT_SOURCE_DIR}/DS4RemoteControl.cpp)
+add_executable(${PROJECT_NAME}.DS4RemoteControl ${CMAKE_CURRENT_SOURCE_DIR}/DS4RemoteControl.cpp ${CMAKE_BINARY_DIR}/RemoteControlMessages.cpp)
 target_link_libraries(${PROJECT_NAME}.DS4RemoteControl ${CLUON_LIBRARIES})
 
 # enable_testing()

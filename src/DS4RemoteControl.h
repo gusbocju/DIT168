@@ -10,6 +10,7 @@
 #include <unistd.h>
 #include <iomanip>
 #include "cluon/OD4Session.hpp"
+#include "RemoteControlMessages.hpp"
 
 #define MAX  32767.0
 
