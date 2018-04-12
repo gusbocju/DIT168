@@ -7,6 +7,7 @@
 #include <fstream>
 #include <unistd.h>
 #include <iomanip>
+// #include <libexplain/ferror.h>
 
 #define PATH "/dev/input/js1"
 #define MAX  32767.0
@@ -89,10 +90,14 @@ int main()
                         }
                     }
                 }
+                else if (ferror(file)) std::cout << "[ERROR] FREAD failed with errno '" << ferror(file) << "'!" << std::endl;
+                else if (feof(file)) std::cout << "[ERROR] EOF reached!" << std::endl;
             }
             free(event);
         }
-        else break;
+        else {
+            std::cout << "[ERROR] file at PATH cannot be accessed!" << std::endl; break;
+        }
     }
 }
 
