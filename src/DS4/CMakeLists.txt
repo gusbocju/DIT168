@@ -10,9 +10,9 @@ include_directories(SYSTEM ${CLUON_INCLUDE_DIRS})
 
 add_custom_command(OUTPUT ${CMAKE_BINARY_DIR}/RemoteControlMessages.cpp
         WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
-        COMMAND cluon-msc --cpp-sources --cpp-add-include-file=RemoteControlMessages.hpp --out=${CMAKE_BINARY_DIR}/RemoteControlMessages.cpp RemoteControlMessages.odvd
-        COMMAND cluon-msc --cpp-headers --out=${CMAKE_BINARY_DIR}/RemoteControlMessages.hpp RemoteControlMessages.odvd
-        DEPENDS RemoteControlMessages.odvd)
+        COMMAND cluon-msc --cpp-sources --cpp-add-include-file=RemoteControlMessages.hpp --out=${CMAKE_BINARY_DIR}/RemoteControlMessages.cpp ${CMAKE_CURRENT_SOURCE_DIR}/RemoteControlMessages.odvd
+        COMMAND cluon-msc --cpp-headers --out=${CMAKE_BINARY_DIR}/RemoteControlMessages.hpp ${CMAKE_CURRENT_SOURCE_DIR}/RemoteControlMessages.odvd
+        DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/RemoteControlMessages.odvd)
 
 include_directories(SYSTEM ${CMAKE_BINARY_DIR})
 

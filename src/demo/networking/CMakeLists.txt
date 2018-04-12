@@ -10,9 +10,9 @@ include_directories(SYSTEM ${CLUON_INCLUDE_DIRS})
 
 add_custom_command(OUTPUT ${CMAKE_BINARY_DIR}/DemoMessages.cpp
         WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
-        COMMAND cluon-msc --cpp-sources --cpp-add-include-file=DemoMessages.hpp --out=${CMAKE_BINARY_DIR}/DemoMessages.cpp DemoMessages.odvd
-        COMMAND cluon-msc --cpp-headers --out=${CMAKE_BINARY_DIR}/DemoMessages.hpp DemoMessages.odvd
-        DEPENDS DemoMessages.odvd)
+        COMMAND cluon-msc --cpp-sources --cpp-add-include-file=DemoMessages.hpp --out=${CMAKE_BINARY_DIR}/DemoMessages.cpp ${CMAKE_CURRENT_SOURCE_DIR}/DemoMessages.odvd
+        COMMAND cluon-msc --cpp-headers --out=${CMAKE_BINARY_DIR}/DemoMessages.hpp ${CMAKE_CURRENT_SOURCE_DIR}/DemoMessages.odvd
+        DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/DemoMessages.odvd)
 
 include_directories(SYSTEM ${CMAKE_BINARY_DIR})
 
