@@ -69,7 +69,7 @@ int main(int argc, char** argv)
                                 case R2Y: {
                                     // std::cout << "[DS4Controller] R2Y" << std::endl;
                                     opendlv::proxy::PedalPositionReading pedalPositionReading;
-                                    pedalPositionReading.position((1+absToPercentage(event->data)/4));
+                                    pedalPositionReading.position((1+absToPercentage(event->data))/4);
                                     od4.send(pedalPositionReading);
                                     std::cout << "[DS4Controller] sending new PedalPositionReading: " << pedalPositionReading.position() << std::endl;
                                 } break;
