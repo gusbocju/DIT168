@@ -49,7 +49,7 @@ int main(int argc, char** argv)
                             switch (event->id) {
                                 case LStickX: {
                                     opendlv::proxy::GroundSteeringReading steeringReading;
-                                    steeringReading.groundSteering(absToPercentage(event->data));
+                                    steeringReading.groundSteering(absToPercentage(event->data)*(-1));
                                     od4.send(steeringReading);
                                     std::cout << "[DS4Controller] sending new GroundSteeringReading: " << steeringReading.groundSteering() << std::endl;
                                 } break;
