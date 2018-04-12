@@ -7,6 +7,7 @@
 #include "cluon/Envelope.hpp"
 #include "RemoteControlMessages.hpp"
 
+
 int main(int argc, char** argv) {
     int retVal = 0;
     auto commandlineArguments = cluon::getCommandlineArguments(argc, argv);
