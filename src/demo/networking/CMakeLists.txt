@@ -10,16 +10,16 @@ include_directories(SYSTEM ${CLUON_INCLUDE_DIRS})
 
 add_custom_command(OUTPUT ${CMAKE_BINARY_DIR}/DemoMessages.cpp
         WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
-        COMMAND cluon-msc --cpp-sources --cpp-add-include-file=DemoMessages.hpp --out=${CMAKE_BINARY_DIR}/DemoMessages.cpp ${CMAKE_CURRENT_SOURCE_DIR}/DemoMessages.odvd
-        COMMAND cluon-msc --cpp-headers --out=${CMAKE_BINARY_DIR}/DemoMessages.hpp ${CMAKE_CURRENT_SOURCE_DIR}/DemoMessages.odvd
-        DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/DemoMessages.odvd)
+        COMMAND cluon-msc --cpp-sources --cpp-add-include-file=DemoMessages.hpp --out=${CMAKE_BINARY_DIR}/DemoMessages.cpp DemoMessages.odvd
+        COMMAND cluon-msc --cpp-headers --out=${CMAKE_BINARY_DIR}/DemoMessages.hpp DemoMessages.odvd
+        DEPENDS DemoMessages.odvd)
 
 include_directories(SYSTEM ${CMAKE_BINARY_DIR})
 
-add_executable(${PROJECT_NAME}.Sender ${CMAKE_CURRENT_SOURCE_DIR}/Sender.cpp ${CMAKE_BINARY_DIR}/DemoMessages.cpp)
+add_executable(${PROJECT_NAME}.Sender Sender.cpp ${CMAKE_BINARY_DIR}/DemoMessages.cpp)
 target_link_libraries(${PROJECT_NAME}.Sender ${CLUON_LIBRARIES})
 
-add_executable(${PROJECT_NAME}.Receiver ${CMAKE_CURRENT_SOURCE_DIR}/Receiver.cpp ${CMAKE_BINARY_DIR}/DemoMessages.cpp)
+add_executable(${PROJECT_NAME}.Receiver Receiver.cpp ${CMAKE_BINARY_DIR}/DemoMessages.cpp)
 target_link_libraries(${PROJECT_NAME}.Receiver ${CLUON_LIBRARIES})
 
 # enable_testing()

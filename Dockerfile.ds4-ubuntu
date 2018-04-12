@@ -14,8 +14,18 @@ RUN cd /opt/sources && \
     cd build && \
     cmake -D CMAKE_BUILD_TYPE=Release .. && \
     make && \
-    cd src/ && \
-    cp MARBLE.DS4RemoteControl /tmp
+    cd src/V2V/ && \
+    cp MARBLE.V2V /tmp && \
+    cd ../DS4/ && \
+    cp MARBLE.DS4 /tmp && \
+    cd ../demo/ds4/ && \
+    cp MARBLE.DS4.Demo /tmp && \
+    cd ../networking/ && \
+    cp MARBLE.Networking.Demo.Sender /tmp && \
+    cp MARBLE.Networking.Demo.Receiver /tmp && \
+    cd ../safety-check/ && \
+    cp MARBLE.SafetyCheck.Main /tmp && \
+    cp MARBLE.SafetyCheck.RemoteControl /tmp
 
 # Deploy.
 FROM ubuntu:16.04
@@ -26,5 +36,11 @@ RUN apt-get update && \
     apt-get update && \
     apt-get install libcluon -y
 WORKDIR /opt
-COPY --from=builder /tmp/MARBLE.DS4RemoteControl .
+COPY --from=builder /tmp/MARBLE.V2V .
+COPY --from=builder /tmp/MARBLE.DS4 .
+COPY --from=builder /tmp/MARBLE.DS4.Demo .
+COPY --from=builder /tmp/MARBLE.Networking.Demo.Sender .
+COPY --from=builder /tmp/MARBLE.Networking.Demo.Receiver .
+COPY --from=builder /tmp/MARBLE.SafetyCheck.Main .
+COPY --from=builder /tmp/MARBLE.SafetyCheck.RemoteControl .
 CMD ["/bin/sh"]

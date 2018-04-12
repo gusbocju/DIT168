@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.5)
 
-project(MARBLE.PS4Controller.Demo)
+project(MARBLE.DS4.Demo)
 
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Werror")
@@ -8,14 +8,8 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Werror")
 find_package(libcluon REQUIRED)
 include_directories(SYSTEM ${CLUON_INCLUDE_DIRS})
 
-# add_custom_command(OUTPUT ${CMAKE_BINARY_DIR}/DemoMessages.cpp
-#         WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
-#         COMMAND cluon-msc --cpp-sources --cpp-add-include-file=DemoMessages.hpp --out=${CMAKE_BINARY_DIR}/DemoMessages.cpp ${CMAKE_CURRENT_SOURCE_DIR}/DemoMessages.odvd
-#         COMMAND cluon-msc --cpp-headers --out=${CMAKE_BINARY_DIR}/DemoMessages.hpp ${CMAKE_CURRENT_SOURCE_DIR}/DemoMessages.odvd
-#         DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/DemoMessages.odvd)
-
 include_directories(SYSTEM ${CMAKE_BINARY_DIR})
-add_executable(${PROJECT_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/Main.cpp)
+add_executable(${PROJECT_NAME} Main.cpp)
 target_link_libraries(${PROJECT_NAME} ${CLUON_LIBRARIES})
 
 # enable_testing()
