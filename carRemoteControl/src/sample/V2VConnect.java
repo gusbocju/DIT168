@@ -1,6 +1,5 @@
 package sample;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -55,7 +54,8 @@ public class V2VConnect {
     }
 
     private boolean v2VConnectionSuccess(){
-        return false;
+        // IMPLEMENT ME
+        return true;
     }
 
 

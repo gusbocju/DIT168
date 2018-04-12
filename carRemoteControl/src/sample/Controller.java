@@ -1,13 +1,12 @@
 package sample;
 
-import javafx.event.EventHandler;
-import javafx.fxml.FXML;
-import javafx.scene.Scene;
+
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
+import javafx.scene.paint.Color;
+
 
 
 
@@ -19,6 +18,8 @@ public class Controller {
     public ImageView reverse;
     public Button startV2V;
     public Button stopV2V;
+    public Label stopV2VMessageSuccess;
+    public Label stopV2VMessageFail;
 
 
     Image forwardButtonPressed = new Image("sample/forwardImgPressed.png");
@@ -35,48 +36,11 @@ public class Controller {
 
 
 
-
-
-    /*
-    FIX ME!!
-    @FXML
-    public void keyPressed(KeyEvent event){
-        switch (event.getKeyCode()) {
-            case KeyEvent.VK_A:
-                System.out.println("UP works from keyboard");
-                forwardPressed();
-                break;
-            case KeyEvent.VK_LEFT:
-                System.out.println("LEFT works from keyboard");
-                leftPressed();
-                break;
-            case KeyEvent.VK_RIGHT:
-                System.out.println("RIGHT works from keyboard");
-                rightPressed();
-                break;
-            case KeyEvent.VK_DOWN:
-                System.out.println("DOWN works from keyboard");
-                reversePressed();
-                break;
-            default:
-                System.out.println("Invalid command.");
-
-        }
-
-    }
-    */
-
-
-
-
-
-
     //Forward button:
     public boolean forwardPressed() {
 
         forward.setImage(forwardButtonPressed);
 
-        System.out.println("UP WORKS!");
         System.out.println("UP WORKS!");
     return true;
     }
@@ -127,8 +91,21 @@ public class Controller {
     }
 
     public void stopV2vPressed() {
+        if (disconnectV2V() == true){
+            stopV2VMessageSuccess.setTextFill(Color.GREEN);
+            stopV2VMessageSuccess.setVisible(true);
+        }
+        else if (disconnectV2V() == false) {
+            stopV2VMessageFail.setTextFill(Color.INDIANRED);
+            stopV2VMessageFail.setVisible(true);
+        }
+    }
+
+    public boolean disconnectV2V(){
+        return false;
 
     }
+
 
 
 }

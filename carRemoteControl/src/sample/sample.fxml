@@ -26,6 +26,7 @@
         <RowConstraints maxHeight="50.0" minHeight="50.0" prefHeight="50.0" />
         <RowConstraints maxHeight="50.0" minHeight="50.0" prefHeight="50.0" />
         <RowConstraints maxHeight="50.0" minHeight="50.0" prefHeight="50.0" />
+      <RowConstraints />
     </rowConstraints>
 
 
@@ -56,7 +57,7 @@
     </ImageView>
 
 
-   <Button fx:id="startV2V" alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="true" onMousePressed="#startV2vPressed" prefHeight="27.0" prefWidth="90.0" text="Start V2V" textAlignment="CENTER" GridPane.columnSpan="2147483647" GridPane.rowIndex="5" GridPane.rowSpan="2147483647">
+   <Button fx:id="startV2V" alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="true" onMousePressed="#startV2vPressed" prefHeight="27.0" prefWidth="90.0" text="Start V2V" textAlignment="CENTER" GridPane.halignment="LEFT" GridPane.rowIndex="5" GridPane.valignment="CENTER">
 
    </Button>
 
@@ -67,6 +68,39 @@
          <Font name="Futura Bold" size="16.0" />
       </font>
    </Label>
+    <Label fx:id="stopV2VMessageSuccess"
+           minHeight="-Infinity"
+           minWidth="-Infinity"
+           prefHeight="30"
+           prefWidth="250"
+           text="Successfully disconnected."
+           textAlignment="LEFT"
+           visible="false"
+           GridPane.columnIndex="0"
+           GridPane.halignment="LEFT"
+           GridPane.rowIndex="6"
+           GridPane.valignment="CENTER">
+        <font>
+            <Font size="12.0" />
+        </font>
+    </Label>
+
+    <Label fx:id="stopV2VMessageFail"
+           minHeight="-Infinity"
+           minWidth="-Infinity"
+           prefHeight="30"
+           prefWidth="250"
+           text="Failed to disconnect."
+           textAlignment="LEFT"
+           visible="false"
+           GridPane.columnIndex="0"
+           GridPane.halignment="LEFT"
+           GridPane.rowIndex="6"
+           GridPane.valignment="CENTER">
+        <font>
+            <Font size="12.0" />
+        </font>
+    </Label>
 
 
 
