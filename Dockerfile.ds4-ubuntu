@@ -24,8 +24,7 @@ RUN apt-get update && \
     apt-get install software-properties-common -y && \
     apt-add-repository ppa:chrberger/libcluon && \
     apt-get update && \
-    apt-get install libcluon -y && \
-    mkdir /opt
+    apt-get install libcluon -y
 WORKDIR /opt
 COPY --from=builder /tmp/MARBLE.DS4RemoteControl .
 CMD ["/bin/sh"]
