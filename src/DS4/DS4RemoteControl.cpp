@@ -75,6 +75,7 @@ int main(int argc, char** argv)
                 free(event);
             }
             else std::cout << "[ERROR] file at '" << DEV << "' cannot be accessed!" << std::endl;
+            return true;
         }};
         od4.timeTrigger(FREQ, atFrequency);
     }

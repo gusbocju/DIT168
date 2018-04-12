@@ -85,6 +85,7 @@ int main(int argc, char **argv) {
             v2vService->announcePresence();
             v2vService->followerStatus();
             v2vService->leaderStatus(pedalPos, steeringAngle, 0);
+            return true;
         }};
         od4.timeTrigger(FREQ, atFrequency);
     }
