@@ -1,9 +1,12 @@
 package sample;
 
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
 
@@ -29,6 +32,10 @@ public class Controller {
 
     Image reverseButtonPressed = new Image("sample/reverseImgPressed.png");
     Image reverseButtonReleased = new Image("sample/reverseImg.png");
+
+
+
+
 
     /*
     FIX ME!!
@@ -65,11 +72,13 @@ public class Controller {
 
 
     //Forward button:
-    public void forwardPressed() {
+    public boolean forwardPressed() {
 
         forward.setImage(forwardButtonPressed);
 
         System.out.println("UP WORKS!");
+        System.out.println("UP WORKS!");
+    return true;
     }
 
     public void forwardRelease() {
@@ -121,7 +130,5 @@ public class Controller {
 
     }
 
-    // FIXME: this method is just a dummy. need to successfully implement keyboard controls.
-    public void keyPressed(KeyEvent keyEvent) {
-    }
+
 }

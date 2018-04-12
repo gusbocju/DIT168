@@ -19,15 +19,13 @@ public class V2VConnect {
 
     public Button connect;
     public TextField carIdLabel;
+    public Label errorMessage;
+
 
     public void v2VWindow(){
     try {
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(getClass().getResource("popUp.fxml"));
-        /*
-         * if "fx:controller" is not set in fxml
-         * fxmlLoader.setController(NewWindowController);
-         */
 
         Scene scene = new Scene(fxmlLoader.load(), 300, 200);
         Stage stage = new Stage();
@@ -41,33 +39,24 @@ public class V2VConnect {
     }
     }
 
-    //FIXME: empty method duplicate. FIX what is under.
-    public void windowAction(ActionEvent actionEvent) {
-    }
 
-    /*
+
     @FXML
-    private javafx.scene.control.Button closeButton;
     public void windowAction() {
         if (v2VConnectionSuccess() == true){
-            Stage stage = (Stage) closeButton.getScene().getWindow();
+            Stage stage = (Stage) connect.getScene().getWindow();
             stage.close();
         }
         else {
-            // FIXME: FIX ERROR MESSAGE
-            Label message = new Label();
-            message.setText("Connection Failed!");
-            message.setTextFill(Color.rgb(210, 39, 30));
-
+            errorMessage.setTextFill(Color.INDIANRED);
+            errorMessage.setVisible(true);
         }
 
     }
 
     private boolean v2VConnectionSuccess(){
-        return true;
+        return false;
     }
-
-    */
 
 
 
