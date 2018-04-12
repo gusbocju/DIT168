@@ -20,11 +20,8 @@ int main(int argc, char** argv)
         const uint16_t FREQ = (uint16_t) std::stoi(commandlineArguments["freq"]);
         const uint16_t CID = (uint16_t) std::stoi(commandlineArguments["cid"]);
 
-        float pedalPosition = 0;
-        float steeringAngle = 0;
-
         cluon::OD4Session od4(CID, [](cluon::data::Envelope /*&&envelope*/) noexcept {});
-        auto atFrequency{[&od4, &DEV, &FREQ, &CID, &pedalPosition, &steeringAngle]() -> bool {
+        auto atFrequency{[&od4, &DEV, &FREQ, &CID]() -> bool {
             FILE *file = fopen(DEV.c_str(), "rb");
             if (file != nullptr) {
                 DS4Event *event = (DS4Event *)malloc(sizeof(DS4Event));
@@ -49,14 +46,23 @@ int main(int argc, char** argv)
                             }
                         }
                         else if ((event->type &0x0F) == 2) {
-                            std::cout << "[DS4Axis] " << std::fixed << std::setprecision(3);
                             switch (event->id) {
-                                case LStickX: steeringAngle = absToPercentage(event->data); break;
+                                case LStickX:
+                                    std::cout << "[DS4Controller] sending new GroundSteeringReading..." << std::endl;
+                                    opendlv::proxy::GroundSteeringReading steeringReading;
+                                    steeringReading.groundSteering(absToPercentage(event->data));
+                                    od4.send(steeringReading);
+                                break;
                                 case LStickY: break;
                                 case L2Y: break;
                                 case RStickX: break;
                                 case RStickY: break;
-                                case R2Y: pedalPosition = absToPercentage(event->data); break;
+                                case R2Y:
+                                    std::cout << "[DS4Controller] sending new PedalPositionReading..." << std::endl;
+                                    opendlv::proxy::PedalPositionReading pedalPositionReading;
+                                    pedalPositionReading.position(absToPercentage(event->data));
+                                    od4.send(pedalPositionReading);
+                                break;
                                 case PadX: break;
                                 case PadY: break;
                                 default:;
@@ -67,12 +73,6 @@ int main(int argc, char** argv)
                     else if (feof(file)) std::cout << "[ERROR] EOF reached!" << std::endl;
                 }
                 free(event);
-                opendlv::proxy::GroundSteeringReading steeringReading;
-                steeringReading.groundSteering(steeringAngle);
-                od4.send(steeringReading);
-                opendlv::proxy::PedalPositionReading pedalPositionReading;
-                pedalPositionReading.position(pedalPosition);
-                od4.send(pedalPositionReading);
             }
             else std::cout << "[ERROR] file at '" << DEV << "' cannot be accessed!" << std::endl;
         }};
