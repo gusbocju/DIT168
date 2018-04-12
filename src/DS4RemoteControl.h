@@ -33,10 +33,10 @@ typedef enum {
 typedef enum {
     LStickX = 0,
     LStickY = 1,
-    L2Y = 2,
-    RStickX = 3,
-    RStickY = 4,
-    R2Y = 5,
+    L2Y = 3,            // RStickX
+    RStickX = 2,        // L2
+    RStickY = 5,        // R2
+    R2Y = 4,            // RStickY
     PadX = 6,
     PadY = 7
 } DS4Axis;

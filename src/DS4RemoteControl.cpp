@@ -54,7 +54,7 @@ int main(int argc, char** argv)
                                     steeringReading.groundSteering(absToPercentage(event->data));
                                     od4.send(steeringReading);
                                 } break;
-                                case LStickY: break;
+                                case LStickY: std::cout << "[DS4Controller] LStickY" << std::endl; break;
                                 case L2Y: std::cout << "[DS4Controller] L2Y" << std::endl; break;
                                 case RStickX: std::cout << "[DS4Controller] RStickX" << std::endl; break;
                                 case RStickY: std::cout << "[DS4Controller] RStickY" << std::endl; break;
