@@ -59,7 +59,7 @@ int main(int argc, char** argv)
         std::cerr << "Example: " << argv[0] << " --dev=/dev/input/js0" << std::endl;
         retVal = 1;
     } else {
-        const std::string DEV = commandlineArguments["cid"];
+        const std::string DEV = commandlineArguments["dev"];
 
         while (true) {
             FILE *file = fopen(DEV.c_str(), "rb");
@@ -107,7 +107,7 @@ int main(int argc, char** argv)
                 free(event);
             }
             else {
-                std::cout << "[ERROR] file at PATH cannot be accessed!" << std::endl; break;
+                std::cout << "[ERROR] file at '" << DEV << "' cannot be accessed!" << std::endl; break;
             }
         }
     }
