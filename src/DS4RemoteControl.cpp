@@ -29,57 +29,43 @@ int main(int argc, char** argv)
                     if (fread(event, sizeof(DS4Event), 1, file)) {
                         if ((event->type &0x0F) == 1) {
                             switch (event->id) {
-                                case X: break;
-                                case Circle: break;
+                                case X:        break;
+                                case Circle:   break;
                                 case Triangle: break;
-                                case Square: break;
-                                case L1: break;
-                                case R1: break;
-                                case L2: break;
-                                case R2: break;
-                                case Share: break;
-                                case Options: break;
-                                case PS: break;
-                                case LStick: break;
-                                case RStick: break;
-                                default:;
+                                case Square:   break;
+                                case L1:       break;
+                                case R1:       break;
+                                case L2:       break;
+                                case R2:       break;
+                                case Share:    break;
+                                case Options:  break;
+                                case PS:       break;
+                                case LStick:   break;
+                                case RStick:   break;
+                                default:       break;
                             }
                         }
                         else if ((event->type &0x0F) == 2) {
                             switch (event->id) {
                                 case LStickX: {
-                                    // std::cout << "[DS4Controller] LStickX" << std::endl;
                                     opendlv::proxy::GroundSteeringReading steeringReading;
                                     steeringReading.groundSteering(absToPercentage(event->data));
                                     od4.send(steeringReading);
                                     std::cout << "[DS4Controller] sending new GroundSteeringReading: " << steeringReading.groundSteering() << std::endl;
                                 } break;
-                                case LStickY:
-                                    // std::cout << "[DS4Controller] LStickY" << std::endl;
-                                break;
-                                case L2Y:
-                                    // std::cout << "[DS4Controller] L2Y" << std::endl;
-                                break;
-                                case RStickX:
-                                    // std::cout << "[DS4Controller] RStickX" << std::endl;
-                                break;
-                                case RStickY:
-                                    // std::cout << "[DS4Controller] RStickY" << std::endl;
-                                break;
+                                case LStickY: break;
+                                case L2Y:     break;
+                                case RStickX: break;
+                                case RStickY: break;
                                 case R2Y: {
-                                    // std::cout << "[DS4Controller] R2Y" << std::endl;
                                     opendlv::proxy::PedalPositionReading pedalPositionReading;
-                                    pedalPositionReading.position((1+absToPercentage(event->data))/4);
+                                    pedalPositionReading.position((1+absToPercentage(event->data))/5.7);
                                     od4.send(pedalPositionReading);
                                     std::cout << "[DS4Controller] sending new PedalPositionReading: " << pedalPositionReading.position() << std::endl;
                                 } break;
-                                case PadX:
-                                    // std::cout << "[DS4Controller] PadX" << std::endl;
-                                break;
-                                case PadY:
-                                    // std::cout << "[DS4Controller] PadY" << std::endl;
-                                break;
-                                default:;
+                                case PadX:    break;
+                                case PadY:    break;
+                                default:      break;
                             }
                         }
                     }
