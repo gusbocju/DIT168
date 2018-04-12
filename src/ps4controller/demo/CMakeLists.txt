@@ -5,8 +5,8 @@ project(MARBLE.PS4Controller.Demo)
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Werror")
 
-# find_package(libcluon REQUIRED)
-# include_directories(SYSTEM ${CLUON_INCLUDE_DIRS})
+find_package(libcluon REQUIRED)
+include_directories(SYSTEM ${CLUON_INCLUDE_DIRS})
 
 # add_custom_command(OUTPUT ${CMAKE_BINARY_DIR}/DemoMessages.cpp
 #         WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
@@ -15,10 +15,8 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Werror")
 #         DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/DemoMessages.odvd)
 
 include_directories(SYSTEM ${CMAKE_BINARY_DIR})
-
 add_executable(${PROJECT_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/Main.cpp)
-
-# target_link_libraries(${PROJECT_NAME}.Sender ${CLUON_LIBRARIES})
+target_link_libraries(${PROJECT_NAME} ${CLUON_LIBRARIES})
 
 # enable_testing()
 # add_executable(${PROJECT_NAME}-Runner ${CMAKE_CURRENT_SOURCE_DIR}/[...].cpp ${CMAKE_BINARY_DIR}/[...].cpp)
