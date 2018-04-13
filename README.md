@@ -49,7 +49,7 @@ Running different modules/ features from any of our Docker images can be done us
 `$ docker run --rm -ti --net=host dit168.marble /opt/MARBLE.SafetyCheck.Main`\
 `$ docker run --rm -ti --net=host dit168.marble /opt/MARBLE.SafetyCheck.RemoteControl`\
 `$ docker run --rm -ti --net=host dit168.marble /opt/MARBLE.Networking.Demo.Sender`\
-`$ docker run --rm -ti --net=host dit168.marble /opt/MARBLE.Networking.Demo.Receiver`\
+`$ docker run --rm -ti --net=host dit168.marble /opt/MARBLE.Networking.Demo.Receiver`
 
 \
 The above processes can be terminated using `$ docker ps` and `$ docker stop <container id>`.
