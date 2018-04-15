@@ -12,15 +12,15 @@ before_install:
 script:
   - docker build -t dit168.marble -f Dockerfile .
   - docker build -t dit168.marble-armhf -f Dockerfile.armhf .
-  - docker build -t dit168.marble-ds4-ubuntu -f Dockerfile.ds4-ubuntu .
+  - docker build -t dit168.marble-ubuntu -f Dockerfile.ubuntu .
 
 after_success:
   - if [ "$TRAVIS_BRANCH" == "master" ]; then
     docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD" -y;
     docker tag dit168.marble $DOCKER_USERNAME/dit168.marble:latest;
-    docker tag dit168.marble-armhf $DOCKER_USERNAME/dit168.marble:latest-ds4-ubuntu;
-    docker tag dit168.marble-ds4-ubuntu $DOCKER_USERNAME/dit168.marble:latest-ds4-ubuntu;
+    docker tag dit168.marble-armhf $DOCKER_USERNAME/dit168.marble:latest-armhf;
+    docker tag dit168.marble-ubuntu $DOCKER_USERNAME/dit168.marble:latest-ubuntu;
     docker push $DOCKER_USERNAME/dit168.marble:latest;
     docker push $DOCKER_USERNAME/dit168.marble:latest-armhf;
-    docker push $DOCKER_USERNAME/dit168.marble:latest-ds4-ubuntu;
+    docker push $DOCKER_USERNAME/dit168.marble:latest-ubuntu;
     fi
