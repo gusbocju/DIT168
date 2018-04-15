@@ -6,7 +6,7 @@ services:
         restart: always
         volumes:
         - .:/opt/miniature.data
-        command: "/opt/od4/bin/odsupercomponent --cid=111 --verbose=1 --configuration=/opt/miniature.data/configuration"
+        command: "/opt/od4/bin/odsupercomponent --cid=160 --verbose=1 --configuration=/opt/miniature.data/configuration"
 
     proxy-miniature-pwm-motor:
         image: seresearch/2018-dit-168:v0.3.5-armhf
@@ -18,11 +18,18 @@ services:
         volumes:
         - /sys/:/sys/
         - /dev/:/dev/
-        command: "/opt/opendlv.miniature/bin/opendlv-proxy-miniature-pwm-motor --cid=111 --freq=50 --id=1"
+        command: "/opt/opendlv.miniature/bin/opendlv-proxy-miniature-pwm-motor --cid=160 --freq=50 --id=1"
 
-    # Your microservice.
-    MARBLE.Main:
-        image: gusbocju/dit168.marble:latest-armhf
+    MARBLE.DS4:
+        image: dit168.local
         network_mode: "host"
         restart: always
-        command: "/opt/MARBLE.Main --internal=111 --external=112 --freq=5"
+        devices:
+        - /dev/input/js0:/dev/input/js0
+        command: "/opt/MARBLE.DS4 --cid=160 --freq=100 --dev=/dev/input/js0"
+
+    MARBLE.V2V:
+        image: dit168.local
+        network_mode: "host"
+        restart: always
+        command: "/opt/MARBLE.V2V --cid=160 --freq=10 --ip=172.20.10.12 --id=5"

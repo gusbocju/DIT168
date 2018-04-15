@@ -29,7 +29,8 @@ Don't forget to add new CMake configurations and (if necessary) extensions to th
 Thanks to Travis CI, the latest Docker image (originating *master*) can be fetched directly from Docker Hub - no manual building required: 
 
 `$ docker pull gusbocju/dit168.marble:latest` (x86_64)\
-`$ docker pull gusbocju/dit168.marble:latest-armhf` (ARM)
+`$ docker pull gusbocju/dit168.marble:latest-armhf` (ARM)\
+`$ docker pull gusbocju/dit168.marble:latest-ubuntu` (Ubuntu x86_64, recommended for DS4 interaction)
 
 Use the following snippets to save and/ or restore a local Docker image whenever needed:
 
@@ -40,11 +41,16 @@ Use the following snippets to save and/ or restore a local Docker image whenever
 Running different modules/ features from any of our Docker images can be done using the `$ docker run`, the following is just an excerpt of currently available executables and standalone features: 
 
 ##### MODULES AND FEATURES
-`$ docker run --rm -ti --net=host dit168.marble /opt/MARBLE`
+`$ docker run --rm -ti --net=host dit168.marble /opt/MARBLE.DS4`\
+`$ docker run --rm -ti --net=host dit168.marble /opt/MARBLE.V2V`
 
 ##### DEMOS
+`$ docker run --rm -ti --net=host dit168.marble /opt/MARBLE.DS4.Demo`\
+`$ docker run --rm -ti --net=host dit168.marble /opt/MARBLE.SafetyCheck.Main`\
+`$ docker run --rm -ti --net=host dit168.marble /opt/MARBLE.SafetyCheck.RemoteControl`\
 `$ docker run --rm -ti --net=host dit168.marble /opt/MARBLE.Networking.Demo.Sender`\
-`$ docker run --rm -ti --net=host dit168.marble /opt/MARBLE.Networking.Demo.Receiver`\
+`$ docker run --rm -ti --net=host dit168.marble /opt/MARBLE.Networking.Demo.Receiver`
+
 \
 The above processes can be terminated using `$ docker ps` and `$ docker stop <container id>`.
 

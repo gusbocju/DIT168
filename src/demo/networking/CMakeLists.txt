@@ -16,10 +16,10 @@ add_custom_command(OUTPUT ${CMAKE_BINARY_DIR}/DemoMessages.cpp
 
 include_directories(SYSTEM ${CMAKE_BINARY_DIR})
 
-add_executable(${PROJECT_NAME}.Sender ${CMAKE_CURRENT_SOURCE_DIR}/Sender.cpp ${CMAKE_BINARY_DIR}/DemoMessages.cpp)
+add_executable(${PROJECT_NAME}.Sender Sender.cpp ${CMAKE_BINARY_DIR}/DemoMessages.cpp)
 target_link_libraries(${PROJECT_NAME}.Sender ${CLUON_LIBRARIES})
 
-add_executable(${PROJECT_NAME}.Receiver ${CMAKE_CURRENT_SOURCE_DIR}/Receiver.cpp ${CMAKE_BINARY_DIR}/DemoMessages.cpp)
+add_executable(${PROJECT_NAME}.Receiver Receiver.cpp ${CMAKE_BINARY_DIR}/DemoMessages.cpp)
 target_link_libraries(${PROJECT_NAME}.Receiver ${CLUON_LIBRARIES})
 
 # enable_testing()

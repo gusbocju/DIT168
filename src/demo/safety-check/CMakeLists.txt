@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.5)
 
-project(MARBLE)
+project(MARBLE.SafetyCheck)
 
 set(CMAKE_CXX_STANDARD 14)
 # set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Werror")
@@ -16,10 +16,10 @@ add_custom_command(OUTPUT ${CMAKE_BINARY_DIR}/RemoteControlMessages.cpp
 
 include_directories(SYSTEM ${CMAKE_BINARY_DIR})
 
-add_executable(${PROJECT_NAME}.Main ${CMAKE_CURRENT_SOURCE_DIR}/Main.cpp ${CMAKE_BINARY_DIR}/RemoteControlMessages.cpp)
+add_executable(${PROJECT_NAME}.Main Main.cpp ${CMAKE_BINARY_DIR}/RemoteControlMessages.cpp)
 target_link_libraries(${PROJECT_NAME}.Main ${CLUON_LIBRARIES})
 
-add_executable(${PROJECT_NAME}.RemoteControl ${CMAKE_CURRENT_SOURCE_DIR}/RemoteControl.cpp ${CMAKE_BINARY_DIR}/RemoteControlMessages.cpp)
+add_executable(${PROJECT_NAME}.RemoteControl RemoteControl.cpp ${CMAKE_BINARY_DIR}/RemoteControlMessages.cpp)
 target_link_libraries(${PROJECT_NAME}.RemoteControl ${CLUON_LIBRARIES})
 
 # enable_testing()

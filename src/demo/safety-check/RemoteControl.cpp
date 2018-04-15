@@ -18,8 +18,9 @@ int main(int argc, char** argv) {
         std::cerr << "Example: " << argv[0] << " --cid=111" << std::endl;
         retVal = 1;
     } else {
+        uint16_t const CID = (uint16_t) std::stoi(commandlineArguments["cid"]);
 
-        cluon::OD4Session od4(112, [](cluon::data::Envelope /*&&envelope*/) noexcept {});
+        cluon::OD4Session od4(CID, [](cluon::data::Envelope /*&&envelope*/) noexcept {});
         #pragma clang diagnostic push
         #pragma clang diagnostic ignored "-Wmissing-noreturn"
         while (1) {
