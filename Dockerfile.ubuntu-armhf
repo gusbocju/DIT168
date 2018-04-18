@@ -1,0 +1,50 @@
+# docker run --rm -ti -v $PWD:/opt/sources ubuntu:16.04 /bin/sh
+FROM pipill/armhf-ubuntu:16.04 AS builder
+MAINTAINER Julian Bock gusbocju@student.gu.se
+RUN ["cross-build-start"]
+RUN apt-get update && \
+    apt-get install build-essential cmake -y && \
+    apt-get install software-properties-common -y && \
+    apt-add-repository ppa:chrberger/libcluon && \
+    apt-get update && \
+    apt-get install libcluon -y
+ADD . /opt/sources
+WORKDIR /opt/sources
+RUN cd /opt/sources && \
+    mkdir build && \
+    cd build && \
+    cmake -D CMAKE_BUILD_TYPE=Release .. && \
+    make && \
+    cd src/V2V/ && \
+    cp MARBLE.V2V /tmp && \
+    cd ../DS4/ && \
+    cp MARBLE.DS4 /tmp && \
+    cd ../demo/ds4/ && \
+    cp MARBLE.DS4.Demo /tmp && \
+    cd ../networking/ && \
+    cp MARBLE.Networking.Demo.Sender /tmp && \
+    cp MARBLE.Networking.Demo.Receiver /tmp && \
+    cd ../safety-check/ && \
+    cp MARBLE.SafetyCheck.Main /tmp && \
+    cp MARBLE.SafetyCheck.RemoteControl /tmp
+RUN ["cross-build-end"]
+
+# Deploy.
+FROM pipill/armhf-ubuntu:16.04
+MAINTAINER Julian Bock gusbocju@student.gu.se
+RUN [ "cross-build-start" ]
+RUN apt-get update && \
+    apt-get install software-properties-common -y && \
+    apt-add-repository ppa:chrberger/libcluon && \
+    apt-get update && \
+    apt-get install libcluon -y
+WORKDIR /opt
+COPY --from=builder /tmp/MARBLE.V2V .
+COPY --from=builder /tmp/MARBLE.DS4 .
+COPY --from=builder /tmp/MARBLE.DS4.Demo .
+COPY --from=builder /tmp/MARBLE.Networking.Demo.Sender .
+COPY --from=builder /tmp/MARBLE.Networking.Demo.Receiver .
+COPY --from=builder /tmp/MARBLE.SafetyCheck.Main .
+COPY --from=builder /tmp/MARBLE.SafetyCheck.RemoteControl .
+RUN [ "cross-build-end" ]
+CMD ["/bin/sh"]
