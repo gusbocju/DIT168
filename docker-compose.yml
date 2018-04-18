@@ -21,7 +21,7 @@ services:
         command: "/opt/opendlv.miniature/bin/opendlv-proxy-miniature-pwm-motor --cid=160 --freq=50 --id=1"
 
     MARBLE.DS4:
-        image: dit168.local
+        image: gusbocju/dit168.marble:latest-ubuntu-armhf
         network_mode: "host"
         restart: always
         devices:
@@ -29,7 +29,7 @@ services:
         command: "/opt/MARBLE.DS4 --cid=160 --freq=100 --dev=/dev/input/js0"
 
     MARBLE.V2V:
-        image: dit168.local
+        image: gusbocju/dit168.marble:latest-armhf
         network_mode: "host"
         restart: always
         command: "/opt/MARBLE.V2V --cid=160 --freq=10 --ip=172.20.10.12 --id=5"
