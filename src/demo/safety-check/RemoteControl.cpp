@@ -5,7 +5,7 @@
 #include <iostream>
 #include "cluon/OD4Session.hpp"
 #include "cluon/Envelope.hpp"
-#include "RemoteControlMessages.hpp"
+#include "SafetyCheckMessages.hpp"
 
 int main(int argc, char** argv) {
     int retVal = 0;
