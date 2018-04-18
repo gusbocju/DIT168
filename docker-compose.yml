@@ -33,3 +33,9 @@ services:
         network_mode: "host"
         restart: always
         command: "/opt/MARBLE.V2V --cid=160 --freq=10 --ip=172.20.10.12 --id=5"
+
+    dit168-signal-viewer:
+        image: gusbocju/dit168.marble:latest-armhf
+        network_mode: "host"
+        restart: always
+        command: "/opt/bin/websocketd --staticdir=/opt/signal-viewer --port=8080 --binary=true /bin/cluon-OD4toStdout"
