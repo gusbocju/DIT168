@@ -17,7 +17,7 @@ script:
 
 after_success:
   - if [ "$TRAVIS_BRANCH" == "master" ]; then
-    docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD";
+    echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin;
     docker tag dit168.marble $DOCKER_USERNAME/dit168.marble:latest;
     docker tag dit168.marble-armhf $DOCKER_USERNAME/dit168.marble:latest-armhf;
     docker tag dit168.marble-ubuntu $DOCKER_USERNAME/dit168.marble:latest-ubuntu;
