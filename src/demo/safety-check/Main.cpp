@@ -6,7 +6,7 @@
 #include <iostream>
 #include "cluon/OD4Session.hpp"
 #include "cluon/Envelope.hpp"
-#include "RemoteControlMessages.hpp"
+#include "SafetyCheckMessages.hpp"
 
 cluon::OD4Session *internal, *external;
 
