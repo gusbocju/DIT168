@@ -28,7 +28,9 @@ Don't forget to add new CMake configurations and (if necessary) extensions to th
 ### PULL, SAVE AND RESTORE
 Thanks to Travis CI, the latest Docker image (originating *master*) can be fetched directly from Docker Hub - no manual building required: 
 
-`$ docker pull gusbocju/dit168.marble:latest-armhf` (ARM)\
+`$ docker pull gusbocju/dit168.marble:latest` (Alpine x86_64)\
+`$ docker pull gusbocju/dit168.marble:latest-armhf` (Alpine ARM)\
+`$ docker pull gusbocju/dit168.marble:latest-ubuntu` (Ubuntu, recommended for DS4 & SignalViewer)
 `$ docker pull gusbocju/dit168.marble:latest-ubuntu-armhf` (Ubuntu ARM, recommended for DS4 & SignalViewer)
 
 Use the following snippets to save and/ or restore a local Docker image whenever needed:
