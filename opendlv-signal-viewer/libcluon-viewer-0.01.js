@@ -107,7 +107,7 @@ function onMessageReceived(lc, msg) {
     const fieldValue = d[payloadName][fieldName];
     const field = {
       name : fieldName,
-      value : fieldValue,
+      value : (fieldName == "vehicleIp" || fieldName == "groupId") ? atob(fieldValue) : fieldValue,
       type : (typeof fieldValue)
     };
     payloadFields.push(field);
