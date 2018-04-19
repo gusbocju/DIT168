@@ -92,6 +92,10 @@ message opendlv.proxy.AngleReading [id = 1038] {
   float angle [id = 1];
 }
 
+message opendlv.proxy.DistanceReading [id = 1039] {
+  float distance [id = 1];
+}
+
 message opendlv.proxy.SwitchStateReading [id = 1040] {
   int16 state [id = 1];
 }
