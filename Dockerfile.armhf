@@ -21,7 +21,7 @@ RUN cd /opt/sources && \
     make && \
     cd src/V2V/ && \
     cp MARBLE.V2V /tmp && \
-    cd ../networking/ && \
+    cd ../demo/networking/ && \
     cp MARBLE.Networking.Demo.Sender /tmp && \
     cp MARBLE.Networking.Demo.Receiver /tmp && \
     cd ../safety-check/ && \

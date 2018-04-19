@@ -38,4 +38,4 @@ services:
         image: gusbocju/dit168.marble:latest-ubuntu-armhf
         network_mode: "host"
         restart: always
-        command: "/opt/bin/websocketd --staticdir=/opt/signal-viewer --port=8080 --binary=true /usr/bin/cluon-OD4toStdout"
+        command: "/opt/bin/websocketd --staticdir=/opt/signal-viewer --port=8080 --binary=true /usr/bin/cluon-OD4toStdout --cid=160"
