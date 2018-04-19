@@ -38,7 +38,7 @@ RUN apt-get update && \
     apt-get install wget -y
 RUN mkdir -p /opt/bin && wget -O /opt/bin/websocketd https://github.com/se-research/websocketd-alpine/raw/master/x86_64/websocketd && chmod 755 /opt/bin/websocketd
 RUN mkdir /opt/signal-viewer
-ADD dit168-signal-viewer/ /opt/signal-viewer
+ADD opendlv-signal-viewer/ /opt/signal-viewer
 WORKDIR /opt
 COPY --from=builder /tmp/MARBLE.V2V .
 COPY --from=builder /tmp/MARBLE.DS4 .
