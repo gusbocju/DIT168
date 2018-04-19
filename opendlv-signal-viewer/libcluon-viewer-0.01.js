@@ -98,7 +98,6 @@ function onMessageReceived(lc, msg) {
 
   d = JSON.parse(data_str);
 
-
   // Translate to nice JSON ..
   var payloadFields = new Array();
 
