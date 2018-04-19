@@ -17,10 +17,6 @@ RUN cd /opt/sources && \
     make && \
     cd src/V2V/ && \
     cp MARBLE.V2V /tmp && \
-    cd ../DS4/ && \
-    cp MARBLE.DS4 /tmp && \
-    cd ../demo/ds4/ && \
-    cp MARBLE.DS4.Demo /tmp && \
     cd ../networking/ && \
     cp MARBLE.Networking.Demo.Sender /tmp && \
     cp MARBLE.Networking.Demo.Receiver /tmp && \
@@ -34,13 +30,8 @@ MAINTAINER Julian Bock gusbocju@student.gu.se
 RUN apk update && \
     apk add libcluon --no-cache --repository https://chrberger.github.io/libcluon/alpine/v3.7 --allow-untrusted && \
     mkdir /opt
-RUN mkdir -p /opt/bin && wget -O /opt/bin/websocketd https://github.com/se-research/websocketd-alpine/raw/master/x86_64/websocketd && chmod 755 /opt/bin/websocketd
-RUN mkdir /opt/signal-viewer
-ADD dit168-signal-viewer/ /opt/signal-viewer
 WORKDIR /opt
 COPY --from=builder /tmp/MARBLE.V2V .
-COPY --from=builder /tmp/MARBLE.DS4 .
-COPY --from=builder /tmp/MARBLE.DS4.Demo .
 COPY --from=builder /tmp/MARBLE.Networking.Demo.Sender .
 COPY --from=builder /tmp/MARBLE.Networking.Demo.Receiver .
 COPY --from=builder /tmp/MARBLE.SafetyCheck.Main .
