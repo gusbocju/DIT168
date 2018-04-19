@@ -46,4 +46,4 @@ services:
         privileged: true
         volumes:
         - /dev/i2c-1:/dev/i2c-1
-        command: "/usr/bin/opendlv-device-ultrasonic-srf08 --dev=/dev/i2c-1 --bus-address=112 --cid=111 --freq=5 --id=0"
+        command: "/usr/bin/opendlv-device-ultrasonic-srf08 --dev=/dev/i2c-1 --bus-address=112 --cid=160 --freq=5 --id=0"
