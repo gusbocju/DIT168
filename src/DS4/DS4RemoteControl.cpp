@@ -20,8 +20,9 @@ int main(int argc, char** argv)
         const uint16_t FREQ = (uint16_t) std::stoi(commandlineArguments["freq"]);
         const uint16_t CID = (uint16_t) std::stoi(commandlineArguments["cid"]);
 
+        int direction = 1;
         cluon::OD4Session od4(CID, [](cluon::data::Envelope /*&&envelope*/) noexcept {});
-        auto atFrequency{[&od4, &DEV, &FREQ, &CID]() -> bool {
+        auto atFrequency{[&od4, &direction, &DEV, &FREQ, &CID]() -> bool {
             FILE *file = fopen(DEV.c_str(), "rb");
             if (file != nullptr) {
                 DS4Event *event = (DS4Event *)malloc(sizeof(DS4Event));
@@ -34,7 +35,7 @@ int main(int argc, char** argv)
                                 case Triangle: break;
                                 case Square:   break;
                                 case L1:       break;
-                                case R1:       break;
+                                case R1:       direction = direction > 0 ? -1 : 1; break;
                                 case L2:       break;
                                 case R2:       break;
                                 case Share:    break;
@@ -59,7 +60,7 @@ int main(int argc, char** argv)
                                 case RStickY: break;
                                 case R2Y: {
                                     opendlv::proxy::PedalPositionReading pedalPositionReading;
-                                    pedalPositionReading.position((1+absToPercentage(event->data))/5.7);
+                                    pedalPositionReading.position(direction*(1+absToPercentage(event->data))/5.7);
                                     od4.send(pedalPositionReading);
                                     std::cout << "[DS4Controller] sending new PedalPositionReading: " << pedalPositionReading.position() << std::endl;
                                 } break;
