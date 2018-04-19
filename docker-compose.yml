@@ -34,11 +34,13 @@ services:
         restart: always
         command: "/opt/MARBLE.V2V --cid=160 --freq=10 --ip=172.20.10.12 --id=5"
 
-    dit168-signal-viewer:
+    opendlv-signal-viewer:
         image: gusbocju/dit168.marble:latest-ubuntu-armhf
         network_mode: "host"
+        ports:
+        - 8081:8081
         restart: always
-        command: "/opt/bin/websocketd --staticdir=/opt/signal-viewer --port=8080 --binary=true /usr/bin/cluon-OD4toStdout --cid=160"
+        command: "/opt/bin/websocketd --staticdir=/opt/signal-viewer --port=8081 --binary=true /usr/bin/cluon-OD4toStdout --cid=160"
 
     device-ultrasonic-srf08-front:
         image: chalmersrevere/opendlv-device-ultrasonic-srf08-armhf:v0.0.6
@@ -46,4 +48,5 @@ services:
         privileged: true
         volumes:
         - /dev/i2c-1:/dev/i2c-1
+        restart: always
         command: "/usr/bin/opendlv-device-ultrasonic-srf08 --dev=/dev/i2c-1 --bus-address=112 --cid=160 --freq=5 --id=0"
