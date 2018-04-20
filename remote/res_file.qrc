@@ -1,0 +1,16 @@
+<RCC>
+    <qresource prefix="/res">
+        <file>res_file.qrc</file>
+        <file>stopButton.png</file>
+        <file>stateDisconnected.png</file>
+        <file>stateConnected.png</file>
+        <file>rightImgPressed.png</file>
+        <file>rightImg.png</file>
+        <file>reverseImgPressed.png</file>
+        <file>reverseImg.png</file>
+        <file>leftImgPressed.png</file>
+        <file>leftImg.png</file>
+        <file>forwardImgPressed.png</file>
+        <file>forwardImg.png</file>
+    </qresource>
+</RCC>
