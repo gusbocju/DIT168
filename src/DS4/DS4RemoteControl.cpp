@@ -35,7 +35,8 @@ int main(int argc, char** argv)
                                 case Triangle: break;
                                 case Square:   break;
                                 case L1:       break;
-                                case R1:       direction = direction > 0 ? -1 : 1; break;
+                                case R1: std::cout << "[DS4Controller] switching gears..." << std::endl;
+                                               direction = direction > 0 ? -1 : 1; break;
                                 case L2:       break;
                                 case R2:       break;
                                 case Share:    break;
@@ -59,8 +60,12 @@ int main(int argc, char** argv)
                                 case RStickX: break;
                                 case RStickY: break;
                                 case R2Y: {
+                                    float speed = 0;
+                                    speed  = (1f +absToPercentage(event->data)) /8f;
+                                    speed += speed >= 0.025 ? 0.1 : 0;
+                                    speed *= direction;
                                     opendlv::proxy::PedalPositionReading pedalPositionReading;
-                                    pedalPositionReading.position(direction*(1+absToPercentage(event->data))/5.7);
+                                    pedalPositionReading.position(speed);
                                     od4.send(pedalPositionReading);
                                     std::cout << "[DS4Controller] sending new PedalPositionReading: " << pedalPositionReading.position() << std::endl;
                                 } break;
