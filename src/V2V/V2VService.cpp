@@ -2,6 +2,7 @@
 
 std::shared_ptr<cluon::OD4Session> od4;
 
+
 int main(int argc, char **argv) {
     int retVal = 0;
     auto commandlineArguments = cluon::getCommandlineArguments(argc, argv);
@@ -24,8 +25,7 @@ int main(int argc, char **argv) {
         float pedalPos = 0, steeringAngle = 0;
 
         // Listen to steering instructions sent internally:
-        od4 =
-        std::make_shared<cluon::OD4Session>(CID,
+        od4 = std::make_shared<cluon::OD4Session>(CID,
         [&pedalPos, &steeringAngle](cluon::data::Envelope &&envelope) noexcept {
             if (envelope.dataType() == 1041) {
                 opendlv::proxy::PedalPositionReading ppr =
@@ -139,8 +139,6 @@ V2VService::V2VService(std::string ip, std::string id) {
                  std::cout << "received '" << followerStatus.LongName()
                            << "' from '" << sender << "'!" << std::endl;
 
-                 /* TODO: implement lead logic (if applicable) */
-
                  od4->send(followerStatus);
                  break;
              }
@@ -209,13 +207,14 @@ void V2VService::stopFollow(std::string vehicleIp) {
         toLeader->send(encode(stopFollow));
         leaderIp = "";
         toLeader.reset();
+        od4->send(stopFollow);
     }
     if (vehicleIp == followerIp) {
         toFollower->send(encode(stopFollow));
         followerIp = "";
         toFollower.reset();
+        od4->send(stopFollow);
     }
-    od4->send(stopFollow);
 }
 
 /**

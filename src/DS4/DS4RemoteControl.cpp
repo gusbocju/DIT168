@@ -20,7 +20,7 @@ int main(int argc, char** argv)
         const uint16_t FREQ = (uint16_t) std::stoi(commandlineArguments["freq"]);
         const uint16_t CID = (uint16_t) std::stoi(commandlineArguments["cid"]);
 
-        int direction = 1;
+        float direction = 1.f;
         cluon::OD4Session od4(CID, [](cluon::data::Envelope /*&&envelope*/) noexcept {});
         auto atFrequency{[&od4, &direction, &DEV, &FREQ, &CID]() -> bool {
             FILE *file = fopen(DEV.c_str(), "rb");
@@ -61,8 +61,8 @@ int main(int argc, char** argv)
                                 case RStickY: break;
                                 case R2Y: {
                                     float speed = 0;
-                                    speed  = (1f +absToPercentage(event->data)) /8f;
-                                    speed += speed >= 0.025 ? 0.1 : 0;
+                                    speed  = (1.f +absToPercentage(event->data)) /8.f;
+                                    speed += speed >= 0.025f ? 0.1f : 0.f;
                                     speed *= direction;
                                     opendlv::proxy::PedalPositionReading pedalPositionReading;
                                     pedalPositionReading.position(speed);
@@ -89,5 +89,5 @@ int main(int argc, char** argv)
 }
 
 float absToPercentage(int16_t data) {
-    return abs(data)/MAX *(data >= 0 ? 1 : -1);
+    return (float)(abs(data)/MAX *(data >= 0.f ? 1.f : -1.f));
 }
