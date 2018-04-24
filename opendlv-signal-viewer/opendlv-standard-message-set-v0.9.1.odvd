@@ -363,3 +363,17 @@ message LeaderStatus [id = 2001] {
 message FollowerStatus [id = 3001] {
   uint8 empty [id = 1];
 }
+
+/* DS4 */
+
+message MARBLE.StartFollow [id = 9001] {
+  uint8 groupId [id = 1];
+}
+
+message MARBLE.StopFollow [id = 9002] {
+  uint8 empty [id = 1];
+}
+
+message MARBLE.StopLead [id = 9003] {
+  uint8 empty [id = 1];
+}
