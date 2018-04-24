@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/">
         <file>main.qml</file>
+        <file>V2VPopUp.qml</file>
     </qresource>
 </RCC>

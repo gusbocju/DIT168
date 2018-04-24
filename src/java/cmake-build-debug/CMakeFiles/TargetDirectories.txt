@@ -1,0 +1,3 @@
+/home/vinny/ada/Projects/DIT168/src/java/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/vinny/ada/Projects/DIT168/src/java/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/vinny/ada/Projects/DIT168/src/java/cmake-build-debug/CMakeFiles/MARBLE.DS4.dir

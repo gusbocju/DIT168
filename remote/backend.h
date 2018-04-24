@@ -19,6 +19,8 @@ public slots:
     void moveA();
     void moveS();
     void moveD();
+    void startV2V();
+    void stopV2V();
 };
 
 #endif // BACKEND_H
