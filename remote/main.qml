@@ -5,8 +5,8 @@ import io.qt.examples.backend 1.0
 Window {
 
     visible: true
-    width: 200
-    height: 200
+    width: 400
+    height: 400
     title: qsTr("Remote Control")
 
     BackEnd{
@@ -84,4 +84,5 @@ Window {
         height: 30
         source: "res/stopButton.png"
     }
+
 }
