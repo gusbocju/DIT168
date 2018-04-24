@@ -194,11 +194,11 @@ remote: CMakeFiles/remote.dir/remote_automoc.cpp.o
 remote: CMakeFiles/remote.dir/CMakeFiles/remote.dir/qrc_qml.cpp.o
 remote: CMakeFiles/remote.dir/CMakeFiles/remote.dir/qrc_res_file.cpp.o
 remote: CMakeFiles/remote.dir/build.make
-remote: /home/parallels/Qt5.7.0/5.7/gcc_64/lib/libQt5Quick.so.5.7.0
-remote: /home/parallels/Qt5.7.0/5.7/gcc_64/lib/libQt5Qml.so.5.7.0
-remote: /home/parallels/Qt5.7.0/5.7/gcc_64/lib/libQt5Network.so.5.7.0
-remote: /home/parallels/Qt5.7.0/5.7/gcc_64/lib/libQt5Gui.so.5.7.0
-remote: /home/parallels/Qt5.7.0/5.7/gcc_64/lib/libQt5Core.so.5.7.0
+remote: /home/parallels/Qt5.9.1/5.9.1/gcc_64/lib/libQt5Quick.so.5.9.1
+remote: /home/parallels/Qt5.9.1/5.9.1/gcc_64/lib/libQt5Qml.so.5.9.1
+remote: /home/parallels/Qt5.9.1/5.9.1/gcc_64/lib/libQt5Network.so.5.9.1
+remote: /home/parallels/Qt5.9.1/5.9.1/gcc_64/lib/libQt5Gui.so.5.9.1
+remote: /home/parallels/Qt5.9.1/5.9.1/gcc_64/lib/libQt5Core.so.5.9.1
 remote: CMakeFiles/remote.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/parallels/DIT168/DIT168/build-remote-Desktop_Qt_5_7_0_GCC_64bit-Default/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking CXX executable remote"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/remote.dir/link.txt --verbose=$(VERBOSE)

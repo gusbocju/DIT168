@@ -1,0 +1,43 @@
+/snap/clion/17/bin/cmake/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /home/vinny/ada/Projects/DIT168/remote
+CMake Warning (dev) at CMakeLists.txt:13:
+  Syntax Warning in cmake code at column 52
+
+  Argument not separated from preceding token by whitespace.
+This warning is for project developers.  Use -Wno-dev to suppress it.
+
+CMake Warning (dev) at CMakeLists.txt:13:
+  Syntax Warning in cmake code at column 66
+
+  Argument not separated from preceding token by whitespace.
+This warning is for project developers.  Use -Wno-dev to suppress it.
+
+CMake Warning (dev) at CMakeLists.txt:13:
+  Syntax Warning in cmake code at column 79
+
+  Argument not separated from preceding token by whitespace.
+This warning is for project developers.  Use -Wno-dev to suppress it.
+
+-- The CXX compiler identification is GNU 7.2.0
+-- Check for working CXX compiler: /usr/bin/c++
+-- Check for working CXX compiler: /usr/bin/c++ -- works
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+CMake Error at /usr/lib/x86_64-linux-gnu/cmake/Qt5/Qt5Config.cmake:28 (find_package):
+  Could not find a package configuration file provided by "Qt5Quick" with any
+  of the following names:
+
+    Qt5QuickConfig.cmake
+    qt5quick-config.cmake
+
+  Add the installation prefix of "Qt5Quick" to CMAKE_PREFIX_PATH or set
+  "Qt5Quick_DIR" to a directory containing one of the above files.  If
+  "Qt5Quick" provides a separate development package or SDK, be sure it has
+  been installed.
+Call Stack (most recent call first):
+  CMakeLists.txt:11 (find_package)
+
+
+-- Configuring incomplete, errors occurred!
+See also "/home/vinny/ada/Projects/DIT168/remote/cmake-build-debug/CMakeFiles/CMakeOutput.log".

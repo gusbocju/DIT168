@@ -1,0 +1,4 @@
+/snap/clion/17/bin/cmake/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /home/vinny/ada/Projects/DIT168/src/java
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/vinny/ada/Projects/DIT168/src/java/cmake-build-debug

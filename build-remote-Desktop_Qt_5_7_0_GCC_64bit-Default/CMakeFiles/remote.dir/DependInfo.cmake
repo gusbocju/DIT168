@@ -26,13 +26,13 @@ set(CMAKE_TARGET_DEFINITIONS_CXX
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
   "."
   "/home/parallels/DIT168/DIT168/remote"
-  "/home/parallels/Qt5.7.0/5.7/gcc_64/include"
-  "/home/parallels/Qt5.7.0/5.7/gcc_64/include/QtCore"
-  "/home/parallels/Qt5.7.0/5.7/gcc_64/./mkspecs/linux-g++"
-  "/home/parallels/Qt5.7.0/5.7/gcc_64/include/QtQuick"
-  "/home/parallels/Qt5.7.0/5.7/gcc_64/include/QtQml"
-  "/home/parallels/Qt5.7.0/5.7/gcc_64/include/QtNetwork"
-  "/home/parallels/Qt5.7.0/5.7/gcc_64/include/QtGui"
+  "/home/parallels/Qt5.9.1/5.9.1/gcc_64/include"
+  "/home/parallels/Qt5.9.1/5.9.1/gcc_64/include/QtCore"
+  "/home/parallels/Qt5.9.1/5.9.1/gcc_64/./mkspecs/linux-g++"
+  "/home/parallels/Qt5.9.1/5.9.1/gcc_64/include/QtQuick"
+  "/home/parallels/Qt5.9.1/5.9.1/gcc_64/include/QtQml"
+  "/home/parallels/Qt5.9.1/5.9.1/gcc_64/include/QtNetwork"
+  "/home/parallels/Qt5.9.1/5.9.1/gcc_64/include/QtGui"
   )
 
 # Targets to which this target links.

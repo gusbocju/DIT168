@@ -17,5 +17,11 @@ void BackEnd::moveS(){
 void BackEnd::moveD(){
     std::cout << "moved! - D" << std::endl;
 }
+void BackEnd::startV2V(){
+    std::cout << "started v2v" << std::endl;
+}
+void BackEnd::stopV2V(){
+    std::cout << "stopped v2v" << std::endl;
+}
 
 
