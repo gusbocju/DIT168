@@ -48,3 +48,32 @@ td.field-plot {
 
 td.field-value {
 }
+
+h2{
+  color: #6BBAA7;
+}
+
+.light{
+  background-color: #9aabb9 ;
+}
+
+.navy{
+  font-color: #193446;
+}
+
+.width{
+  width: 50%;
+  display: inline-block}
+
+.btn-primary {
+  width:50%;
+  display: inline-block;
+  vertical-align: top;
+  horiz-align: right;
+  float: right;
+  background-color: lightseagreen;
+  border: none;
+    }.btn:action{
+   background-color: purple;}
+
+
