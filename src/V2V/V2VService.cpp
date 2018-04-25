@@ -199,7 +199,7 @@ void V2VService::announcePresence() {
  * @param vehicleIp - IP of the target for the FollowRequest
  */
 void V2VService::followRequest(std::string vehicleIp) {
-    if (!leaderIp.find('.')) return;
+    if (!leaderIp.empty() || vehicleIp.empty()) return;
     std::cout << "[UDP] FollowRequest --> " << vehicleIp << std::endl;
     leaderIp = vehicleIp;
     toLeader = std::make_shared<cluon::UDPSender>(leaderIp, DEFAULT_PORT);
@@ -229,6 +229,7 @@ void V2VService::followResponse() {
  * @param vehicleIp - IP of the target for the request
  */
 void V2VService::stopFollow(std::string vehicleIp) {
+    if (vehicleIp.empty()) return;
     StopFollow stopFollow;
     if (vehicleIp == leaderIp) {
         std::cout << "[UDP] StopFollow --> " << vehicleIp << std::endl;
