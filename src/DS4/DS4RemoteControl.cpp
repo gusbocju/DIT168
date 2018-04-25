@@ -8,7 +8,8 @@ int main(int argc, char** argv)
 {
     int retVal = 0;
     auto commandlineArguments = cluon::getCommandlineArguments(argc, argv);
-    if (0 == commandlineArguments.count("dev") || 0 == commandlineArguments.count("freq") || 0 == commandlineArguments.count("cid")) {
+    if (0 == commandlineArguments.count("dev") || 0 == commandlineArguments.count("freq") ||
+        0 == commandlineArguments.count("cid") || 0 == commandlineArguments.count("os")) {
         std::cerr << argv[0] << " reads (wireless) controller input from the specified path and relays it to components on the BeagleBone."
                   << std::endl;
         std::cerr << "Usage:   " << argv[0] << " --dev=<path toController> --freq=<int pollingRate> --cid=<OD4Session toComponents>"
@@ -32,32 +33,36 @@ int main(int argc, char** argv)
                         if ((event->type &0x0F) == 1) {
                             switch (event->id) {
                                 case X:
-                                    switch (lastCmd) {
-                                        case Circle: {
-                                            if (targetGroup > 0) {
-                                                std::cout << "[DS4] issuing StopFollow..." << std::endl;
-                                                MARBLE::StopFollow sf;
+                                    if (event->data == 1) {
+                                        switch (lastCmd) {
+                                            case Circle: {
+                                                if (targetGroup > 0) {
+                                                    std::cout << "[DS4] Stopping to act as follower!" << std::endl;
+                                                    MARBLE::StopFollow sf;
+                                                    od4.send(sf);
+                                                } else if (targetGroup < 0) {
+                                                    std::cout << "[DS4] Stopping to act as leader!" << std::endl;
+                                                    MARBLE::StopLead sl;
+                                                    od4.send(sl);
+                                                }
+                                            } break;
+                                            case Triangle: {
+                                                std::cout << "[DS4] Starting to follow <" << targetGroup << ">!" << std::endl;
+                                                MARBLE::StartFollow sf;
+                                                sf.groupId((uint8_t) targetGroup);
                                                 od4.send(sf);
-                                            } else if (targetGroup < 0) {
-                                                std::cout << "[DS4] issuing StopLead..." << std::endl;
-                                                MARBLE::StopLead sl;
-                                                od4.send(sl);
-                                            }
-                                        } break;
-                                        case Triangle: {
-                                            std::cout << "[DS4] issuing StartFollow with groupId '"
-                                                         << targetGroup << "'..." << std::endl;
-                                            MARBLE::StartFollow sf;
-                                            sf.groupId((uint8_t)targetGroup);
-                                            od4.send(sf);
-                                        } break;
-                                    }; lastCmd = 0; targetGroup = 0; break;
-                                case Circle:   lastCmd = Circle; targetGroup = 0; break;
-                                case Triangle: lastCmd = Triangle; targetGroup = 0; break;
+                                            } break;
+                                        } lastCmd = 0; targetGroup = 0;
+                                    } break;
+                                case Circle:   if (event->data == 1) { lastCmd = Circle; targetGroup = 0; } break;
+                                case Triangle: if (event->data == 1) { lastCmd = Triangle; targetGroup = 0; } break;
                                 case Square:   break;
                                 case L1:       break;
-                                case R1:       std::cout << "[DS4] switching gears..." << std::endl;
-                                               direction = direction > 0 ? -1 : 1; break;
+                                case R1:
+                                    if (event->data == 1) {
+                                        std::cout << "[DS4] Switching gears!" << std::endl;
+                                        direction = direction > 0 ? -1 : 1;
+                                    } break;
                                 case L2:       break;
                                 case R2:       break;
                                 case Share:    break;
@@ -74,7 +79,7 @@ int main(int argc, char** argv)
                                     opendlv::proxy::GroundSteeringReading steeringReading;
                                     steeringReading.groundSteering(absToPercentage(event->data)*(-1));
                                     od4.send(steeringReading);
-                                    std::cout << "[DS4] sending new GroundSteeringReading: " << steeringReading.groundSteering() << std::endl;
+                                    std::cout << "[DS4] GroundSteeringReading: " << steeringReading.groundSteering() << std::endl;
                                 } break;
                                 case LStickY: break;
                                 case L2Y:     break;
@@ -88,7 +93,7 @@ int main(int argc, char** argv)
                                     opendlv::proxy::PedalPositionReading pedalPositionReading;
                                     pedalPositionReading.position(speed);
                                     od4.send(pedalPositionReading);
-                                    std::cout << "[DS4] sending new PedalPositionReading: " << pedalPositionReading.position() << std::endl;
+                                    std::cout << "[DS4] PedalPositionReading: " << pedalPositionReading.position() << std::endl;
                                 } break;
                                 case PadX: {
                                     if (lastCmd == Triangle) {
