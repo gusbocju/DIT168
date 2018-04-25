@@ -130,6 +130,7 @@ Window {
         MouseArea {
             anchors.fill: parent
             onClicked: {
+                        backend.startV2V();
                         var component = Qt.createComponent("V2VPopUp.qml");
                         var win = component.createObject(this);
                         win.show();

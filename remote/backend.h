@@ -21,6 +21,7 @@ public slots:
     void moveD();
     void startV2V();
     void stopV2V();
+    bool connection();
 };
 
 #endif // BACKEND_H

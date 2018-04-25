@@ -3,6 +3,7 @@ import QtQuick.Window 2.1 // needed for the Window component
 
 Window {
 
+    id: window
     width: 200
     height: 150
 
@@ -61,6 +62,14 @@ Window {
             y: 0
             width: 60
             height: 23
+            onClicked: if (backend.connection()){
+                       window.close();  //Instead of here, the call for the method to connect should go.
+                       } else {
+                           var component = Qt.createComponent("errorMsg.qml");
+                           var win = component.createObject(this);
+                           win.show();
+                           }
+
         }
     }
 }

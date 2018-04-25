@@ -2,5 +2,6 @@
     <qresource prefix="/">
         <file>main.qml</file>
         <file>V2VPopUp.qml</file>
+        <file>errorMsg.qml</file>
     </qresource>
 </RCC>

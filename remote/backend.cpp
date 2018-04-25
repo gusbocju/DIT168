@@ -23,5 +23,8 @@ void BackEnd::startV2V(){
 void BackEnd::stopV2V(){
     std::cout << "stopped v2v" << std::endl;
 }
+bool BackEnd::connection(){
+    return false;
+}
 
 
