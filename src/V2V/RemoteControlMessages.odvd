@@ -5,3 +5,15 @@ message opendlv.proxy.PedalPositionReading [id = 1041] {
 message opendlv.proxy.GroundSteeringReading [id = 1045] {
   float groundSteering [id = 1];
 }
+
+message MARBLE.StartFollow [id = 9001] {
+  uint8 groupId [id = 1];
+}
+
+message MARBLE.StopFollow [id = 9002] {
+  uint8 empty [id = 1];
+}
+
+message MARBLE.StopLead [id = 9003] {
+  uint8 empty [id = 1];
+}

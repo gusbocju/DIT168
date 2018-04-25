@@ -21,8 +21,9 @@ int main(int argc, char** argv)
         const uint16_t CID = (uint16_t) std::stoi(commandlineArguments["cid"]);
 
         float direction = 1.f;
+        int lastCmd = 0, targetGroup = 0;
         cluon::OD4Session od4(CID, [](cluon::data::Envelope /*&&envelope*/) noexcept {});
-        auto atFrequency{[&od4, &direction, &DEV, &FREQ, &CID]() -> bool {
+        auto atFrequency{[&od4, &direction, &lastCmd, &targetGroup, &DEV, &FREQ, &CID]() -> bool {
             FILE *file = fopen(DEV.c_str(), "rb");
             if (file != nullptr) {
                 DS4Event *event = (DS4Event *)malloc(sizeof(DS4Event));
@@ -30,12 +31,32 @@ int main(int argc, char** argv)
                     if (fread(event, sizeof(DS4Event), 1, file)) {
                         if ((event->type &0x0F) == 1) {
                             switch (event->id) {
-                                case X:        break;
-                                case Circle:   break;
-                                case Triangle: break;
+                                case X:
+                                    switch (lastCmd) {
+                                        case Circle: {
+                                            if (targetGroup > 0) {
+                                                std::cout << "[DS4] issuing StopFollow..." << std::endl;
+                                                MARBLE::StopFollow sf;
+                                                od4.send(sf);
+                                            } else if (targetGroup < 0) {
+                                                std::cout << "[DS4] issuing StopLead..." << std::endl;
+                                                MARBLE::StopLead sl;
+                                                od4.send(sl);
+                                            }
+                                        } break;
+                                        case Triangle: {
+                                            std::cout << "[DS4] issuing StartFollow with groupId '"
+                                                         << targetGroup << "'..." << std::endl;
+                                            MARBLE::StartFollow sf;
+                                            sf.groupId((uint8_t)targetGroup);
+                                            od4.send(sf);
+                                        } break;
+                                    }; lastCmd = 0; targetGroup = 0; break;
+                                case Circle:   lastCmd = Circle; targetGroup = 0; break;
+                                case Triangle: lastCmd = Triangle; targetGroup = 0; break;
                                 case Square:   break;
                                 case L1:       break;
-                                case R1: std::cout << "[DS4Controller] switching gears..." << std::endl;
+                                case R1:       std::cout << "[DS4] switching gears..." << std::endl;
                                                direction = direction > 0 ? -1 : 1; break;
                                 case L2:       break;
                                 case R2:       break;
@@ -53,7 +74,7 @@ int main(int argc, char** argv)
                                     opendlv::proxy::GroundSteeringReading steeringReading;
                                     steeringReading.groundSteering(absToPercentage(event->data)*(-1));
                                     od4.send(steeringReading);
-                                    std::cout << "[DS4Controller] sending new GroundSteeringReading: " << steeringReading.groundSteering() << std::endl;
+                                    std::cout << "[DS4] sending new GroundSteeringReading: " << steeringReading.groundSteering() << std::endl;
                                 } break;
                                 case LStickY: break;
                                 case L2Y:     break;
@@ -67,10 +88,18 @@ int main(int argc, char** argv)
                                     opendlv::proxy::PedalPositionReading pedalPositionReading;
                                     pedalPositionReading.position(speed);
                                     od4.send(pedalPositionReading);
-                                    std::cout << "[DS4Controller] sending new PedalPositionReading: " << pedalPositionReading.position() << std::endl;
+                                    std::cout << "[DS4] sending new PedalPositionReading: " << pedalPositionReading.position() << std::endl;
                                 } break;
-                                case PadX:    break;
-                                case PadY:    break;
+                                case PadX: {
+                                    if (lastCmd == Triangle) {
+                                        targetGroup += event->data;
+                                        if (targetGroup < 0) targetGroup = 13;
+                                        else if (targetGroup > 13) targetGroup = 0;
+                                    }
+                                } break;
+                                case PadY: {
+                                    if (lastCmd == Circle) targetGroup += event->data;
+                                } break;
                                 default:      break;
                             }
                         }
