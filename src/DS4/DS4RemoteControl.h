@@ -15,7 +15,7 @@
 #define MAX  32767.0
 
 // UBUNTU
-/*
+
 typedef enum {
     X = 0,
     Circle = 1,
@@ -41,10 +41,10 @@ typedef enum {
     R2Y = 5,
     PadX = 6,
     PadY = 7
-} DS4Axis; */
+} DS4Axis;
 
 // DEBIAN
-
+/*
 typedef enum {
     X = 1,
     Circle = 2,
@@ -70,7 +70,7 @@ typedef enum {
     R2Y = 4,
     PadX = 6,
     PadY = 7
-} DS4Axis;
+} DS4Axis; */
 
 typedef struct {
     uint32_t timestamp;

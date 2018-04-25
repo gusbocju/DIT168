@@ -35,11 +35,11 @@ int main(int argc, char** argv)
                                     if (event->data == 1) {
                                         switch (lastCmd) {
                                             case Circle: {
-                                                if (targetGroup > 0) {
+                                                if (targetGroup < 0) {
                                                     std::cout << "[DS4] Stopping to act as follower!" << std::endl;
                                                     MARBLE::StopFollow sf;
                                                     od4.send(sf);
-                                                } else if (targetGroup < 0) {
+                                                } else if (targetGroup > 0) {
                                                     std::cout << "[DS4] Stopping to act as leader!" << std::endl;
                                                     MARBLE::StopLead sl;
                                                     od4.send(sl);
@@ -60,7 +60,7 @@ int main(int argc, char** argv)
                                 case R1:
                                     if (event->data == 1) {
                                         std::cout << "[DS4] Switching gears!" << std::endl;
-                                        direction = direction > 0 ? -1 : 1;
+                                        direction = direction > 0 ? -3 : 1;
                                     } break;
                                 case L2:       break;
                                 case R2:       break;
@@ -86,8 +86,8 @@ int main(int argc, char** argv)
                                 case RStickY: break;
                                 case R2Y: {
                                     float speed = 0;
-                                    speed  = (1.f +absToPercentage(event->data)) /8.f;
-                                    speed += speed >= 0.025f ? 0.1f : 0.f;
+                                    speed  = (1.f +absToPercentage(event->data)) /13.333f;
+                                    speed += speed >= 0.0025f ? 0.1f : 0.f;
                                     speed *= direction;
                                     opendlv::proxy::PedalPositionReading pedalPositionReading;
                                     pedalPositionReading.position(speed);
@@ -95,8 +95,8 @@ int main(int argc, char** argv)
                                     std::cout << "[DS4] PedalPositionReading: " << pedalPositionReading.position() << std::endl;
                                 } break;
                                 case PadX: {
-                                    if (lastCmd == Triangle) {
-                                        targetGroup += event->data;
+                                    if (lastCmd == Triangle && event->data != 0) {
+                                        targetGroup += event->data > 0 ? 1 : -1;
                                         if (targetGroup < 0) targetGroup = 13;
                                         else if (targetGroup > 13) targetGroup = 0;
                                     }
