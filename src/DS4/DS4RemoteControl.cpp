@@ -86,7 +86,7 @@ int main(int argc, char** argv)
                                 case RStickY: break;
                                 case R2Y: {
                                     float speed = 0;
-                                    speed  = (1.f +absToPercentage(event->data)) /13.333f;
+                                    speed  = (1.f +absToPercentage(event->data)) /20.f;
                                     speed += speed >= 0.0025f ? 0.1f : 0.f;
                                     speed *= direction;
                                     opendlv::proxy::PedalPositionReading pedalPositionReading;

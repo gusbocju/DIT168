@@ -37,7 +37,7 @@ int main(int argc, char **argv) {
                 } break;
                 case 9001: {
                     MARBLE::StartFollow sf = cluon::extractMessage<MARBLE::StartFollow>(std::move(envelope));
-                    v2vService->followRequest(std::to_string(sf.groupId()));
+                    v2vService->followRequest(v2vService->presentCars[std::to_string(sf.groupId())]);
                 } break;
                 case 9002: {
                     MARBLE::StopFollow sf = cluon::extractMessage<MARBLE::StopFollow>(std::move(envelope));
@@ -55,11 +55,11 @@ int main(int argc, char **argv) {
         auto atFrequency{[&v2vService, &pedalPos, &steeringAngle]() -> bool {
             // Check for potentially lost connections:
             if (!v2vService->getLeader().empty() && V2VService::getTime() - v2vService->lastLeaderStatus >= 1000) {
-                std::cout << "[V2V] issuing StopFollow to the leading vehicle..." << std::endl;
+                std::cout << "[V2V] StopFollow --> Leader" << std::endl;
                 v2vService->stopFollow(v2vService->getLeader());
             }
             if (!v2vService->getFollower().empty() && V2VService::getTime() - v2vService->lastFollowerStatus >= 1000) {
-                std::cout << "[V2V] issuing StopFollow to the following vehicle..." << std::endl;
+                std::cout << "[V2V] StopFollow --> Follower" << std::endl;
                 v2vService->stopFollow(v2vService->getFollower());
             }
             // Spam announcePresence(), followerStatus() and leaderStatus():
@@ -91,11 +91,8 @@ V2VService::V2VService(std::string ip, std::string id) {
         switch (envelope.dataType()) {
             case ANNOUNCE_PRESENCE: {
                 AnnouncePresence ap = cluon::extractMessage<AnnouncePresence>(std::move(envelope));
-                /* std::cout << "[OD4] received 'AnnouncePresence' from '"
-                          << ap.vehicleIp() << "', GroupID '"
-                          << ap.groupId() << "'!" << std::endl; */
-
                 presentCars[ap.groupId()] = ap.vehicleIp();
+
                 od4->send(ap);
                 break;
             }
@@ -115,8 +112,7 @@ V2VService::V2VService(std::string ip, std::string id) {
          switch (msg.first) {
              case FOLLOW_REQUEST: {
                  FollowRequest followRequest = decode<FollowRequest>(msg.second);
-                 std::cout << "[UDP] received '" << followRequest.LongName()
-                           << "' from '" << sender << "'!" << std::endl;
+                 std::cout << "[UDP] " << sender << " --> FollowRequest" << std::endl;
 
                  // After receiving a FollowRequest, check first if there is currently no car already following.
                  if (followerIp.empty()) {
@@ -131,27 +127,28 @@ V2VService::V2VService(std::string ip, std::string id) {
              }
              case FOLLOW_RESPONSE: {
                  FollowResponse followResponse = decode<FollowResponse>(msg.second);
-                 std::cout << "[UDP] received '" << followResponse.LongName()
-                           << "' from '" << sender << "'!" << std::endl;
+                 std::cout << "[UDP] " << sender << " --> FollowResponse" << std::endl;
 
                  od4->send(followResponse);
                  break;
              }
              case STOP_FOLLOW: {
                  StopFollow stopFollow = decode<StopFollow>(msg.second);
-                 std::cout << "[UDP] received '" << stopFollow.LongName()
-                           << "' from '" << sender << "'!" << std::endl;
+                 std::cout << "[UDP] " << sender << " --> StopFollow ";
 
                  // Clear either follower or leader slot, depending on current role.
                  unsigned long len = sender.find(':');
                  if (sender.substr(0, len) == followerIp) {
+                     std::cout << "(Follower)" << std::endl;
                      followerIp = "";
                      toFollower.reset();
                  }
                  else if (sender.substr(0, len) == leaderIp) {
+                     std::cout << "(Leader)" << std::endl;
                      leaderIp = "";
                      toLeader.reset();
                  }
+                 else std::cout << "(Unknown)" << std::endl;
 
                  od4->send(stopFollow);
                  break;
@@ -159,8 +156,6 @@ V2VService::V2VService(std::string ip, std::string id) {
              case FOLLOWER_STATUS: {
                  FollowerStatus followerStatus = decode<FollowerStatus>(msg.second);
                  lastFollowerStatus = getTime();
-                 /* std::cout << "[UDP] received '" << followerStatus.LongName()
-                           << "' from '" << sender << "'!" << std::endl; */
 
                  od4->send(followerStatus);
                  break;
@@ -168,8 +163,6 @@ V2VService::V2VService(std::string ip, std::string id) {
              case LEADER_STATUS: {
                  LeaderStatus leaderStatus = decode<LeaderStatus>(msg.second);
                  lastLeaderStatus = getTime();
-                 /* std::cout << "[UDP] received '" << leaderStatus.LongName()
-                           << "' from '" << sender << "'!" << std::endl; */
 
                  /* TODO: implement (proper) follow logic! */
                  opendlv::proxy::PedalPositionReading ppr;
@@ -206,8 +199,8 @@ void V2VService::announcePresence() {
  * @param vehicleIp - IP of the target for the FollowRequest
  */
 void V2VService::followRequest(std::string vehicleIp) {
-    if (!leaderIp.empty()) return;
-    std::cout << "[UDP] sending FollowRequest to '" << vehicleIp << "'!" << std::endl;
+    if (!leaderIp.find('.')) return;
+    std::cout << "[UDP] FollowRequest --> " << vehicleIp << std::endl;
     leaderIp = vehicleIp;
     toLeader = std::make_shared<cluon::UDPSender>(leaderIp, DEFAULT_PORT);
     FollowRequest followRequest;
@@ -222,7 +215,7 @@ void V2VService::followRequest(std::string vehicleIp) {
  */
 void V2VService::followResponse() {
     if (followerIp.empty()) return;
-    std::cout << "[UDP] sending FollowResponse!" << std::endl;
+    std::cout << "[UDP] FollowResponse --> " << followerIp << std::endl;
     FollowResponse followResponse;
     lastFollowerStatus = getTime();
     toFollower->send(encode(followResponse));
@@ -238,14 +231,14 @@ void V2VService::followResponse() {
 void V2VService::stopFollow(std::string vehicleIp) {
     StopFollow stopFollow;
     if (vehicleIp == leaderIp) {
-        std::cout << "[UDP] sending StopFollow to '" << vehicleIp << "'!" << std::endl;
+        std::cout << "[UDP] StopFollow --> " << vehicleIp << std::endl;
         toLeader->send(encode(stopFollow));
         leaderIp = "";
         toLeader.reset();
         od4->send(stopFollow);
     }
     if (vehicleIp == followerIp) {
-        std::cout << "[UDP] sending StopFollow to '" << vehicleIp << "'!" << std::endl;
+        std::cout << "[UDP] StopFollow --> " << vehicleIp << std::endl;
         toFollower->send(encode(stopFollow));
         followerIp = "";
         toFollower.reset();
