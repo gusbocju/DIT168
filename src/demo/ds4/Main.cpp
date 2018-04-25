@@ -8,7 +8,7 @@ int main(int argc, char** argv)
 {
     int retVal = 0;
     auto commandlineArguments = cluon::getCommandlineArguments(argc, argv);
-    if (0 == commandlineArguments.count("dev") || 0 == commandlineArguments.count("os")) {
+    if (0 == commandlineArguments.count("dev")) {
         std::cerr << argv[0] << " reads (wireless) controller input from the specified path."
                   << std::endl;
         std::cerr << "Usage:   " << argv[0] << " --dev=<path toController>"

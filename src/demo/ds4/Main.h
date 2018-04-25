@@ -51,7 +51,7 @@ typedef enum {
     Square = 0,
     L1 = 4,
     R1 = 5,
-    L2 = 5,
+    L2 = 6,
     R2 = 7,
     Share = 8,
     Options = 9,
