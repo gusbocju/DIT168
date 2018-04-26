@@ -6,6 +6,10 @@ message opendlv.proxy.GroundSteeringReading [id = 1045] {
   float groundSteering [id = 1];
 }
 
+message opendlv.proxy.DistanceReading [id = 1039] {
+  float distance [id = 1];
+}
+
 message MARBLE.StartFollow [id = 9001] {
   uint8 groupId [id = 1];
 }
