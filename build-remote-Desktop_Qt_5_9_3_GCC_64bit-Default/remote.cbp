@@ -5,7 +5,7 @@
 		<Option title="remote"/>
 		<Option makefile_is_custom="1"/>
 		<Option compiler="gcc"/>
-		<Option virtualFolders="CMake Files\;CMake Files\..\;CMake Files\..\..\;CMake Files\..\..\..\;CMake Files\..\..\..\..\;CMake Files\..\..\..\..\Qt\;CMake Files\..\..\..\..\Qt\5.9.3\;CMake Files\..\..\..\..\Qt\5.9.3\gcc_64\;CMake Files\..\..\..\..\Qt\5.9.3\gcc_64\lib\;CMake Files\..\..\..\..\Qt\5.9.3\gcc_64\lib\cmake\;CMake Files\..\..\..\..\Qt\5.9.3\gcc_64\lib\cmake\Qt5\;CMake Files\..\..\..\..\Qt\5.9.3\gcc_64\lib\cmake\Qt5Core\;CMake Files\..\..\..\..\Qt\5.9.3\gcc_64\lib\cmake\Qt5Quick\;CMake Files\..\..\..\..\Qt\5.9.3\gcc_64\lib\cmake\Qt5Qml\;CMake Files\..\..\..\..\Qt\5.9.3\gcc_64\lib\cmake\Qt5Network\;CMake Files\..\..\..\..\Qt\5.9.3\gcc_64\lib\cmake\Qt5Gui\;"/>
+		<Option virtualFolders="CMake Files\;CMake Files\..\;CMake Files\..\..\;CMake Files\..\..\..\;CMake Files\..\..\..\..\;CMake Files\..\..\..\..\Qt\;CMake Files\..\..\..\..\Qt\5.9.3\;CMake Files\..\..\..\..\Qt\5.9.3\gcc_64\;CMake Files\..\..\..\..\Qt\5.9.3\gcc_64\lib\;CMake Files\..\..\..\..\Qt\5.9.3\gcc_64\lib\cmake\;CMake Files\..\..\..\..\Qt\5.9.3\gcc_64\lib\cmake\Qt5\;CMake Files\..\..\..\..\Qt\5.9.3\gcc_64\lib\cmake\Qt5Core\;CMake Files\..\..\..\..\Qt\5.9.3\gcc_64\lib\cmake\Qt5Quick\;CMake Files\..\..\..\..\Qt\5.9.3\gcc_64\lib\cmake\Qt5Qml\;CMake Files\..\..\..\..\Qt\5.9.3\gcc_64\lib\cmake\Qt5Network\;CMake Files\..\..\..\..\Qt\5.9.3\gcc_64\lib\cmake\Qt5Gui\;CMake Files\..\..\..\..\..\;CMake Files\..\..\..\..\..\..\;CMake Files\..\..\..\..\..\..\usr\;CMake Files\..\..\..\..\..\..\usr\local\;CMake Files\..\..\..\..\..\..\usr\local\lib\;CMake Files\..\..\..\..\..\..\usr\local\lib\x86_64-linux-gnu\;CMake Files\..\..\..\..\..\..\usr\local\lib\x86_64-linux-gnu\cmake\;CMake Files\..\..\..\..\..\..\usr\local\lib\x86_64-linux-gnu\cmake\libcluon\;"/>
 		<Build>
 			<Target title="all">
 				<Option working_dir="/home/vinny/ada/Projects/DIT168/build-remote-Desktop_Qt_5_9_3_GCC_64bit-Default"/>
@@ -27,84 +27,6 @@
 					<DistClean command="/usr/bin/make -j4 -f &quot;/home/vinny/ada/Projects/DIT168/build-remote-Desktop_Qt_5_9_3_GCC_64bit-Default/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
-			<Target title="remote">
-				<Option output="/home/vinny/ada/Projects/DIT168/build-remote-Desktop_Qt_5_9_3_GCC_64bit-Default/remote" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/home/vinny/ada/Projects/DIT168/build-remote-Desktop_Qt_5_9_3_GCC_64bit-Default"/>
-				<Option object_output="./"/>
-				<Option type="1"/>
-				<Option compiler="gcc"/>
-				<Compiler>
-					<Add option="-DQT_CORE_LIB"/>
-					<Add option="-DQT_NO_DEBUG"/>
-					<Add option="-DQT_QUICK_LIB"/>
-					<Add option="-DQT_QML_LIB"/>
-					<Add option="-DQT_NETWORK_LIB"/>
-					<Add option="-DQT_GUI_LIB"/>
-					<Add directory="/home/vinny/ada/Projects/DIT168/build-remote-Desktop_Qt_5_9_3_GCC_64bit-Default"/>
-					<Add directory="/home/vinny/ada/Projects/DIT168/remote"/>
-					<Add directory="/home/vinny/ada/Projects/DIT168/build-remote-Desktop_Qt_5_9_3_GCC_64bit-Default/remote_autogen/include"/>
-					<Add directory="/home/vinny/Qt/5.9.3/gcc_64/include"/>
-					<Add directory="/home/vinny/Qt/5.9.3/gcc_64/include/QtCore"/>
-					<Add directory="/home/vinny/Qt/5.9.3/gcc_64/./mkspecs/linux-g++"/>
-					<Add directory="/home/vinny/Qt/5.9.3/gcc_64/include/QtQuick"/>
-					<Add directory="/home/vinny/Qt/5.9.3/gcc_64/include/QtQml"/>
-					<Add directory="/home/vinny/Qt/5.9.3/gcc_64/include/QtNetwork"/>
-					<Add directory="/home/vinny/Qt/5.9.3/gcc_64/include/QtGui"/>
-					<Add directory="/usr/include/c++/7"/>
-					<Add directory="/usr/include/x86_64-linux-gnu/c++/7"/>
-					<Add directory="/usr/include/c++/7/backward"/>
-					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include"/>
-					<Add directory="/usr/local/include"/>
-					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed"/>
-					<Add directory="/usr/include/x86_64-linux-gnu"/>
-					<Add directory="/usr/include"/>
-				</Compiler>
-				<MakeCommands>
-					<Build command="/usr/bin/make -j4 -f &quot;/home/vinny/ada/Projects/DIT168/build-remote-Desktop_Qt_5_9_3_GCC_64bit-Default/Makefile&quot;  VERBOSE=1 remote"/>
-					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/vinny/ada/Projects/DIT168/build-remote-Desktop_Qt_5_9_3_GCC_64bit-Default/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j4 -f &quot;/home/vinny/ada/Projects/DIT168/build-remote-Desktop_Qt_5_9_3_GCC_64bit-Default/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j4 -f &quot;/home/vinny/ada/Projects/DIT168/build-remote-Desktop_Qt_5_9_3_GCC_64bit-Default/Makefile&quot;  VERBOSE=1 clean"/>
-				</MakeCommands>
-			</Target>
-			<Target title="remote/fast">
-				<Option output="/home/vinny/ada/Projects/DIT168/build-remote-Desktop_Qt_5_9_3_GCC_64bit-Default/remote" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/home/vinny/ada/Projects/DIT168/build-remote-Desktop_Qt_5_9_3_GCC_64bit-Default"/>
-				<Option object_output="./"/>
-				<Option type="1"/>
-				<Option compiler="gcc"/>
-				<Compiler>
-					<Add option="-DQT_CORE_LIB"/>
-					<Add option="-DQT_NO_DEBUG"/>
-					<Add option="-DQT_QUICK_LIB"/>
-					<Add option="-DQT_QML_LIB"/>
-					<Add option="-DQT_NETWORK_LIB"/>
-					<Add option="-DQT_GUI_LIB"/>
-					<Add directory="/home/vinny/ada/Projects/DIT168/build-remote-Desktop_Qt_5_9_3_GCC_64bit-Default"/>
-					<Add directory="/home/vinny/ada/Projects/DIT168/remote"/>
-					<Add directory="/home/vinny/ada/Projects/DIT168/build-remote-Desktop_Qt_5_9_3_GCC_64bit-Default/remote_autogen/include"/>
-					<Add directory="/home/vinny/Qt/5.9.3/gcc_64/include"/>
-					<Add directory="/home/vinny/Qt/5.9.3/gcc_64/include/QtCore"/>
-					<Add directory="/home/vinny/Qt/5.9.3/gcc_64/./mkspecs/linux-g++"/>
-					<Add directory="/home/vinny/Qt/5.9.3/gcc_64/include/QtQuick"/>
-					<Add directory="/home/vinny/Qt/5.9.3/gcc_64/include/QtQml"/>
-					<Add directory="/home/vinny/Qt/5.9.3/gcc_64/include/QtNetwork"/>
-					<Add directory="/home/vinny/Qt/5.9.3/gcc_64/include/QtGui"/>
-					<Add directory="/usr/include/c++/7"/>
-					<Add directory="/usr/include/x86_64-linux-gnu/c++/7"/>
-					<Add directory="/usr/include/c++/7/backward"/>
-					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include"/>
-					<Add directory="/usr/local/include"/>
-					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed"/>
-					<Add directory="/usr/include/x86_64-linux-gnu"/>
-					<Add directory="/usr/include"/>
-				</Compiler>
-				<MakeCommands>
-					<Build command="/usr/bin/make -j4 -f &quot;/home/vinny/ada/Projects/DIT168/build-remote-Desktop_Qt_5_9_3_GCC_64bit-Default/Makefile&quot;  VERBOSE=1 remote/fast"/>
-					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/vinny/ada/Projects/DIT168/build-remote-Desktop_Qt_5_9_3_GCC_64bit-Default/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j4 -f &quot;/home/vinny/ada/Projects/DIT168/build-remote-Desktop_Qt_5_9_3_GCC_64bit-Default/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j4 -f &quot;/home/vinny/ada/Projects/DIT168/build-remote-Desktop_Qt_5_9_3_GCC_64bit-Default/Makefile&quot;  VERBOSE=1 clean"/>
-				</MakeCommands>
-			</Target>
 			<Target title="edit_cache">
 				<Option working_dir="/home/vinny/ada/Projects/DIT168/build-remote-Desktop_Qt_5_9_3_GCC_64bit-Default"/>
 				<Option type="4"/>
@@ -115,40 +37,204 @@
 					<DistClean command="/usr/bin/make -j4 -f &quot;/home/vinny/ada/Projects/DIT168/build-remote-Desktop_Qt_5_9_3_GCC_64bit-Default/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
-			<Target title="remote_autogen">
+			<Target title="remote.Window">
+				<Option output="/home/vinny/ada/Projects/DIT168/build-remote-Desktop_Qt_5_9_3_GCC_64bit-Default/remote.Window" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/vinny/ada/Projects/DIT168/build-remote-Desktop_Qt_5_9_3_GCC_64bit-Default"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DQT_CORE_LIB"/>
+					<Add option="-DQT_NO_DEBUG"/>
+					<Add option="-DQT_QUICK_LIB"/>
+					<Add option="-DQT_QML_LIB"/>
+					<Add option="-DQT_NETWORK_LIB"/>
+					<Add option="-DQT_GUI_LIB"/>
+					<Add directory="/home/vinny/ada/Projects/DIT168/build-remote-Desktop_Qt_5_9_3_GCC_64bit-Default"/>
+					<Add directory="/home/vinny/ada/Projects/DIT168/remote"/>
+					<Add directory="/home/vinny/ada/Projects/DIT168/build-remote-Desktop_Qt_5_9_3_GCC_64bit-Default/remote.Window_autogen/include"/>
+					<Add directory="/home/vinny/Qt/5.9.3/gcc_64/include"/>
+					<Add directory="/home/vinny/Qt/5.9.3/gcc_64/include/QtCore"/>
+					<Add directory="/home/vinny/Qt/5.9.3/gcc_64/./mkspecs/linux-g++"/>
+					<Add directory="/home/vinny/Qt/5.9.3/gcc_64/include/QtQuick"/>
+					<Add directory="/home/vinny/Qt/5.9.3/gcc_64/include/QtQml"/>
+					<Add directory="/home/vinny/Qt/5.9.3/gcc_64/include/QtNetwork"/>
+					<Add directory="/home/vinny/Qt/5.9.3/gcc_64/include/QtGui"/>
+					<Add directory="/usr/include/c++/7"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/7"/>
+					<Add directory="/usr/include/c++/7/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/vinny/ada/Projects/DIT168/build-remote-Desktop_Qt_5_9_3_GCC_64bit-Default/Makefile&quot;  VERBOSE=1 remote.Window"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/vinny/ada/Projects/DIT168/build-remote-Desktop_Qt_5_9_3_GCC_64bit-Default/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/vinny/ada/Projects/DIT168/build-remote-Desktop_Qt_5_9_3_GCC_64bit-Default/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/vinny/ada/Projects/DIT168/build-remote-Desktop_Qt_5_9_3_GCC_64bit-Default/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="remote.Window/fast">
+				<Option output="/home/vinny/ada/Projects/DIT168/build-remote-Desktop_Qt_5_9_3_GCC_64bit-Default/remote.Window" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/vinny/ada/Projects/DIT168/build-remote-Desktop_Qt_5_9_3_GCC_64bit-Default"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DQT_CORE_LIB"/>
+					<Add option="-DQT_NO_DEBUG"/>
+					<Add option="-DQT_QUICK_LIB"/>
+					<Add option="-DQT_QML_LIB"/>
+					<Add option="-DQT_NETWORK_LIB"/>
+					<Add option="-DQT_GUI_LIB"/>
+					<Add directory="/home/vinny/ada/Projects/DIT168/build-remote-Desktop_Qt_5_9_3_GCC_64bit-Default"/>
+					<Add directory="/home/vinny/ada/Projects/DIT168/remote"/>
+					<Add directory="/home/vinny/ada/Projects/DIT168/build-remote-Desktop_Qt_5_9_3_GCC_64bit-Default/remote.Window_autogen/include"/>
+					<Add directory="/home/vinny/Qt/5.9.3/gcc_64/include"/>
+					<Add directory="/home/vinny/Qt/5.9.3/gcc_64/include/QtCore"/>
+					<Add directory="/home/vinny/Qt/5.9.3/gcc_64/./mkspecs/linux-g++"/>
+					<Add directory="/home/vinny/Qt/5.9.3/gcc_64/include/QtQuick"/>
+					<Add directory="/home/vinny/Qt/5.9.3/gcc_64/include/QtQml"/>
+					<Add directory="/home/vinny/Qt/5.9.3/gcc_64/include/QtNetwork"/>
+					<Add directory="/home/vinny/Qt/5.9.3/gcc_64/include/QtGui"/>
+					<Add directory="/usr/include/c++/7"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/7"/>
+					<Add directory="/usr/include/c++/7/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/vinny/ada/Projects/DIT168/build-remote-Desktop_Qt_5_9_3_GCC_64bit-Default/Makefile&quot;  VERBOSE=1 remote.Window/fast"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/vinny/ada/Projects/DIT168/build-remote-Desktop_Qt_5_9_3_GCC_64bit-Default/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/vinny/ada/Projects/DIT168/build-remote-Desktop_Qt_5_9_3_GCC_64bit-Default/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/vinny/ada/Projects/DIT168/build-remote-Desktop_Qt_5_9_3_GCC_64bit-Default/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="remote.Main">
+				<Option output="/home/vinny/ada/Projects/DIT168/build-remote-Desktop_Qt_5_9_3_GCC_64bit-Default/remote.Main" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/vinny/ada/Projects/DIT168/build-remote-Desktop_Qt_5_9_3_GCC_64bit-Default"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/vinny/ada/Projects/DIT168/build-remote-Desktop_Qt_5_9_3_GCC_64bit-Default"/>
+					<Add directory="/home/vinny/ada/Projects/DIT168/remote"/>
+					<Add directory="/home/vinny/ada/Projects/DIT168/build-remote-Desktop_Qt_5_9_3_GCC_64bit-Default/remote.Main_autogen/include"/>
+					<Add directory="/usr/include/c++/7"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/7"/>
+					<Add directory="/usr/include/c++/7/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/vinny/ada/Projects/DIT168/build-remote-Desktop_Qt_5_9_3_GCC_64bit-Default/Makefile&quot;  VERBOSE=1 remote.Main"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/vinny/ada/Projects/DIT168/build-remote-Desktop_Qt_5_9_3_GCC_64bit-Default/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/vinny/ada/Projects/DIT168/build-remote-Desktop_Qt_5_9_3_GCC_64bit-Default/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/vinny/ada/Projects/DIT168/build-remote-Desktop_Qt_5_9_3_GCC_64bit-Default/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="remote.Main/fast">
+				<Option output="/home/vinny/ada/Projects/DIT168/build-remote-Desktop_Qt_5_9_3_GCC_64bit-Default/remote.Main" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/vinny/ada/Projects/DIT168/build-remote-Desktop_Qt_5_9_3_GCC_64bit-Default"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/vinny/ada/Projects/DIT168/build-remote-Desktop_Qt_5_9_3_GCC_64bit-Default"/>
+					<Add directory="/home/vinny/ada/Projects/DIT168/remote"/>
+					<Add directory="/home/vinny/ada/Projects/DIT168/build-remote-Desktop_Qt_5_9_3_GCC_64bit-Default/remote.Main_autogen/include"/>
+					<Add directory="/usr/include/c++/7"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/7"/>
+					<Add directory="/usr/include/c++/7/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/vinny/ada/Projects/DIT168/build-remote-Desktop_Qt_5_9_3_GCC_64bit-Default/Makefile&quot;  VERBOSE=1 remote.Main/fast"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/vinny/ada/Projects/DIT168/build-remote-Desktop_Qt_5_9_3_GCC_64bit-Default/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/vinny/ada/Projects/DIT168/build-remote-Desktop_Qt_5_9_3_GCC_64bit-Default/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/vinny/ada/Projects/DIT168/build-remote-Desktop_Qt_5_9_3_GCC_64bit-Default/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="remote.Window_autogen">
 				<Option working_dir="/home/vinny/ada/Projects/DIT168/build-remote-Desktop_Qt_5_9_3_GCC_64bit-Default"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j4 -f &quot;/home/vinny/ada/Projects/DIT168/build-remote-Desktop_Qt_5_9_3_GCC_64bit-Default/Makefile&quot;  VERBOSE=1 remote_autogen"/>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/vinny/ada/Projects/DIT168/build-remote-Desktop_Qt_5_9_3_GCC_64bit-Default/Makefile&quot;  VERBOSE=1 remote.Window_autogen"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/vinny/ada/Projects/DIT168/build-remote-Desktop_Qt_5_9_3_GCC_64bit-Default/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/vinny/ada/Projects/DIT168/build-remote-Desktop_Qt_5_9_3_GCC_64bit-Default/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/vinny/ada/Projects/DIT168/build-remote-Desktop_Qt_5_9_3_GCC_64bit-Default/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="remote.Main_autogen">
+				<Option working_dir="/home/vinny/ada/Projects/DIT168/build-remote-Desktop_Qt_5_9_3_GCC_64bit-Default"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/vinny/ada/Projects/DIT168/build-remote-Desktop_Qt_5_9_3_GCC_64bit-Default/Makefile&quot;  VERBOSE=1 remote.Main_autogen"/>
 					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/vinny/ada/Projects/DIT168/build-remote-Desktop_Qt_5_9_3_GCC_64bit-Default/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
 					<Clean command="/usr/bin/make -j4 -f &quot;/home/vinny/ada/Projects/DIT168/build-remote-Desktop_Qt_5_9_3_GCC_64bit-Default/Makefile&quot;  VERBOSE=1 clean"/>
 					<DistClean command="/usr/bin/make -j4 -f &quot;/home/vinny/ada/Projects/DIT168/build-remote-Desktop_Qt_5_9_3_GCC_64bit-Default/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/home/vinny/ada/Projects/DIT168/build-remote-Desktop_Qt_5_9_3_GCC_64bit-Default/remote_autogen/EWIEGA46WW/qrc_qml.cpp">
-			<Option target="remote"/>
+		<Unit filename="/home/vinny/ada/Projects/DIT168/build-remote-Desktop_Qt_5_9_3_GCC_64bit-Default/RemoteControlMessages.cpp">
+			<Option target="remote.Window"/>
+			<Option target="remote.Main"/>
 		</Unit>
-		<Unit filename="/home/vinny/ada/Projects/DIT168/build-remote-Desktop_Qt_5_9_3_GCC_64bit-Default/remote_autogen/EWIEGA46WW/qrc_res_file.cpp">
-			<Option target="remote"/>
+		<Unit filename="/home/vinny/ada/Projects/DIT168/build-remote-Desktop_Qt_5_9_3_GCC_64bit-Default/RemoteControlMessages.cpp.rule">
+			<Option target="remote.Window"/>
+			<Option target="remote.Main"/>
 		</Unit>
-		<Unit filename="/home/vinny/ada/Projects/DIT168/build-remote-Desktop_Qt_5_9_3_GCC_64bit-Default/remote_autogen/mocs_compilation.cpp">
-			<Option target="remote"/>
+		<Unit filename="/home/vinny/ada/Projects/DIT168/build-remote-Desktop_Qt_5_9_3_GCC_64bit-Default/RemoteControlMessages.hpp">
+			<Option target="remote.Window"/>
+			<Option target="remote.Main"/>
+		</Unit>
+		<Unit filename="/home/vinny/ada/Projects/DIT168/build-remote-Desktop_Qt_5_9_3_GCC_64bit-Default/remote.Main_autogen/mocs_compilation.cpp">
+			<Option target="remote.Main"/>
+		</Unit>
+		<Unit filename="/home/vinny/ada/Projects/DIT168/build-remote-Desktop_Qt_5_9_3_GCC_64bit-Default/remote.Window_autogen/EWIEGA46WW/qrc_qml.cpp">
+			<Option target="remote.Window"/>
+		</Unit>
+		<Unit filename="/home/vinny/ada/Projects/DIT168/build-remote-Desktop_Qt_5_9_3_GCC_64bit-Default/remote.Window_autogen/EWIEGA46WW/qrc_res_file.cpp">
+			<Option target="remote.Window"/>
+		</Unit>
+		<Unit filename="/home/vinny/ada/Projects/DIT168/build-remote-Desktop_Qt_5_9_3_GCC_64bit-Default/remote.Window_autogen/mocs_compilation.cpp">
+			<Option target="remote.Window"/>
+		</Unit>
+		<Unit filename="/home/vinny/ada/Projects/DIT168/remote/Main.cpp">
+			<Option target="remote.Main"/>
+		</Unit>
+		<Unit filename="/home/vinny/ada/Projects/DIT168/remote/RemoteControl.cpp">
+			<Option target="remote.Window"/>
 		</Unit>
 		<Unit filename="/home/vinny/ada/Projects/DIT168/remote/backend.cpp">
-			<Option target="remote"/>
+			<Option target="remote.Window"/>
 		</Unit>
 		<Unit filename="/home/vinny/ada/Projects/DIT168/remote/backend.h">
-			<Option target="remote"/>
+			<Option target="remote.Window"/>
 		</Unit>
-		<Unit filename="/home/vinny/ada/Projects/DIT168/remote/main.cpp">
-			<Option target="remote"/>
+		<Unit filename="/home/vinny/ada/Projects/DIT168/remote/main_window.cpp">
+			<Option target="remote.Window"/>
 		</Unit>
 		<Unit filename="/home/vinny/ada/Projects/DIT168/remote/qml.qrc">
-			<Option target="remote"/>
+			<Option target="remote.Window"/>
+		</Unit>
+		<Unit filename="/home/vinny/ada/Projects/DIT168/remote/remotecontrol.h">
+			<Option target="remote.Window"/>
 		</Unit>
 		<Unit filename="/home/vinny/ada/Projects/DIT168/remote/res_file.qrc">
-			<Option target="remote"/>
+			<Option target="remote.Window"/>
 		</Unit>
 		<Unit filename="/home/vinny/ada/Projects/DIT168/remote/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
@@ -338,6 +424,9 @@
 		</Unit>
 		<Unit filename="/home/vinny/ada/Projects/DIT168/remote/../../../../Qt/5.9.3/gcc_64/lib/cmake/Qt5Gui/Qt5GuiConfigExtras.cmake">
 			<Option virtualFolder="CMake Files\..\..\..\..\Qt\5.9.3\gcc_64\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/vinny/ada/Projects/DIT168/remote/../../../../../../usr/local/lib/x86_64-linux-gnu/cmake/libcluon/libcluonConfig.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\local\lib\x86_64-linux-gnu\cmake\libcluon\"/>
 		</Unit>
 	</Project>
 </CodeBlocks_project_file>

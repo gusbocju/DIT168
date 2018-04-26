@@ -111,30 +111,140 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named remote
+# Target rules for targets named remote.Window
 
 # Build rule for target.
-remote: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 remote
-.PHONY : remote
+remote.Window: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 remote.Window
+.PHONY : remote.Window
 
 # fast build rule for target.
-remote/fast:
-	$(MAKE) -f CMakeFiles/remote.dir/build.make CMakeFiles/remote.dir/build
-.PHONY : remote/fast
+remote.Window/fast:
+	$(MAKE) -f CMakeFiles/remote.Window.dir/build.make CMakeFiles/remote.Window.dir/build
+.PHONY : remote.Window/fast
 
 #=============================================================================
-# Target rules for targets named remote_autogen
+# Target rules for targets named remote.Main
 
 # Build rule for target.
-remote_autogen: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 remote_autogen
-.PHONY : remote_autogen
+remote.Main: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 remote.Main
+.PHONY : remote.Main
 
 # fast build rule for target.
-remote_autogen/fast:
-	$(MAKE) -f CMakeFiles/remote_autogen.dir/build.make CMakeFiles/remote_autogen.dir/build
-.PHONY : remote_autogen/fast
+remote.Main/fast:
+	$(MAKE) -f CMakeFiles/remote.Main.dir/build.make CMakeFiles/remote.Main.dir/build
+.PHONY : remote.Main/fast
+
+#=============================================================================
+# Target rules for targets named remote.Window_autogen
+
+# Build rule for target.
+remote.Window_autogen: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 remote.Window_autogen
+.PHONY : remote.Window_autogen
+
+# fast build rule for target.
+remote.Window_autogen/fast:
+	$(MAKE) -f CMakeFiles/remote.Window_autogen.dir/build.make CMakeFiles/remote.Window_autogen.dir/build
+.PHONY : remote.Window_autogen/fast
+
+#=============================================================================
+# Target rules for targets named remote.Main_autogen
+
+# Build rule for target.
+remote.Main_autogen: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 remote.Main_autogen
+.PHONY : remote.Main_autogen
+
+# fast build rule for target.
+remote.Main_autogen/fast:
+	$(MAKE) -f CMakeFiles/remote.Main_autogen.dir/build.make CMakeFiles/remote.Main_autogen.dir/build
+.PHONY : remote.Main_autogen/fast
+
+Main.o: Main.cpp.o
+
+.PHONY : Main.o
+
+# target to build an object file
+Main.cpp.o:
+	$(MAKE) -f CMakeFiles/remote.Main.dir/build.make CMakeFiles/remote.Main.dir/Main.cpp.o
+.PHONY : Main.cpp.o
+
+Main.i: Main.cpp.i
+
+.PHONY : Main.i
+
+# target to preprocess a source file
+Main.cpp.i:
+	$(MAKE) -f CMakeFiles/remote.Main.dir/build.make CMakeFiles/remote.Main.dir/Main.cpp.i
+.PHONY : Main.cpp.i
+
+Main.s: Main.cpp.s
+
+.PHONY : Main.s
+
+# target to generate assembly for a file
+Main.cpp.s:
+	$(MAKE) -f CMakeFiles/remote.Main.dir/build.make CMakeFiles/remote.Main.dir/Main.cpp.s
+.PHONY : Main.cpp.s
+
+RemoteControl.o: RemoteControl.cpp.o
+
+.PHONY : RemoteControl.o
+
+# target to build an object file
+RemoteControl.cpp.o:
+	$(MAKE) -f CMakeFiles/remote.Window.dir/build.make CMakeFiles/remote.Window.dir/RemoteControl.cpp.o
+.PHONY : RemoteControl.cpp.o
+
+RemoteControl.i: RemoteControl.cpp.i
+
+.PHONY : RemoteControl.i
+
+# target to preprocess a source file
+RemoteControl.cpp.i:
+	$(MAKE) -f CMakeFiles/remote.Window.dir/build.make CMakeFiles/remote.Window.dir/RemoteControl.cpp.i
+.PHONY : RemoteControl.cpp.i
+
+RemoteControl.s: RemoteControl.cpp.s
+
+.PHONY : RemoteControl.s
+
+# target to generate assembly for a file
+RemoteControl.cpp.s:
+	$(MAKE) -f CMakeFiles/remote.Window.dir/build.make CMakeFiles/remote.Window.dir/RemoteControl.cpp.s
+.PHONY : RemoteControl.cpp.s
+
+RemoteControlMessages.o: RemoteControlMessages.cpp.o
+
+.PHONY : RemoteControlMessages.o
+
+# target to build an object file
+RemoteControlMessages.cpp.o:
+	$(MAKE) -f CMakeFiles/remote.Window.dir/build.make CMakeFiles/remote.Window.dir/RemoteControlMessages.cpp.o
+	$(MAKE) -f CMakeFiles/remote.Main.dir/build.make CMakeFiles/remote.Main.dir/RemoteControlMessages.cpp.o
+.PHONY : RemoteControlMessages.cpp.o
+
+RemoteControlMessages.i: RemoteControlMessages.cpp.i
+
+.PHONY : RemoteControlMessages.i
+
+# target to preprocess a source file
+RemoteControlMessages.cpp.i:
+	$(MAKE) -f CMakeFiles/remote.Window.dir/build.make CMakeFiles/remote.Window.dir/RemoteControlMessages.cpp.i
+	$(MAKE) -f CMakeFiles/remote.Main.dir/build.make CMakeFiles/remote.Main.dir/RemoteControlMessages.cpp.i
+.PHONY : RemoteControlMessages.cpp.i
+
+RemoteControlMessages.s: RemoteControlMessages.cpp.s
+
+.PHONY : RemoteControlMessages.s
+
+# target to generate assembly for a file
+RemoteControlMessages.cpp.s:
+	$(MAKE) -f CMakeFiles/remote.Window.dir/build.make CMakeFiles/remote.Window.dir/RemoteControlMessages.cpp.s
+	$(MAKE) -f CMakeFiles/remote.Main.dir/build.make CMakeFiles/remote.Main.dir/RemoteControlMessages.cpp.s
+.PHONY : RemoteControlMessages.cpp.s
 
 backend.o: backend.cpp.o
 
@@ -142,7 +252,7 @@ backend.o: backend.cpp.o
 
 # target to build an object file
 backend.cpp.o:
-	$(MAKE) -f CMakeFiles/remote.dir/build.make CMakeFiles/remote.dir/backend.cpp.o
+	$(MAKE) -f CMakeFiles/remote.Window.dir/build.make CMakeFiles/remote.Window.dir/backend.cpp.o
 .PHONY : backend.cpp.o
 
 backend.i: backend.cpp.i
@@ -151,7 +261,7 @@ backend.i: backend.cpp.i
 
 # target to preprocess a source file
 backend.cpp.i:
-	$(MAKE) -f CMakeFiles/remote.dir/build.make CMakeFiles/remote.dir/backend.cpp.i
+	$(MAKE) -f CMakeFiles/remote.Window.dir/build.make CMakeFiles/remote.Window.dir/backend.cpp.i
 .PHONY : backend.cpp.i
 
 backend.s: backend.cpp.s
@@ -160,116 +270,143 @@ backend.s: backend.cpp.s
 
 # target to generate assembly for a file
 backend.cpp.s:
-	$(MAKE) -f CMakeFiles/remote.dir/build.make CMakeFiles/remote.dir/backend.cpp.s
+	$(MAKE) -f CMakeFiles/remote.Window.dir/build.make CMakeFiles/remote.Window.dir/backend.cpp.s
 .PHONY : backend.cpp.s
 
-main.o: main.cpp.o
+main_window.o: main_window.cpp.o
 
-.PHONY : main.o
-
-# target to build an object file
-main.cpp.o:
-	$(MAKE) -f CMakeFiles/remote.dir/build.make CMakeFiles/remote.dir/main.cpp.o
-.PHONY : main.cpp.o
-
-main.i: main.cpp.i
-
-.PHONY : main.i
-
-# target to preprocess a source file
-main.cpp.i:
-	$(MAKE) -f CMakeFiles/remote.dir/build.make CMakeFiles/remote.dir/main.cpp.i
-.PHONY : main.cpp.i
-
-main.s: main.cpp.s
-
-.PHONY : main.s
-
-# target to generate assembly for a file
-main.cpp.s:
-	$(MAKE) -f CMakeFiles/remote.dir/build.make CMakeFiles/remote.dir/main.cpp.s
-.PHONY : main.cpp.s
-
-remote_autogen/EWIEGA46WW/qrc_qml.o: remote_autogen/EWIEGA46WW/qrc_qml.cpp.o
-
-.PHONY : remote_autogen/EWIEGA46WW/qrc_qml.o
+.PHONY : main_window.o
 
 # target to build an object file
-remote_autogen/EWIEGA46WW/qrc_qml.cpp.o:
-	$(MAKE) -f CMakeFiles/remote.dir/build.make CMakeFiles/remote.dir/remote_autogen/EWIEGA46WW/qrc_qml.cpp.o
-.PHONY : remote_autogen/EWIEGA46WW/qrc_qml.cpp.o
+main_window.cpp.o:
+	$(MAKE) -f CMakeFiles/remote.Window.dir/build.make CMakeFiles/remote.Window.dir/main_window.cpp.o
+.PHONY : main_window.cpp.o
 
-remote_autogen/EWIEGA46WW/qrc_qml.i: remote_autogen/EWIEGA46WW/qrc_qml.cpp.i
+main_window.i: main_window.cpp.i
 
-.PHONY : remote_autogen/EWIEGA46WW/qrc_qml.i
+.PHONY : main_window.i
 
 # target to preprocess a source file
-remote_autogen/EWIEGA46WW/qrc_qml.cpp.i:
-	$(MAKE) -f CMakeFiles/remote.dir/build.make CMakeFiles/remote.dir/remote_autogen/EWIEGA46WW/qrc_qml.cpp.i
-.PHONY : remote_autogen/EWIEGA46WW/qrc_qml.cpp.i
+main_window.cpp.i:
+	$(MAKE) -f CMakeFiles/remote.Window.dir/build.make CMakeFiles/remote.Window.dir/main_window.cpp.i
+.PHONY : main_window.cpp.i
 
-remote_autogen/EWIEGA46WW/qrc_qml.s: remote_autogen/EWIEGA46WW/qrc_qml.cpp.s
+main_window.s: main_window.cpp.s
 
-.PHONY : remote_autogen/EWIEGA46WW/qrc_qml.s
+.PHONY : main_window.s
 
 # target to generate assembly for a file
-remote_autogen/EWIEGA46WW/qrc_qml.cpp.s:
-	$(MAKE) -f CMakeFiles/remote.dir/build.make CMakeFiles/remote.dir/remote_autogen/EWIEGA46WW/qrc_qml.cpp.s
-.PHONY : remote_autogen/EWIEGA46WW/qrc_qml.cpp.s
+main_window.cpp.s:
+	$(MAKE) -f CMakeFiles/remote.Window.dir/build.make CMakeFiles/remote.Window.dir/main_window.cpp.s
+.PHONY : main_window.cpp.s
 
-remote_autogen/EWIEGA46WW/qrc_res_file.o: remote_autogen/EWIEGA46WW/qrc_res_file.cpp.o
+remote.Main_autogen/mocs_compilation.o: remote.Main_autogen/mocs_compilation.cpp.o
 
-.PHONY : remote_autogen/EWIEGA46WW/qrc_res_file.o
+.PHONY : remote.Main_autogen/mocs_compilation.o
 
 # target to build an object file
-remote_autogen/EWIEGA46WW/qrc_res_file.cpp.o:
-	$(MAKE) -f CMakeFiles/remote.dir/build.make CMakeFiles/remote.dir/remote_autogen/EWIEGA46WW/qrc_res_file.cpp.o
-.PHONY : remote_autogen/EWIEGA46WW/qrc_res_file.cpp.o
+remote.Main_autogen/mocs_compilation.cpp.o:
+	$(MAKE) -f CMakeFiles/remote.Main.dir/build.make CMakeFiles/remote.Main.dir/remote.Main_autogen/mocs_compilation.cpp.o
+.PHONY : remote.Main_autogen/mocs_compilation.cpp.o
 
-remote_autogen/EWIEGA46WW/qrc_res_file.i: remote_autogen/EWIEGA46WW/qrc_res_file.cpp.i
+remote.Main_autogen/mocs_compilation.i: remote.Main_autogen/mocs_compilation.cpp.i
 
-.PHONY : remote_autogen/EWIEGA46WW/qrc_res_file.i
+.PHONY : remote.Main_autogen/mocs_compilation.i
 
 # target to preprocess a source file
-remote_autogen/EWIEGA46WW/qrc_res_file.cpp.i:
-	$(MAKE) -f CMakeFiles/remote.dir/build.make CMakeFiles/remote.dir/remote_autogen/EWIEGA46WW/qrc_res_file.cpp.i
-.PHONY : remote_autogen/EWIEGA46WW/qrc_res_file.cpp.i
+remote.Main_autogen/mocs_compilation.cpp.i:
+	$(MAKE) -f CMakeFiles/remote.Main.dir/build.make CMakeFiles/remote.Main.dir/remote.Main_autogen/mocs_compilation.cpp.i
+.PHONY : remote.Main_autogen/mocs_compilation.cpp.i
 
-remote_autogen/EWIEGA46WW/qrc_res_file.s: remote_autogen/EWIEGA46WW/qrc_res_file.cpp.s
+remote.Main_autogen/mocs_compilation.s: remote.Main_autogen/mocs_compilation.cpp.s
 
-.PHONY : remote_autogen/EWIEGA46WW/qrc_res_file.s
+.PHONY : remote.Main_autogen/mocs_compilation.s
 
 # target to generate assembly for a file
-remote_autogen/EWIEGA46WW/qrc_res_file.cpp.s:
-	$(MAKE) -f CMakeFiles/remote.dir/build.make CMakeFiles/remote.dir/remote_autogen/EWIEGA46WW/qrc_res_file.cpp.s
-.PHONY : remote_autogen/EWIEGA46WW/qrc_res_file.cpp.s
+remote.Main_autogen/mocs_compilation.cpp.s:
+	$(MAKE) -f CMakeFiles/remote.Main.dir/build.make CMakeFiles/remote.Main.dir/remote.Main_autogen/mocs_compilation.cpp.s
+.PHONY : remote.Main_autogen/mocs_compilation.cpp.s
 
-remote_autogen/mocs_compilation.o: remote_autogen/mocs_compilation.cpp.o
+remote.Window_autogen/EWIEGA46WW/qrc_qml.o: remote.Window_autogen/EWIEGA46WW/qrc_qml.cpp.o
 
-.PHONY : remote_autogen/mocs_compilation.o
+.PHONY : remote.Window_autogen/EWIEGA46WW/qrc_qml.o
 
 # target to build an object file
-remote_autogen/mocs_compilation.cpp.o:
-	$(MAKE) -f CMakeFiles/remote.dir/build.make CMakeFiles/remote.dir/remote_autogen/mocs_compilation.cpp.o
-.PHONY : remote_autogen/mocs_compilation.cpp.o
+remote.Window_autogen/EWIEGA46WW/qrc_qml.cpp.o:
+	$(MAKE) -f CMakeFiles/remote.Window.dir/build.make CMakeFiles/remote.Window.dir/remote.Window_autogen/EWIEGA46WW/qrc_qml.cpp.o
+.PHONY : remote.Window_autogen/EWIEGA46WW/qrc_qml.cpp.o
 
-remote_autogen/mocs_compilation.i: remote_autogen/mocs_compilation.cpp.i
+remote.Window_autogen/EWIEGA46WW/qrc_qml.i: remote.Window_autogen/EWIEGA46WW/qrc_qml.cpp.i
 
-.PHONY : remote_autogen/mocs_compilation.i
+.PHONY : remote.Window_autogen/EWIEGA46WW/qrc_qml.i
 
 # target to preprocess a source file
-remote_autogen/mocs_compilation.cpp.i:
-	$(MAKE) -f CMakeFiles/remote.dir/build.make CMakeFiles/remote.dir/remote_autogen/mocs_compilation.cpp.i
-.PHONY : remote_autogen/mocs_compilation.cpp.i
+remote.Window_autogen/EWIEGA46WW/qrc_qml.cpp.i:
+	$(MAKE) -f CMakeFiles/remote.Window.dir/build.make CMakeFiles/remote.Window.dir/remote.Window_autogen/EWIEGA46WW/qrc_qml.cpp.i
+.PHONY : remote.Window_autogen/EWIEGA46WW/qrc_qml.cpp.i
 
-remote_autogen/mocs_compilation.s: remote_autogen/mocs_compilation.cpp.s
+remote.Window_autogen/EWIEGA46WW/qrc_qml.s: remote.Window_autogen/EWIEGA46WW/qrc_qml.cpp.s
 
-.PHONY : remote_autogen/mocs_compilation.s
+.PHONY : remote.Window_autogen/EWIEGA46WW/qrc_qml.s
 
 # target to generate assembly for a file
-remote_autogen/mocs_compilation.cpp.s:
-	$(MAKE) -f CMakeFiles/remote.dir/build.make CMakeFiles/remote.dir/remote_autogen/mocs_compilation.cpp.s
-.PHONY : remote_autogen/mocs_compilation.cpp.s
+remote.Window_autogen/EWIEGA46WW/qrc_qml.cpp.s:
+	$(MAKE) -f CMakeFiles/remote.Window.dir/build.make CMakeFiles/remote.Window.dir/remote.Window_autogen/EWIEGA46WW/qrc_qml.cpp.s
+.PHONY : remote.Window_autogen/EWIEGA46WW/qrc_qml.cpp.s
+
+remote.Window_autogen/EWIEGA46WW/qrc_res_file.o: remote.Window_autogen/EWIEGA46WW/qrc_res_file.cpp.o
+
+.PHONY : remote.Window_autogen/EWIEGA46WW/qrc_res_file.o
+
+# target to build an object file
+remote.Window_autogen/EWIEGA46WW/qrc_res_file.cpp.o:
+	$(MAKE) -f CMakeFiles/remote.Window.dir/build.make CMakeFiles/remote.Window.dir/remote.Window_autogen/EWIEGA46WW/qrc_res_file.cpp.o
+.PHONY : remote.Window_autogen/EWIEGA46WW/qrc_res_file.cpp.o
+
+remote.Window_autogen/EWIEGA46WW/qrc_res_file.i: remote.Window_autogen/EWIEGA46WW/qrc_res_file.cpp.i
+
+.PHONY : remote.Window_autogen/EWIEGA46WW/qrc_res_file.i
+
+# target to preprocess a source file
+remote.Window_autogen/EWIEGA46WW/qrc_res_file.cpp.i:
+	$(MAKE) -f CMakeFiles/remote.Window.dir/build.make CMakeFiles/remote.Window.dir/remote.Window_autogen/EWIEGA46WW/qrc_res_file.cpp.i
+.PHONY : remote.Window_autogen/EWIEGA46WW/qrc_res_file.cpp.i
+
+remote.Window_autogen/EWIEGA46WW/qrc_res_file.s: remote.Window_autogen/EWIEGA46WW/qrc_res_file.cpp.s
+
+.PHONY : remote.Window_autogen/EWIEGA46WW/qrc_res_file.s
+
+# target to generate assembly for a file
+remote.Window_autogen/EWIEGA46WW/qrc_res_file.cpp.s:
+	$(MAKE) -f CMakeFiles/remote.Window.dir/build.make CMakeFiles/remote.Window.dir/remote.Window_autogen/EWIEGA46WW/qrc_res_file.cpp.s
+.PHONY : remote.Window_autogen/EWIEGA46WW/qrc_res_file.cpp.s
+
+remote.Window_autogen/mocs_compilation.o: remote.Window_autogen/mocs_compilation.cpp.o
+
+.PHONY : remote.Window_autogen/mocs_compilation.o
+
+# target to build an object file
+remote.Window_autogen/mocs_compilation.cpp.o:
+	$(MAKE) -f CMakeFiles/remote.Window.dir/build.make CMakeFiles/remote.Window.dir/remote.Window_autogen/mocs_compilation.cpp.o
+.PHONY : remote.Window_autogen/mocs_compilation.cpp.o
+
+remote.Window_autogen/mocs_compilation.i: remote.Window_autogen/mocs_compilation.cpp.i
+
+.PHONY : remote.Window_autogen/mocs_compilation.i
+
+# target to preprocess a source file
+remote.Window_autogen/mocs_compilation.cpp.i:
+	$(MAKE) -f CMakeFiles/remote.Window.dir/build.make CMakeFiles/remote.Window.dir/remote.Window_autogen/mocs_compilation.cpp.i
+.PHONY : remote.Window_autogen/mocs_compilation.cpp.i
+
+remote.Window_autogen/mocs_compilation.s: remote.Window_autogen/mocs_compilation.cpp.s
+
+.PHONY : remote.Window_autogen/mocs_compilation.s
+
+# target to generate assembly for a file
+remote.Window_autogen/mocs_compilation.cpp.s:
+	$(MAKE) -f CMakeFiles/remote.Window.dir/build.make CMakeFiles/remote.Window.dir/remote.Window_autogen/mocs_compilation.cpp.s
+.PHONY : remote.Window_autogen/mocs_compilation.cpp.s
 
 # Help Target
 help:
@@ -278,24 +415,38 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... rebuild_cache"
-	@echo "... remote"
 	@echo "... edit_cache"
-	@echo "... remote_autogen"
+	@echo "... remote.Window"
+	@echo "... remote.Main"
+	@echo "... remote.Window_autogen"
+	@echo "... remote.Main_autogen"
+	@echo "... Main.o"
+	@echo "... Main.i"
+	@echo "... Main.s"
+	@echo "... RemoteControl.o"
+	@echo "... RemoteControl.i"
+	@echo "... RemoteControl.s"
+	@echo "... RemoteControlMessages.o"
+	@echo "... RemoteControlMessages.i"
+	@echo "... RemoteControlMessages.s"
 	@echo "... backend.o"
 	@echo "... backend.i"
 	@echo "... backend.s"
-	@echo "... main.o"
-	@echo "... main.i"
-	@echo "... main.s"
-	@echo "... remote_autogen/EWIEGA46WW/qrc_qml.o"
-	@echo "... remote_autogen/EWIEGA46WW/qrc_qml.i"
-	@echo "... remote_autogen/EWIEGA46WW/qrc_qml.s"
-	@echo "... remote_autogen/EWIEGA46WW/qrc_res_file.o"
-	@echo "... remote_autogen/EWIEGA46WW/qrc_res_file.i"
-	@echo "... remote_autogen/EWIEGA46WW/qrc_res_file.s"
-	@echo "... remote_autogen/mocs_compilation.o"
-	@echo "... remote_autogen/mocs_compilation.i"
-	@echo "... remote_autogen/mocs_compilation.s"
+	@echo "... main_window.o"
+	@echo "... main_window.i"
+	@echo "... main_window.s"
+	@echo "... remote.Main_autogen/mocs_compilation.o"
+	@echo "... remote.Main_autogen/mocs_compilation.i"
+	@echo "... remote.Main_autogen/mocs_compilation.s"
+	@echo "... remote.Window_autogen/EWIEGA46WW/qrc_qml.o"
+	@echo "... remote.Window_autogen/EWIEGA46WW/qrc_qml.i"
+	@echo "... remote.Window_autogen/EWIEGA46WW/qrc_qml.s"
+	@echo "... remote.Window_autogen/EWIEGA46WW/qrc_res_file.o"
+	@echo "... remote.Window_autogen/EWIEGA46WW/qrc_res_file.i"
+	@echo "... remote.Window_autogen/EWIEGA46WW/qrc_res_file.s"
+	@echo "... remote.Window_autogen/mocs_compilation.o"
+	@echo "... remote.Window_autogen/mocs_compilation.i"
+	@echo "... remote.Window_autogen/mocs_compilation.s"
 .PHONY : help
 
 

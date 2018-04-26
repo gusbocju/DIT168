@@ -14,6 +14,15 @@
 # EXTERNAL cache entries
 ########################
 
+//Path to a file.
+CLUON_INCLUDE_DIR:PATH=/usr/local/include
+
+//Path to a library.
+CLUON_LIBRARY:FILEPATH=/usr/local/lib/libcluon.so
+
+//Path to a library.
+CLUON_STATIC_LIBRARY:FILEPATH=/usr/local/lib/libcluon-static.a
+
 //Path to a program.
 CMAKE_AR:FILEPATH=/usr/bin/ar
 
@@ -194,6 +203,9 @@ Qt5Quick_DIR:PATH=/home/vinny/Qt/5.9.3/gcc_64/lib/cmake/Qt5Quick
 //The directory containing a CMake configuration file for Qt5.
 Qt5_DIR:PATH=/home/vinny/Qt/5.9.3/gcc_64/lib/cmake/Qt5
 
+//The directory containing a CMake configuration file for libcluon.
+libcluon_DIR:PATH=/usr/local/lib/x86_64-linux-gnu/cmake/libcluon
+
 //Value Computed by CMake
 remote_BINARY_DIR:STATIC=/home/vinny/ada/Projects/DIT168/build-remote-Desktop_Qt_5_9_3_GCC_64bit-Default
 
@@ -205,6 +217,12 @@ remote_SOURCE_DIR:STATIC=/home/vinny/ada/Projects/DIT168/remote
 # INTERNAL cache entries
 ########################
 
+//ADVANCED property for variable: CLUON_INCLUDE_DIR
+CLUON_INCLUDE_DIR-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CLUON_LIBRARY
+CLUON_LIBRARY-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CLUON_STATIC_LIBRARY
+CLUON_STATIC_LIBRARY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_AR
 CMAKE_AR-ADVANCED:INTERNAL=1
 //This is the directory where this CMakeCache.txt was created
@@ -265,6 +283,14 @@ CMAKE_GENERATOR:INTERNAL=Unix Makefiles
 CMAKE_GENERATOR_PLATFORM:INTERNAL=
 //Name of generator toolset.
 CMAKE_GENERATOR_TOOLSET:INTERNAL=
+//Have symbol pthread_create
+CMAKE_HAVE_LIBC_CREATE:INTERNAL=
+//Have library pthreads
+CMAKE_HAVE_PTHREADS_CREATE:INTERNAL=
+//Have library pthread
+CMAKE_HAVE_PTHREAD_CREATE:INTERNAL=1
+//Have include pthread.h
+CMAKE_HAVE_PTHREAD_H:INTERNAL=1
 //Source directory with the top level CMakeLists.txt file for this
 // project
 CMAKE_HOME_DIRECTORY:INTERNAL=/home/vinny/ada/Projects/DIT168/remote
@@ -328,6 +354,10 @@ CMAKE_STRIP-ADVANCED:INTERNAL=1
 CMAKE_UNAME:INTERNAL=/bin/uname
 //ADVANCED property for variable: CMAKE_VERBOSE_MAKEFILE
 CMAKE_VERBOSE_MAKEFILE-ADVANCED:INTERNAL=1
+//Details about finding Threads
+FIND_PACKAGE_MESSAGE_DETAILS_Threads:INTERNAL=[TRUE][v()]
+//Details about finding libcluon
+FIND_PACKAGE_MESSAGE_DETAILS_libcluon:INTERNAL=[/usr/local/lib/libcluon.so][/usr/local/lib/libcluon-static.a][/usr/local/include][v()]
 //ADVANCED property for variable: ProcessorCount_cmd_getconf
 ProcessorCount_cmd_getconf-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: ProcessorCount_cmd_sysctl

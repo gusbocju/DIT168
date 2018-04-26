@@ -72,6 +72,7 @@ set(CMAKE_MAKEFILE_DEPENDS
   "/home/vinny/ada/Projects/DIT168/remote/CMakeLists.txt"
   "/home/vinny/ada/Projects/DIT168/remote/qml.qrc"
   "/home/vinny/ada/Projects/DIT168/remote/res_file.qrc"
+  "/usr/local/lib/x86_64-linux-gnu/cmake/libcluon/libcluonConfig.cmake"
   "/usr/share/cmake-3.9/Modules/AutogenInfo.cmake.in"
   "/usr/share/cmake-3.9/Modules/CMakeCXXInformation.cmake"
   "/usr/share/cmake-3.9/Modules/CMakeCommonLanguageInclude.cmake"
@@ -82,9 +83,15 @@ set(CMAKE_MAKEFILE_DEPENDS
   "/usr/share/cmake-3.9/Modules/CMakeParseArguments.cmake"
   "/usr/share/cmake-3.9/Modules/CMakeSystemSpecificInformation.cmake"
   "/usr/share/cmake-3.9/Modules/CMakeSystemSpecificInitialize.cmake"
+  "/usr/share/cmake-3.9/Modules/CheckIncludeFileCXX.cmake"
+  "/usr/share/cmake-3.9/Modules/CheckLibraryExists.cmake"
+  "/usr/share/cmake-3.9/Modules/CheckSymbolExists.cmake"
   "/usr/share/cmake-3.9/Modules/Compiler/CMakeCommonCompilerMacros.cmake"
   "/usr/share/cmake-3.9/Modules/Compiler/GNU-CXX.cmake"
   "/usr/share/cmake-3.9/Modules/Compiler/GNU.cmake"
+  "/usr/share/cmake-3.9/Modules/FindPackageHandleStandardArgs.cmake"
+  "/usr/share/cmake-3.9/Modules/FindPackageMessage.cmake"
+  "/usr/share/cmake-3.9/Modules/FindThreads.cmake"
   "/usr/share/cmake-3.9/Modules/Platform/Linux-GNU-CXX.cmake"
   "/usr/share/cmake-3.9/Modules/Platform/Linux-GNU.cmake"
   "/usr/share/cmake-3.9/Modules/Platform/Linux.cmake"
@@ -100,12 +107,15 @@ set(CMAKE_MAKEFILE_OUTPUTS
 
 # Byproducts of CMake generate step:
 set(CMAKE_MAKEFILE_PRODUCTS
-  "CMakeFiles/remote_autogen.dir/AutogenInfo.cmake"
+  "CMakeFiles/remote.Window_autogen.dir/AutogenInfo.cmake"
+  "CMakeFiles/remote.Main_autogen.dir/AutogenInfo.cmake"
   "CMakeFiles/CMakeDirectoryInformation.cmake"
   )
 
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
-  "CMakeFiles/remote.dir/DependInfo.cmake"
-  "CMakeFiles/remote_autogen.dir/DependInfo.cmake"
+  "CMakeFiles/remote.Window.dir/DependInfo.cmake"
+  "CMakeFiles/remote.Main.dir/DependInfo.cmake"
+  "CMakeFiles/remote.Window_autogen.dir/DependInfo.cmake"
+  "CMakeFiles/remote.Main_autogen.dir/DependInfo.cmake"
   )

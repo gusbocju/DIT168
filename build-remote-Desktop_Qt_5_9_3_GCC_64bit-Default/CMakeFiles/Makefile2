@@ -60,71 +60,140 @@ CMAKE_SOURCE_DIR = /home/vinny/ada/Projects/DIT168/remote
 CMAKE_BINARY_DIR = /home/vinny/ada/Projects/DIT168/build-remote-Desktop_Qt_5_9_3_GCC_64bit-Default
 
 #=============================================================================
-# Target rules for target CMakeFiles/remote.dir
+# Target rules for target CMakeFiles/remote.Window.dir
 
 # All Build rule for target.
-CMakeFiles/remote.dir/all: CMakeFiles/remote_autogen.dir/all
-	$(MAKE) -f CMakeFiles/remote.dir/build.make CMakeFiles/remote.dir/depend
-	$(MAKE) -f CMakeFiles/remote.dir/build.make CMakeFiles/remote.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/vinny/ada/Projects/DIT168/build-remote-Desktop_Qt_5_9_3_GCC_64bit-Default/CMakeFiles --progress-num=1,2,3,4,5,6 "Built target remote"
-.PHONY : CMakeFiles/remote.dir/all
+CMakeFiles/remote.Window.dir/all: CMakeFiles/remote.Window_autogen.dir/all
+	$(MAKE) -f CMakeFiles/remote.Window.dir/build.make CMakeFiles/remote.Window.dir/depend
+	$(MAKE) -f CMakeFiles/remote.Window.dir/build.make CMakeFiles/remote.Window.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/vinny/ada/Projects/DIT168/build-remote-Desktop_Qt_5_9_3_GCC_64bit-Default/CMakeFiles --progress-num=8,9,10,11,12,13,14,15,16 "Built target remote.Window"
+.PHONY : CMakeFiles/remote.Window.dir/all
 
 # Include target in all.
-all: CMakeFiles/remote.dir/all
+all: CMakeFiles/remote.Window.dir/all
 
 .PHONY : all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/remote.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/vinny/ada/Projects/DIT168/build-remote-Desktop_Qt_5_9_3_GCC_64bit-Default/CMakeFiles 7
-	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/remote.dir/all
+CMakeFiles/remote.Window.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/vinny/ada/Projects/DIT168/build-remote-Desktop_Qt_5_9_3_GCC_64bit-Default/CMakeFiles 11
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/remote.Window.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/vinny/ada/Projects/DIT168/build-remote-Desktop_Qt_5_9_3_GCC_64bit-Default/CMakeFiles 0
-.PHONY : CMakeFiles/remote.dir/rule
+.PHONY : CMakeFiles/remote.Window.dir/rule
 
 # Convenience name for target.
-remote: CMakeFiles/remote.dir/rule
+remote.Window: CMakeFiles/remote.Window.dir/rule
 
-.PHONY : remote
-
-# clean rule for target.
-CMakeFiles/remote.dir/clean:
-	$(MAKE) -f CMakeFiles/remote.dir/build.make CMakeFiles/remote.dir/clean
-.PHONY : CMakeFiles/remote.dir/clean
+.PHONY : remote.Window
 
 # clean rule for target.
-clean: CMakeFiles/remote.dir/clean
+CMakeFiles/remote.Window.dir/clean:
+	$(MAKE) -f CMakeFiles/remote.Window.dir/build.make CMakeFiles/remote.Window.dir/clean
+.PHONY : CMakeFiles/remote.Window.dir/clean
+
+# clean rule for target.
+clean: CMakeFiles/remote.Window.dir/clean
 
 .PHONY : clean
 
 #=============================================================================
-# Target rules for target CMakeFiles/remote_autogen.dir
+# Target rules for target CMakeFiles/remote.Main.dir
 
 # All Build rule for target.
-CMakeFiles/remote_autogen.dir/all:
-	$(MAKE) -f CMakeFiles/remote_autogen.dir/build.make CMakeFiles/remote_autogen.dir/depend
-	$(MAKE) -f CMakeFiles/remote_autogen.dir/build.make CMakeFiles/remote_autogen.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/vinny/ada/Projects/DIT168/build-remote-Desktop_Qt_5_9_3_GCC_64bit-Default/CMakeFiles --progress-num=7 "Built target remote_autogen"
-.PHONY : CMakeFiles/remote_autogen.dir/all
+CMakeFiles/remote.Main.dir/all: CMakeFiles/remote.Main_autogen.dir/all
+	$(MAKE) -f CMakeFiles/remote.Main.dir/build.make CMakeFiles/remote.Main.dir/depend
+	$(MAKE) -f CMakeFiles/remote.Main.dir/build.make CMakeFiles/remote.Main.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/vinny/ada/Projects/DIT168/build-remote-Desktop_Qt_5_9_3_GCC_64bit-Default/CMakeFiles --progress-num=1,2,3,4,5 "Built target remote.Main"
+.PHONY : CMakeFiles/remote.Main.dir/all
+
+# Include target in all.
+all: CMakeFiles/remote.Main.dir/all
+
+.PHONY : all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/remote_autogen.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/vinny/ada/Projects/DIT168/build-remote-Desktop_Qt_5_9_3_GCC_64bit-Default/CMakeFiles 1
-	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/remote_autogen.dir/all
+CMakeFiles/remote.Main.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/vinny/ada/Projects/DIT168/build-remote-Desktop_Qt_5_9_3_GCC_64bit-Default/CMakeFiles 7
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/remote.Main.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/vinny/ada/Projects/DIT168/build-remote-Desktop_Qt_5_9_3_GCC_64bit-Default/CMakeFiles 0
-.PHONY : CMakeFiles/remote_autogen.dir/rule
+.PHONY : CMakeFiles/remote.Main.dir/rule
 
 # Convenience name for target.
-remote_autogen: CMakeFiles/remote_autogen.dir/rule
+remote.Main: CMakeFiles/remote.Main.dir/rule
 
-.PHONY : remote_autogen
-
-# clean rule for target.
-CMakeFiles/remote_autogen.dir/clean:
-	$(MAKE) -f CMakeFiles/remote_autogen.dir/build.make CMakeFiles/remote_autogen.dir/clean
-.PHONY : CMakeFiles/remote_autogen.dir/clean
+.PHONY : remote.Main
 
 # clean rule for target.
-clean: CMakeFiles/remote_autogen.dir/clean
+CMakeFiles/remote.Main.dir/clean:
+	$(MAKE) -f CMakeFiles/remote.Main.dir/build.make CMakeFiles/remote.Main.dir/clean
+.PHONY : CMakeFiles/remote.Main.dir/clean
+
+# clean rule for target.
+clean: CMakeFiles/remote.Main.dir/clean
+
+.PHONY : clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/remote.Window_autogen.dir
+
+# All Build rule for target.
+CMakeFiles/remote.Window_autogen.dir/all:
+	$(MAKE) -f CMakeFiles/remote.Window_autogen.dir/build.make CMakeFiles/remote.Window_autogen.dir/depend
+	$(MAKE) -f CMakeFiles/remote.Window_autogen.dir/build.make CMakeFiles/remote.Window_autogen.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/vinny/ada/Projects/DIT168/build-remote-Desktop_Qt_5_9_3_GCC_64bit-Default/CMakeFiles --progress-num=17,18 "Built target remote.Window_autogen"
+.PHONY : CMakeFiles/remote.Window_autogen.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/remote.Window_autogen.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/vinny/ada/Projects/DIT168/build-remote-Desktop_Qt_5_9_3_GCC_64bit-Default/CMakeFiles 2
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/remote.Window_autogen.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/vinny/ada/Projects/DIT168/build-remote-Desktop_Qt_5_9_3_GCC_64bit-Default/CMakeFiles 0
+.PHONY : CMakeFiles/remote.Window_autogen.dir/rule
+
+# Convenience name for target.
+remote.Window_autogen: CMakeFiles/remote.Window_autogen.dir/rule
+
+.PHONY : remote.Window_autogen
+
+# clean rule for target.
+CMakeFiles/remote.Window_autogen.dir/clean:
+	$(MAKE) -f CMakeFiles/remote.Window_autogen.dir/build.make CMakeFiles/remote.Window_autogen.dir/clean
+.PHONY : CMakeFiles/remote.Window_autogen.dir/clean
+
+# clean rule for target.
+clean: CMakeFiles/remote.Window_autogen.dir/clean
+
+.PHONY : clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/remote.Main_autogen.dir
+
+# All Build rule for target.
+CMakeFiles/remote.Main_autogen.dir/all:
+	$(MAKE) -f CMakeFiles/remote.Main_autogen.dir/build.make CMakeFiles/remote.Main_autogen.dir/depend
+	$(MAKE) -f CMakeFiles/remote.Main_autogen.dir/build.make CMakeFiles/remote.Main_autogen.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/vinny/ada/Projects/DIT168/build-remote-Desktop_Qt_5_9_3_GCC_64bit-Default/CMakeFiles --progress-num=6,7 "Built target remote.Main_autogen"
+.PHONY : CMakeFiles/remote.Main_autogen.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/remote.Main_autogen.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/vinny/ada/Projects/DIT168/build-remote-Desktop_Qt_5_9_3_GCC_64bit-Default/CMakeFiles 2
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/remote.Main_autogen.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/vinny/ada/Projects/DIT168/build-remote-Desktop_Qt_5_9_3_GCC_64bit-Default/CMakeFiles 0
+.PHONY : CMakeFiles/remote.Main_autogen.dir/rule
+
+# Convenience name for target.
+remote.Main_autogen: CMakeFiles/remote.Main_autogen.dir/rule
+
+.PHONY : remote.Main_autogen
+
+# clean rule for target.
+CMakeFiles/remote.Main_autogen.dir/clean:
+	$(MAKE) -f CMakeFiles/remote.Main_autogen.dir/build.make CMakeFiles/remote.Main_autogen.dir/clean
+.PHONY : CMakeFiles/remote.Main_autogen.dir/clean
+
+# clean rule for target.
+clean: CMakeFiles/remote.Main_autogen.dir/clean
 
 .PHONY : clean
 
