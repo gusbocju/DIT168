@@ -85,4 +85,10 @@ h5 {
   display: none;
 }
 
+.navbar-dark .navbar-toggler{
+  border-color: rgb(20, 156, 156);
+}
+
+
+
 
