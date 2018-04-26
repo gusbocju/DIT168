@@ -1,5 +1,5 @@
 # docker build -t webui -f Dockerfile.webui .
-# docker run --rm -ti --net=host webui /opt/bin/websocketd --staticdir=/opt/signal-viewer --port=8081 --binary=true /usr/bin/cluon-OD4toStdout --cid=160
+# docker run --rm -ti --net=host webui /opt/bin/websocketd --staticdir=/opt/signal-viewer --port=8080 --binary=true /usr/bin/cluon-OD4toStdout --cid=160
 
 FROM ubuntu:16.04
 MAINTAINER Julian Bock gusbocju@student.gu.se

@@ -52,6 +52,7 @@ td.field-value {
 h2{
   color: #6BBAA7;
   width: 100%;
+  font-weight: bold;
 }
 
 h5 {
@@ -72,10 +73,12 @@ h5 {
 
 .btn-primary {
   width:50%;
-  display: inline-block;
+  margin-left: 25%;
+  display: block;
   vertical-align: top;
   horiz-align: right;
-  float: right;
+  text-align: center;
+  float: top;
   background-color: lightseagreen;
   border: none;
     }.btn:action{

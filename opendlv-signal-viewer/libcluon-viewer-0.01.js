@@ -211,9 +211,9 @@ function addFieldCharts(sourceKey, data) {
           datasets: [{
             label: fieldName,
             data: [fieldValue],
-            backgroundColor: 'rgb(35, 189, 239)',
-            borderColor: 'rgb(239, 85, 35)',
-            fill: false
+            backgroundColor: 'rgb(0,111,229)',
+            borderColor: 'rgb(0,225,229)',
+            fill: true
           }]
         },
         options: {
