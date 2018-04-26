@@ -6,6 +6,7 @@ Window {
     id: window
     width: 220
     height: 80
+    title: qsTr("Error Message")
 
     Text {
         id: text1
@@ -15,7 +16,6 @@ Window {
         font.pixelSize: 18
         color: "red"
     }
-
     Text {
         id: text2
         x: 71
