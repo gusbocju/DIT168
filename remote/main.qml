@@ -20,7 +20,7 @@ Window {
         width: 30
         height: 30
         fillMode: Image.PreserveAspectFit
-        source: "res/forwardImg.png"
+        source: "res/resources/forwardImg.png"
         MouseArea {
             anchors.fill: parent
             onClicked: backend.moveW();
@@ -35,7 +35,7 @@ Window {
         width: 30
         height: 30
         fillMode: Image.PreserveAspectFit
-        source: "res/rightImg.png"
+        source: "res/resources/rightImg.png"
         MouseArea {
             anchors.fill: parent
             onClicked: backend.moveD();
@@ -51,7 +51,7 @@ Window {
         width: 30
         height: 30
         fillMode: Image.PreserveAspectFit
-        source: "res/reverseImg.png"
+        source: "res/resources/reverseImg.png"
         MouseArea {
             anchors.fill: parent
             onClicked: backend.moveS();
@@ -67,7 +67,7 @@ Window {
         width: 30
         height: 30
         fillMode: Image.PreserveAspectFit
-        source: "res/leftImg.png"
+        source: "res/resources/leftImg.png"
         MouseArea {
             anchors.fill: parent
             onClicked: backend.moveA();
@@ -82,7 +82,7 @@ Window {
         y: 75
         width: 30
         height: 30
-        source: "res/stopButton.png"
+        source: "res/resources/stopButton.png"
     }
 
     Text {
