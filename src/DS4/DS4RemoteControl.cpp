@@ -8,22 +8,34 @@ int main(int argc, char** argv)
 {
     int retVal = 0;
     auto commandlineArguments = cluon::getCommandlineArguments(argc, argv);
-    if (0 == commandlineArguments.count("dev") || 0 == commandlineArguments.count("freq") || 0 == commandlineArguments.count("cid")) {
+    if (0 == commandlineArguments.count("dev") || 0 == commandlineArguments.count("freq") ||
+        0 == commandlineArguments.count("cid") || 0 == commandlineArguments.count("safety-distance")) {
         std::cerr << argv[0] << " reads (wireless) controller input from the specified path and relays it to components on the BeagleBone."
                   << std::endl;
-        std::cerr << "Usage:   " << argv[0] << " --dev=<path toController> --freq=<int pollingRate> --cid=<OD4Session toComponents>"
+        std::cerr << "Usage:   " << argv[0] << " --dev=<path toController> --freq=<int pollingRate> --cid=<OD4Session toComponents> --safety-distance=<int cm>"
                   << std::endl;
-        std::cerr << "Example: " << argv[0] << " --dev=/dev/input/js0 --freq=100 --cid=111" << std::endl;
+        std::cerr << "Example: " << argv[0] << " --dev=/dev/input/js0 --freq=50 --cid=111 --safety-distance=20" << std::endl;
         retVal = 1;
     } else {
         const std::string DEV = commandlineArguments["dev"];
         const uint16_t FREQ = (uint16_t) std::stoi(commandlineArguments["freq"]);
         const uint16_t CID = (uint16_t) std::stoi(commandlineArguments["cid"]);
+        const uint16_t SAFETY_DISTANCE = (uint16_t) std::stoi(commandlineArguments["safety-distance"]);
 
-        float direction = 1.f;
+        float direction = 1.f, distance = 0.f;
         int lastCmd = 0, targetGroup = 0;
-        cluon::OD4Session od4(CID, [](cluon::data::Envelope /*&&envelope*/) noexcept {});
-        auto atFrequency{[&od4, &direction, &lastCmd, &targetGroup, &DEV, &FREQ, &CID]() -> bool {
+        cluon::OD4Session od4(CID, [&distance](cluon::data::Envelope &&envelope) noexcept {
+            switch (envelope.dataType()) {
+                case 1039: {
+                    opendlv::proxy::DistanceReading dr =
+                            cluon::extractMessage<opendlv::proxy::DistanceReading>(std::move(envelope));
+                    distance = dr.distance();
+                } break;
+                default: break;
+            }
+        });
+
+        auto atFrequency{[&od4, &direction, &distance, &lastCmd, &targetGroup, &DEV, &FREQ, &CID, &SAFETY_DISTANCE]() -> bool {
             FILE *file = fopen(DEV.c_str(), "rb");
             if (file != nullptr) {
                 DS4Event *event = (DS4Event *)malloc(sizeof(DS4Event));
@@ -90,7 +102,7 @@ int main(int argc, char** argv)
                                     speed += speed >= 0.0025f ? 0.1f : 0.f;
                                     speed *= direction;
                                     opendlv::proxy::PedalPositionReading pedalPositionReading;
-                                    pedalPositionReading.position(speed);
+                                    pedalPositionReading.position(distance > SAFETY_DISTANCE ? speed : 0);
                                     od4.send(pedalPositionReading);
                                     std::cout << "[DS4] PedalPositionReading: " << pedalPositionReading.position() << std::endl;
                                 } break;

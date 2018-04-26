@@ -4,27 +4,33 @@ int main(int argc, char **argv) {
     int retVal = 0;
     auto commandlineArguments = cluon::getCommandlineArguments(argc, argv);
     if (0 == commandlineArguments.count("cid") || 0 == commandlineArguments.count("freq") ||
-        0 == commandlineArguments.count("ip") || 0 == commandlineArguments.count("id")) {
+        0 == commandlineArguments.count("ip") || 0 == commandlineArguments.count("id") || 0 == commandlineArguments.count("safety-distance")) {
         std::cerr << argv[0] << " sends and receives follower-/leader-status in accordance to the DIT168 V2V protocol."
                   << std::endl;
         std::cerr << "Usage:   " << argv[0]
-                  << " --cid=<OD4Session components> --freq=<frequency> --ip=<onV2VNetwork> --id=<DIT168Group>"
+                  << " --cid=<OD4Session components> --freq=<frequency> --ip=<onV2VNetwork> --id=<DIT168Group> --safety-distance=<int cm>"
                   << std::endl;
-        std::cerr << "Example: " << argv[0] << " --cid=111 --freq=10 --ip=127.0.0.1 --id=5" << std::endl;
+        std::cerr << "Example: " << argv[0] << " --cid=111 --freq=10 --ip=127.0.0.1 --id=5 --safety-distance=20" << std::endl;
         retVal = 1;
     } else {
         const uint16_t CID = (uint16_t) std::stoi(commandlineArguments["cid"]);
         const uint16_t FREQ = (uint16_t) std::stoi(commandlineArguments["freq"]);
         const std::string IP = commandlineArguments["ip"];
         const std::string ID = commandlineArguments["id"];
+        const uint16_t SAFETY_DISTANCE = (uint16_t) std::stoi(commandlineArguments["safety-distance"]);
 
-        std::shared_ptr<V2VService> v2vService = std::make_shared<V2VService>(IP, ID);
-        float pedalPos = 0, steeringAngle = 0;
+        std::shared_ptr<V2VService> v2vService = std::make_shared<V2VService>(IP, ID, SAFETY_DISTANCE);
+        float pedalPos = 0, steeringAngle = 0, distance = 0;
 
         // Listen to steering instructions sent internally:
         od4 = std::make_shared<cluon::OD4Session>(CID,
-        [&v2vService, &pedalPos, &steeringAngle](cluon::data::Envelope &&envelope) noexcept {
+        [&v2vService, &pedalPos, &steeringAngle, &distance](cluon::data::Envelope &&envelope) noexcept {
             switch (envelope.dataType()) {
+                case 1039: {
+                    opendlv::proxy::DistanceReading dr =
+                            cluon::extractMessage<opendlv::proxy::DistanceReading>(std::move(envelope));
+                    v2vService->_CURRENT_DISTANCE = dr.distance();
+                } break;
                 case 1041: {
                     opendlv::proxy::PedalPositionReading ppr =
                             cluon::extractMessage<opendlv::proxy::PedalPositionReading>(std::move(envelope));
@@ -77,9 +83,10 @@ int main(int argc, char **argv) {
 /**
  * Implementation of the V2VService class as declared in V2VService.hpp
  */
-V2VService::V2VService(std::string ip, std::string id) {
+V2VService::V2VService(std::string ip, std::string id, uint16_t safetyDistance) {
     _IP = ip;
     _ID = id;
+    _SAFETY_DISTANCE = safetyDistance;
 
     /*
      * The broadcast field contains a reference to the broadcast channel which is an OD4Session. This is where
@@ -166,7 +173,7 @@ V2VService::V2VService(std::string ip, std::string id) {
 
                  /* TODO: implement (proper) follow logic! */
                  opendlv::proxy::PedalPositionReading ppr;
-                 ppr.position(leaderStatus.speed());
+                 ppr.position(_CURRENT_DISTANCE > _SAFETY_DISTANCE ? leaderStatus.speed() : 0);
                  od4->send(ppr);
                  opendlv::proxy::GroundSteeringReading gsr;
                  gsr.groundSteering(leaderStatus.steeringAngle());

@@ -26,13 +26,13 @@ services:
         restart: always
         devices:
         - /dev/input/js0:/dev/input/js0
-        command: "/opt/MARBLE.DS4 --cid=160 --freq=100 --dev=/dev/input/js0"
+        command: "/opt/MARBLE.DS4 --cid=160 --freq=50 --safety-distance=20 --dev=/dev/input/js0"
 
     MARBLE.V2V:
         image: gusbocju/dit168.marble:latest-armhf
         network_mode: "host"
         restart: always
-        command: "/opt/MARBLE.V2V --cid=160 --freq=10 --ip=172.20.10.12 --id=5"
+        command: "/opt/MARBLE.V2V --cid=160 --freq=10 --safety-distance=20 --ip=172.20.10.12 --id=5"
 
     opendlv-signal-viewer:
         image: gusbocju/dit168.marble:latest-ubuntu-armhf
