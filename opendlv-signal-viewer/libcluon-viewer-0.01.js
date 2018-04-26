@@ -1,4 +1,4 @@
-/*
+`ch`/*
 Copyright 2018 Ola Benderius
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -211,9 +211,9 @@ function addFieldCharts(sourceKey, data) {
           datasets: [{
             label: fieldName,
             data: [fieldValue],
-            backgroundColor: 'rgb(255, 99, 132)',
-            borderColor: 'rgb(255, 99, 132)',
-            fill: false
+            backgroundColor: 'rgb(0,111,229)',
+            borderColor: 'rgb(0,225,229)',
+            fill: true
           }]
         },
         options: {

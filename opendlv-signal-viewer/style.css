@@ -48,3 +48,50 @@ td.field-plot {
 
 td.field-value {
 }
+
+h2{
+  color: #6BBAA7;
+  width: 100%;
+  font-weight: bold;
+}
+
+h5 {
+  color: #6c757d;
+}
+
+.light{
+  background-color: #9aabb9 ;
+}
+
+.navy{
+  font-color: #193446;
+}
+
+.width{
+  width: 50%;
+  display: inline-block}
+
+.btn-primary {
+  width:50%;
+  margin-left: 25%;
+  display: block;
+  vertical-align: top;
+  horiz-align: right;
+  text-align: center;
+  float: top;
+  background-color: lightseagreen;
+  border: none;
+    }.btn:action{
+   background-color: #235380;}
+
+.navbar-toggler-icon{
+  display: none;
+}
+
+.navbar-dark .navbar-toggler{
+  border-color: rgb(20, 156, 156);
+}
+
+
+
+
