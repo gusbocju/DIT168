@@ -17,7 +17,7 @@ int main(int argc, char **argv) {
         const uint16_t FREQ = (uint16_t) std::stoi(commandlineArguments["freq"]);
         const std::string IP = commandlineArguments["ip"];
         const std::string ID = commandlineArguments["id"];
-        const uint16_t SAFETY_DISTANCE = (uint16_t) std::stoi(commandlineArguments["safety-distance"]);
+        const float SAFETY_DISTANCE = std::stoi(commandlineArguments["safety-distance"]) /100.f;
 
         std::shared_ptr<V2VService> v2vService = std::make_shared<V2VService>(IP, ID, SAFETY_DISTANCE);
         float pedalPos = 0, steeringAngle = 0, distance = 0;
@@ -83,10 +83,10 @@ int main(int argc, char **argv) {
 /**
  * Implementation of the V2VService class as declared in V2VService.hpp
  */
-V2VService::V2VService(std::string ip, std::string id, uint16_t safetyDistance) {
+V2VService::V2VService(std::string ip, std::string id, float sd) {
+    _SAFETY_DISTANCE = sd;
     _IP = ip;
     _ID = id;
-    _SAFETY_DISTANCE = safetyDistance;
 
     /*
      * The broadcast field contains a reference to the broadcast channel which is an OD4Session. This is where
@@ -173,7 +173,7 @@ V2VService::V2VService(std::string ip, std::string id, uint16_t safetyDistance) 
 
                  /* TODO: implement (proper) follow logic! */
                  opendlv::proxy::PedalPositionReading ppr;
-                 ppr.position(_CURRENT_DISTANCE > _SAFETY_DISTANCE ? leaderStatus.speed() : 0);
+                 ppr.position(leaderStatus.speed() < 0 || _CURRENT_DISTANCE > _SAFETY_DISTANCE ? leaderStatus.speed() : 0);
                  od4->send(ppr);
                  opendlv::proxy::GroundSteeringReading gsr;
                  gsr.groundSteering(leaderStatus.steeringAngle());

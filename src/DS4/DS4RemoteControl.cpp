@@ -20,7 +20,7 @@ int main(int argc, char** argv)
         const std::string DEV = commandlineArguments["dev"];
         const uint16_t FREQ = (uint16_t) std::stoi(commandlineArguments["freq"]);
         const uint16_t CID = (uint16_t) std::stoi(commandlineArguments["cid"]);
-        const uint16_t SAFETY_DISTANCE = (uint16_t) std::stoi(commandlineArguments["safety-distance"]);
+        const float SAFETY_DISTANCE = std::stoi(commandlineArguments["safety-distance"]) /100.f;
 
         float direction = 1.f, distance = 0.f;
         int lastCmd = 0, targetGroup = 0;
@@ -102,7 +102,7 @@ int main(int argc, char** argv)
                                     speed += speed >= 0.0025f ? 0.1f : 0.f;
                                     speed *= direction;
                                     opendlv::proxy::PedalPositionReading pedalPositionReading;
-                                    pedalPositionReading.position(distance > SAFETY_DISTANCE ? speed : 0);
+                                    pedalPositionReading.position(speed < 0 || distance > SAFETY_DISTANCE ? speed : 0);
                                     od4.send(pedalPositionReading);
                                     std::cout << "[DS4] PedalPositionReading: " << pedalPositionReading.position() << std::endl;
                                 } break;

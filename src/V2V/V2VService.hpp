@@ -30,7 +30,7 @@ std::shared_ptr<cluon::OD4Session> od4;
 
 class V2VService {
 public:
-    V2VService(std::string ip, std::string id, uint16_t safetyDistance);
+    V2VService(std::string ip, std::string id, float sd);
 
     void announcePresence();
     void followRequest(std::string vehicleIp);
@@ -52,7 +52,7 @@ public:
     std::map <std::string, std::string> presentCars;
 
 private:
-    uint16_t _SAFETY_DISTANCE;
+    float _SAFETY_DISTANCE;
 
     std::string _IP;
     std::string _ID;
