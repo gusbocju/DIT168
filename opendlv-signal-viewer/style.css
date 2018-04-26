@@ -51,6 +51,11 @@ td.field-value {
 
 h2{
   color: #6BBAA7;
+  width: 100%;
+}
+
+h5 {
+  color: #6c757d;
 }
 
 .light{
@@ -74,6 +79,10 @@ h2{
   background-color: lightseagreen;
   border: none;
     }.btn:action{
-   background-color: purple;}
+   background-color: #235380;}
+
+.navbar-toggler-icon{
+  display: none;
+}
 
 
