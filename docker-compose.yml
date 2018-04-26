@@ -50,3 +50,11 @@ services:
         - /dev/i2c-1:/dev/i2c-1
         restart: always
         command: "/usr/bin/opendlv-device-ultrasonic-srf08 --dev=/dev/i2c-1 --bus-address=113 --cid=160 --freq=10 --id=0"
+
+    openKorp-proxy-miniature-imu:
+        image: openkorp/openkorp-on-opendlv-on-opendlv-core-on-opendavinci-on-base-armhf-dev:latest
+        network_mode: "host"
+        devices:
+        - "/dev/i2c-2:/dev/i2c-2"
+        restart: always
+        command: "/opt/openkorp/bin/opendlv-proxy-miniature-imu --cid=160 --freq=1 --id=1"
