@@ -1,5 +1,11 @@
 #include "backend.h"
+#include "remotecontrol.h"
 #include <iostream>
+#include "cluon/OD4Session.hpp"
+#include "cluon/Envelope.hpp"
+#include <chrono>
+#include <thread>
+
 BackEnd::BackEnd(QObject *parent) : QObject(parent)
 {
 
@@ -7,8 +13,10 @@ BackEnd::BackEnd(QObject *parent) : QObject(parent)
 
 void BackEnd::moveW(){
     std::cout << "moved! - W" << std::endl;
+
 }
 void BackEnd::moveA(){
+    press_a();
     std::cout << "moved! - A" << std::endl;
 }
 void BackEnd::moveS(){
