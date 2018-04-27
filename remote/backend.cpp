@@ -1,30 +1,74 @@
 #include "backend.h"
-#include "remotecontrol.h"
 #include <iostream>
 #include "cluon/OD4Session.hpp"
 #include "cluon/Envelope.hpp"
-#include <chrono>
-#include <thread>
+//#include "RemoteControlMessages.hpp"
+#include "../build/uimessages.hpp"
 
-BackEnd::BackEnd(QObject *parent) : QObject(parent)
-{
 
+BackEnd::BackEnd(QObject *parent) : QObject(parent){
 }
 
 void BackEnd::moveW(){
-    std::cout << "moved! - W" << std::endl;
+    //SteeringInstruction ins;
+    //ins.pedalPosition(0.5);
+    //ins.steeringAngle(0);
+    //std::cout << "sending " << ins.pedalPosition() << " / " << ins.steeringAngle() << " ..." << std::endl;
+    cluon::OD4Session od4(222, [](cluon::data::Envelope /*&&envelope*/) noexcept {});
+
+    if(od4.isRunning()){
+        UIMessage msg;
+        msg.v2vgroup(0);
+        msg.direction("w");
+        od4.send(msg);
+    }
+    //std::cout << "moved! - W" << std::endl;
 
 }
 void BackEnd::moveA(){
-    press_a();
-    std::cout << "moved! - A" << std::endl;
+    cluon::OD4Session od4(222, [](cluon::data::Envelope /*&&envelope*/) noexcept {});
+
+    if(od4.isRunning()){
+        UIMessage msg;
+        msg.v2vgroup(0);
+        msg.direction("a");
+        od4.send(msg);
+    }
+    //std::cout << "moved! - A" << std::endl;
 }
 void BackEnd::moveS(){
-    std::cout << "moved! - S" << std::endl;
+    cluon::OD4Session od4(222, [](cluon::data::Envelope /*&&envelope*/) noexcept {});
+
+    if(od4.isRunning()){
+        UIMessage msg;
+        msg.v2vgroup(0);
+        msg.direction("s");
+        od4.send(msg);
+    }
+   // std::cout << "moved! - S" << std::endl;
 }
 void BackEnd::moveD(){
-    std::cout << "moved! - D" << std::endl;
+    cluon::OD4Session od4(222, [](cluon::data::Envelope /*&&envelope*/) noexcept {});
+
+    if(od4.isRunning()){
+        UIMessage msg;
+        msg.v2vgroup(0);
+        msg.direction("d");
+        od4.send(msg);
+    }
+    //std::cout << "moved! - D" << std::endl;
 }
+
+void BackEnd::stop(){
+    //SteeringInstruction ins;
+    //ins.pedalPosition(0.0);
+    //ins.steeringAngle(0);
+    //std::cout << "sending " << ins.pedalPosition() << " / " << ins.steeringAngle() << " ..." << std::endl;
+    //od4 -> send(ins);
+    std::cout << "stopping" << std::endl;
+}
+
+
 void BackEnd::startV2V(){
     std::cout << "started v2v" << std::endl;
 }

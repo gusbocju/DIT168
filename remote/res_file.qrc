@@ -19,6 +19,5 @@
         <file>Main.cpp</file>
         <file>main_window.cpp</file>
         <file>RemoteControl.cpp</file>
-        <file>remotecontrol.h</file>
     </qresource>
 </RCC>

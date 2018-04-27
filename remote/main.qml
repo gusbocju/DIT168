@@ -10,7 +10,7 @@ Window {
     title: qsTr("Remote Control")
 
     BackEnd{
-        id:backend
+        id:backend;
     }
 
     Image {
@@ -23,8 +23,8 @@ Window {
         source: "res/resources/forwardImg.png"
         MouseArea {
             anchors.fill: parent
-            onClicked: backend.moveW();
-            onPressedChanged: parent.source = pressed ? "res/forwardImgPressed.png" : "res/forwardImg.png"
+            //onClicked: backend.moveW();
+            onPressedChanged: pressed ? backend.moveW() : backend.stop();
         }
     }
 
@@ -38,8 +38,8 @@ Window {
         source: "res/resources/rightImg.png"
         MouseArea {
             anchors.fill: parent
-            onClicked: backend.moveD();
-            onPressedChanged: parent.source = pressed ? "res/rightImgPressed.png" : "res/rightImg.png"
+           // onClicked: backend.moveD();
+            onPressedChanged: pressed ? backend.moveD() : backend.stop();
         }
 
     }
@@ -54,8 +54,8 @@ Window {
         source: "res/resources/reverseImg.png"
         MouseArea {
             anchors.fill: parent
-            onClicked: backend.moveS();
-            onPressedChanged: parent.source = pressed ? "res/reverseImgPressed.png" : "res/reverseImg.png"
+            //onClicked: backend.moveS();
+            onPressedChanged: pressed ? backend.moveS() : backend.stop();
         }
 
     }
@@ -70,8 +70,8 @@ Window {
         source: "res/resources/leftImg.png"
         MouseArea {
             anchors.fill: parent
-            onClicked: backend.moveA();
-            onPressedChanged: parent.source = pressed ? "res/leftImgPressed.png" : "res/leftImg.png"
+            //onClicked: backend.moveA();
+            onPressedChanged: pressed ? backend.moveA() : backend.stop();
         }
 
     }

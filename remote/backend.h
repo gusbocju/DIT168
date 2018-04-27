@@ -3,22 +3,24 @@
 
 #include <QObject>
 #include <QString>
+#include "cluon/OD4Session.hpp"
 
 class BackEnd : public QObject
 {
     Q_OBJECT
 
 public:
+    //explicit BackEnd(QObject *parent = nullptr);
     explicit BackEnd(QObject *parent = nullptr);
+    //
 
 
-signals:
-    void moving();
 public slots:
     void moveW();
     void moveA();
     void moveS();
     void moveD();
+    void stop();
     void startV2V();
     void stopV2V();
     bool connection(int n);
