@@ -4,23 +4,19 @@
 
 cmake_minimum_required(VERSION 3.5)
 
-find_program(LSB_RELEASE lsb_release)
-execute_process(COMMAND ${LSB_RELEASE} -is
-                OUTPUT_VARIABLE LSB_RELEASE_ID_SHORT
-                OUTPUT_STRIP_TRAILING_WHITESPACE)
+FIND_PROGRAM(APK apk)
 
 # Add the path to any emerging (sub-)project to the list below:
 
-if(${LSB_RELEASE_ID_SHORT} STREQUAL "Alpine")
-    add_subdirectory(src/DS4)
-    add_subdirectory(src/V2V)
-    add_subdirectory(src/demo/ds4)
-    add_subdirectory(src/demo/networking)
-    add_subdirectory(src/demo/safety-check)
-else()
+if(NOT APK)
     add_subdirectory(src/DS4)
     add_subdirectory(src/V2V)
     add_subdirectory(src/IMU)
+    add_subdirectory(src/demo/ds4)
+    add_subdirectory(src/demo/networking)
+    add_subdirectory(src/demo/safety-check)
+elseif(APK)
+    add_subdirectory(src/V2V)
     add_subdirectory(src/demo/ds4)
     add_subdirectory(src/demo/networking)
     add_subdirectory(src/demo/safety-check)
