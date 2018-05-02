@@ -39,13 +39,13 @@ int main(int argc, char **argv) {
               [&steeringInstruction, &speedInstruction](cluon::data::Envelope &&envelope) noexcept {
             switch (envelope.ID()) {
                 case 9010: {
-                    MARBLE::Steering::Instruction::GroundSteering steering =
-                            cluon::extractMessage<MARBLE::Steering::Instruction::GroundSteering>(std::move(envelope));
+                    MARBLE::DS4::Instruction::GroundSteering steering =
+                            cluon::extractMessage<MARBLE::DS4::Instruction::GroundSteering>(std::move(envelope));
                     steeringInstruction = steering.groundSteering();
                 } break;
                 case 9011: {
-                    MARBLE::Steering::Instruction::PedalPosition speed =
-                            cluon::extractMessage<MARBLE::Steering::Instruction::PedalPosition>(std::move(envelope));
+                    MARBLE::DS4::Instruction::PedalPosition speed =
+                            cluon::extractMessage<MARBLE::DS4::Instruction::PedalPosition>(std::move(envelope));
                     speedInstruction = speed.pedalPosition();
                 } break;
                 default: break;
@@ -65,11 +65,11 @@ int main(int argc, char **argv) {
             od4->send(accelerationReading);
             od4->send(angularVelocityReading);
             // Share estimated corrections:
-            MARBLE::Steering::Correction::PedalPosition pedalPosition;
+            MARBLE::IMU::Correction::PedalPosition pedalPosition;
             pedalPosition.pedalCorrection(speedInstruction +SPEED_OFFSET);
             float correction = fabsf(angularVelocityReading.angularVelocityZ()) /STEERING_SCALE;
             correction *= angularVelocityReading.angularVelocityZ() > 0 ? -1.f : 1.f;
-            MARBLE::Steering::Correction::GroundSteering groundSteering;
+            MARBLE::IMU::Correction::GroundSteering groundSteering;
             groundSteering.steeringCorrection(speedInstruction == 0 ? steeringInstruction +correction : steeringInstruction);
             return true;
         }};

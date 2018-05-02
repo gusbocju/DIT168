@@ -6,15 +6,14 @@
 #define PROJECT_IMU_H
 
 #include <iostream>
-#include <RemoteControlMessages.hpp>
 #include <math.h>
-
 #include "cluon/OD4Session.hpp"
 #include "cluon/UDPSender.hpp"
 #include "cluon/UDPReceiver.hpp"
 #include "cluon/Envelope.hpp"
 #include "IMUMessages.hpp"
-#include "MPU9250Device.h"
+#include "DS4Messages.hpp"
+#include "MPU9250Device.hpp"
 
 class IMU {
 

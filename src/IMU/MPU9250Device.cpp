@@ -17,7 +17,7 @@
  * USA.
  */
 
-#include "MPU9250Device.h"
+#include "MPU9250Device.hpp"
 
 namespace opendlv {
 namespace proxy {

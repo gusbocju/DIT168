@@ -8,21 +8,27 @@ set(CMAKE_CXX_STANDARD 14)
 find_package(libcluon REQUIRED)
 include_directories(SYSTEM ${CLUON_INCLUDE_DIRS})
 
-add_custom_command(OUTPUT ${CMAKE_BINARY_DIR}/Messages.cpp
+add_custom_command(OUTPUT ${CMAKE_BINARY_DIR}/V2VMessages.cpp
         WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
-        COMMAND cluon-msc --cpp-sources --cpp-add-include-file=Messages.hpp --out=${CMAKE_BINARY_DIR}/Messages.cpp ${CMAKE_CURRENT_SOURCE_DIR}/Messages.odvd
-        COMMAND cluon-msc --cpp-headers --out=${CMAKE_BINARY_DIR}/Messages.hpp ${CMAKE_CURRENT_SOURCE_DIR}/Messages.odvd
-        DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/Messages.odvd)
+        COMMAND cluon-msc --cpp-sources --cpp-add-include-file=V2VMessages.hpp --out=${CMAKE_BINARY_DIR}/V2VMessages.cpp ${CMAKE_CURRENT_SOURCE_DIR}/V2VMessages.odvd
+        COMMAND cluon-msc --cpp-headers --out=${CMAKE_BINARY_DIR}/V2VMessages.hpp ${CMAKE_CURRENT_SOURCE_DIR}/V2VMessages.odvd
+        DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/V2VMessages.odvd)
 
-add_custom_command(OUTPUT ${CMAKE_BINARY_DIR}/RemoteControlMessages.cpp
+add_custom_command(OUTPUT ${CMAKE_BINARY_DIR}/DS4Messages.cpp
         WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
-        COMMAND cluon-msc --cpp-sources --cpp-add-include-file=RemoteControlMessages.hpp --out=${CMAKE_BINARY_DIR}/RemoteControlMessages.cpp ${CMAKE_CURRENT_SOURCE_DIR}/RemoteControlMessages.odvd
-        COMMAND cluon-msc --cpp-headers --out=${CMAKE_BINARY_DIR}/RemoteControlMessages.hpp ${CMAKE_CURRENT_SOURCE_DIR}/RemoteControlMessages.odvd
-        DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/RemoteControlMessages.odvd)
+        COMMAND cluon-msc --cpp-sources --cpp-add-include-file=DS4Messages.hpp --out=${CMAKE_BINARY_DIR}/DS4Messages.cpp ${CMAKE_CURRENT_SOURCE_DIR}/DS4Messages.odvd
+        COMMAND cluon-msc --cpp-headers --out=${CMAKE_BINARY_DIR}/DS4Messages.hpp ${CMAKE_CURRENT_SOURCE_DIR}/DS4Messages.odvd
+        DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/DS4Messages.odvd)
+
+add_custom_command(OUTPUT ${CMAKE_BINARY_DIR}/IMUMessages.cpp
+        WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
+        COMMAND cluon-msc --cpp-sources --cpp-add-include-file=IMUMessages.hpp --out=${CMAKE_BINARY_DIR}/IMUMessages.cpp ${CMAKE_CURRENT_SOURCE_DIR}/IMUMessages.odvd
+        COMMAND cluon-msc --cpp-headers --out=${CMAKE_BINARY_DIR}/IMUMessages.hpp ${CMAKE_CURRENT_SOURCE_DIR}/IMUMessages.odvd
+        DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/IMUMessages.odvd)
 
 include_directories(SYSTEM ${CMAKE_BINARY_DIR})
 
-add_executable(${PROJECT_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/V2VService.cpp ${CMAKE_BINARY_DIR}/Messages.cpp ${CMAKE_BINARY_DIR}/RemoteControlMessages.cpp)
+add_executable(${PROJECT_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/V2VService.cpp ${CMAKE_BINARY_DIR}/V2VMessages.cpp ${CMAKE_BINARY_DIR}/DS4Messages.cpp ${CMAKE_BINARY_DIR}/IMUMessages.cpp)
 target_link_libraries(${PROJECT_NAME} ${CLUON_LIBRARIES})
 
 # enable_testing()
