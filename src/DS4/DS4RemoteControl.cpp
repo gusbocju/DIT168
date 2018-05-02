@@ -26,7 +26,8 @@ int main(int argc, char** argv)
         int lastCmd = 0, targetGroup = 0, correctionEnabled = 0;
         float steering = 0.f, steeringCorrection = 0.f, speed = 0.f, speedCorrection = 0.f;
 
-        cluon::OD4Session od4(CID, [&distance, &speedCorrection, &steeringCorrection](cluon::data::Envelope &&envelope) noexcept {
+        std::shared_ptr<cluon::OD4Session> od4 = std::make_shared<cluon::OD4Session>(CID,
+        [&distance, &speedCorrection, &steeringCorrection](cluon::data::Envelope &&envelope) noexcept {
             switch (envelope.dataType()) {
                 case 1039: {
                     opendlv::proxy::DistanceReading dr =
@@ -63,18 +64,18 @@ int main(int argc, char** argv)
                                                 if (targetGroup < 0) {
                                                     std::cout << "[DS4] Stopping to act as follower!" << std::endl;
                                                     MARBLE::DS4::StopFollow sf;
-                                                    od4.send(sf);
+                                                    od4->send(sf);
                                                 } else if (targetGroup > 0) {
                                                     std::cout << "[DS4] Stopping to act as leader!" << std::endl;
                                                     MARBLE::DS4::StopLead sl;
-                                                    od4.send(sl);
+                                                    od4->send(sl);
                                                 }
                                             } break;
                                             case Triangle: {
                                                 std::cout << "[DS4] Starting to follow group: " << targetGroup << std::endl;
                                                 MARBLE::DS4::StartFollow sf;
                                                 sf.groupId((uint8_t) targetGroup);
-                                                od4.send(sf);
+                                                od4->send(sf);
                                             } break;
                                         } lastCmd = 0; targetGroup = 0;
                                     } break;
@@ -108,19 +109,19 @@ int main(int argc, char** argv)
                                     steering = absToPercentage(event->data)*(-1);
                                     MARBLE::DS4::Instruction::GroundSteering steeringInstruction;
                                     steeringInstruction.groundSteering(steering);
-                                    od4.send(steeringInstruction);
+                                    od4->send(steeringInstruction);
                                     if (!correctionEnabled) {
                                         opendlv::proxy::GroundSteeringReading groundSteeringReading;
                                         groundSteeringReading.groundSteering(steering);
-                                        od4.send(groundSteeringReading);
+                                        od4->send(groundSteeringReading);
                                     }
                                     else {
                                         opendlv::proxy::GroundSteeringReading steeringReading;
                                         steeringReading.groundSteering(steering +steeringCorrection);
-                                        od4.send(steeringReading);
+                                        od4->send(steeringReading);
                                         opendlv::proxy::PedalPositionReading pedalPositionReading;
                                         pedalPositionReading.position(speed +speedCorrection);
-                                        od4.send(pedalPositionReading);
+                                        od4->send(pedalPositionReading);
                                     }
                                 } break;
                                 case LStickY: break;
@@ -134,19 +135,19 @@ int main(int argc, char** argv)
                                     speed = speed < 0 || distance > SAFETY_DISTANCE ? speed : 0;
                                     MARBLE::DS4::Instruction::PedalPosition pedalInstruction;
                                     pedalInstruction.pedalPosition(speed);
-                                    od4.send(pedalInstruction);
+                                    od4->send(pedalInstruction);
                                     if (!correctionEnabled) {
                                         opendlv::proxy::PedalPositionReading pedalPositionReading;
                                         pedalPositionReading.position(speed);
-                                        od4.send(pedalPositionReading);
+                                        od4->send(pedalPositionReading);
                                     }
                                     else {
                                         opendlv::proxy::GroundSteeringReading steeringReading;
                                         steeringReading.groundSteering(steering +steeringCorrection);
-                                        od4.send(steeringReading);
+                                        od4->send(steeringReading);
                                         opendlv::proxy::PedalPositionReading pedalPositionReading;
                                         pedalPositionReading.position(speed +speedCorrection);
-                                        od4.send(pedalPositionReading);
+                                        od4->send(pedalPositionReading);
                                     }
                                 } break;
                                 case PadX: {
@@ -171,7 +172,7 @@ int main(int argc, char** argv)
             else std::cout << "[ERROR] file at '" << DEV << "' cannot be accessed!" << std::endl;
             return true;
         }};
-        od4.timeTrigger(FREQ, atFrequency);
+        od4->timeTrigger(FREQ, atFrequency);
     }
     return retVal;
 }
