@@ -27,7 +27,7 @@ int main(int argc, char** argv)
         float steering = 0.f, steeringCorrection = 0.f, speed = 0.f, speedCorrection = 0.f;
 
         std::shared_ptr<cluon::OD4Session> od4 = std::make_shared<cluon::OD4Session>(CID,
-        [&distance, &speedCorrection, &steeringCorrection](cluon::data::Envelope &&envelope) noexcept {
+        [&od4, &distance, &speedCorrection, &steeringCorrection, &steering, &correctionEnabled](cluon::data::Envelope &&envelope) noexcept {
             switch (envelope.dataType()) {
                 case 1039: {
                     opendlv::proxy::DistanceReading dr =
@@ -38,6 +38,11 @@ int main(int argc, char** argv)
                     MARBLE::IMU::Correction::GroundSteering gsrCorrection =
                             cluon::extractMessage<MARBLE::IMU::Correction::GroundSteering>(std::move(envelope));
                     steeringCorrection = gsrCorrection.steeringCorrection();
+                    if (correctionEnabled && steering == 0) {
+                        opendlv::proxy::GroundSteeringReading gsr;
+                        gsr.groundSteering(steeringCorrection);
+                        od4->send(gsr);
+                    }
                 } break;
                 case 9013: {
                     MARBLE::IMU::Correction::PedalPosition ppCorrection =
@@ -85,6 +90,9 @@ int main(int argc, char** argv)
                                 case L1:
                                     if (event->data == 1) {
                                         correctionEnabled = correctionEnabled ? 0 : 1;
+                                        MARBLE::DS4::CorrectionToggle correctionToggle;
+                                        correctionToggle.enabled(correctionEnabled);
+                                        od4->send(correctionToggle);
                                         std::cout << "[DS4] Steering correction: " << (correctionEnabled ? "ON" : "OFF") << std::endl;
                                     }
                                     break;
@@ -107,7 +115,7 @@ int main(int argc, char** argv)
                             switch (event->id) {
                                 case LStickX: {
                                     steering = absToPercentage(event->data)*(-1);
-                                    MARBLE::DS4::Instruction::GroundSteering steeringInstruction;
+                                    MARBLE::Steering::Instruction::GroundSteering steeringInstruction;
                                     steeringInstruction.groundSteering(steering);
                                     od4->send(steeringInstruction);
                                     if (!correctionEnabled) {
@@ -117,7 +125,7 @@ int main(int argc, char** argv)
                                     }
                                     else {
                                         opendlv::proxy::GroundSteeringReading steeringReading;
-                                        steeringReading.groundSteering(steering +steeringCorrection);
+                                        steeringReading.groundSteering(steering == 0 ? steeringCorrection : steering);
                                         od4->send(steeringReading);
                                         opendlv::proxy::PedalPositionReading pedalPositionReading;
                                         pedalPositionReading.position(speed +speedCorrection);
@@ -133,7 +141,7 @@ int main(int argc, char** argv)
                                     speed += speed >= 0.0025f ? 0.1f : 0.f;
                                     speed *= direction;
                                     speed = speed < 0 || distance > SAFETY_DISTANCE ? speed : 0;
-                                    MARBLE::DS4::Instruction::PedalPosition pedalInstruction;
+                                    MARBLE::Steering::Instruction::PedalPosition pedalInstruction;
                                     pedalInstruction.pedalPosition(speed);
                                     od4->send(pedalInstruction);
                                     if (!correctionEnabled) {
@@ -143,7 +151,7 @@ int main(int argc, char** argv)
                                     }
                                     else {
                                         opendlv::proxy::GroundSteeringReading steeringReading;
-                                        steeringReading.groundSteering(steering +steeringCorrection);
+                                        steeringReading.groundSteering(steering == 0 ? steeringCorrection : steering);
                                         od4->send(steeringReading);
                                         opendlv::proxy::PedalPositionReading pedalPositionReading;
                                         pedalPositionReading.position(speed +speedCorrection);

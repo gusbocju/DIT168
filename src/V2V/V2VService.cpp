@@ -31,15 +31,15 @@ int main(int argc, char **argv) {
                             cluon::extractMessage<opendlv::proxy::DistanceReading>(std::move(envelope));
                     v2vService->_CURRENT_DISTANCE = dr.distance();
                 } break;
-                case 1041: {
-                    opendlv::proxy::PedalPositionReading ppr =
-                            cluon::extractMessage<opendlv::proxy::PedalPositionReading>(std::move(envelope));
-                    pedalPos = ppr.position();
+                case 9010: {
+                    MARBLE::Steering::Instruction::GroundSteering groundSteering =
+                            cluon::extractMessage<MARBLE::Steering::Instruction::GroundSteering>(std::move(envelope));
+                    steeringAngle = groundSteering.groundSteering();
                 } break;
-                case 1045: {
-                    opendlv::proxy::GroundSteeringReading gsr =
-                            cluon::extractMessage<opendlv::proxy::GroundSteeringReading>(std::move(envelope));
-                    steeringAngle = gsr.groundSteering();
+                case 9011: {
+                    MARBLE::Steering::Instruction::PedalPosition pedalPosition =
+                            cluon::extractMessage<MARBLE::Steering::Instruction::PedalPosition>(std::move(envelope));
+                    pedalPos = pedalPosition.pedalPosition();
                 } break;
                 case 9001: {
                     MARBLE::DS4::StartFollow sf = cluon::extractMessage<MARBLE::DS4::StartFollow>(std::move(envelope));
@@ -73,6 +73,7 @@ int main(int argc, char **argv) {
             v2vService->followerStatus();
 
             // TODO: implement acquired 'distanceTraveled' from IMU!
+
             v2vService->leaderStatus(pedalPos, steeringAngle, 0);
             return true;
         }};
@@ -172,12 +173,13 @@ V2VService::V2VService(std::string ip, std::string id, float sd) {
                  lastLeaderStatus = getTime();
 
                  /* TODO: implement (proper) follow logic! */
-                 opendlv::proxy::PedalPositionReading ppr;
-                 ppr.position(leaderStatus.speed() < 0 || _CURRENT_DISTANCE > _SAFETY_DISTANCE ? leaderStatus.speed() : 0);
-                 od4->send(ppr);
-                 opendlv::proxy::GroundSteeringReading gsr;
-                 gsr.groundSteering(leaderStatus.steeringAngle());
-                 od4->send(gsr);
+
+                 MARBLE::Steering::Instruction::GroundSteering gsi;
+                 gsi.groundSteering(leaderStatus.steeringAngle());
+                 od4->send(gsi);
+                 MARBLE::Steering::Instruction::PedalPosition ppi;
+                 ppi.pedalPosition(leaderStatus.speed() < 0 || _CURRENT_DISTANCE > _SAFETY_DISTANCE ? leaderStatus.speed() : 0);
+                 od4->send(ppi);
 
                  od4->send(leaderStatus);
                  break;

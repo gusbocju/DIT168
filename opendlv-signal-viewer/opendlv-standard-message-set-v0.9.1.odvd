@@ -378,16 +378,16 @@ message MARBLE.DS4.StopLead [id = 9003] {
   uint8 empty [id = 1];
 }
 
-message MARBLE.DS4.Instruction.GroundSteering [id = 9010] {
+message MARBLE.Steering.Instruction.GroundSteering [id = 9010] {
  float groundSteering [id = 1];
 }
 
-message MARBLE.DS4.Instruction.PedalPosition [id = 9011] {
+message MARBLE.Steering.Instruction.PedalPosition [id = 9011] {
  float pedalPosition [id = 1];
 }
 
 message MARBLE.DS4.CorrectionToggle [id = 9015] {
- uint8 empty [id = 1];
+ uint8 enabled [id = 1];
 }
 
 /* IMU */
@@ -398,4 +398,16 @@ message MARBLE.IMU.Correction.GroundSteering [id = 9012] {
 
 message MARBLE.IMU.Correction.PedalPosition [id = 9013] {
  float pedalCorrection [id = 1];
+}
+
+message MARBLE.IMU.Monitor.Speed [id = 9016] {
+ float speedX [id = 1];
+ float speedY [id = 2];
+ float speedZ [id = 3];
+}
+
+message MARBLE.IMU.Monitor.AngularOffset [id = 9017] {
+ float offsetX [id = 1];
+ float offsetY [id = 2];
+ float offsetZ [id = 3];
 }

@@ -22,14 +22,14 @@ message MARBLE.DS4.StopLead [id = 9003] {
   uint8 empty [id = 1];
 }
 
-message MARBLE.DS4.Instruction.GroundSteering [id = 9010] {
+message MARBLE.Steering.Instruction.GroundSteering [id = 9010] {
  float groundSteering [id = 1];
 }
 
-message MARBLE.DS4.Instruction.PedalPosition [id = 9011] {
+message MARBLE.Steering.Instruction.PedalPosition [id = 9011] {
  float pedalPosition [id = 1];
 }
 
 message MARBLE.DS4.CorrectionToggle [id = 9015] {
- uint8 empty [id = 1];
+ uint8 enabled [id = 1];
 }
