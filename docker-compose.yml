@@ -26,7 +26,7 @@ services:
         restart: always
         devices:
         - /dev/input/js0:/dev/input/js0
-        command: "/opt/MARBLE.DS4 --cid=160 --freq=40 --safety-distance=35 --dev=/dev/input/js0"
+        command: "/opt/MARBLE.DS4 --cid=160 --freq=24 --safety-distance=35 --dev=/dev/input/js0"
 
     MARBLE.V2V:
         image: gusbocju/dit168.marble:latest-armhf
@@ -48,7 +48,7 @@ services:
         devices:
         - /dev/i2c-1:/dev/i2c-1
         restart: always
-        command: "/usr/bin/opendlv-device-ultrasonic-srf08 --dev=/dev/i2c-1 --bus-address=113 --cid=160 --freq=8 --id=0"
+        command: "/usr/bin/opendlv-device-ultrasonic-srf08 --dev=/dev/i2c-1 --bus-address=113 --cid=160 --freq=2 --id=0"
 
     MARBLE.IMU:
         image: gusbocju/dit168.marble:latest-ubuntu-armhf
@@ -56,4 +56,4 @@ services:
         devices:
         - /dev/i2c-2:/dev/i2c-2
         restart: always
-        command: "/opt/MARBLE.IMU --cid=160 --freq=8 --dev=/dev/i2c-2 --steering_scale=30 --speed_offset=0.6 --a_x=0.015 --a_y=-0.375 --a_z=0.875"
+        command: "/opt/MARBLE.IMU --cid=160 --freq=8 --dev=/dev/i2c-2 --steering_scale=30 --speed_offset=0.6 --a_x=0.0 --a_y=-0.415 --a_z=0.905"
