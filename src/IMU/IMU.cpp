@@ -2,8 +2,6 @@
 // Created by julian on 4/27/18.
 //
 
-#include <RemoteControlMessages.hpp>
-#include <math.h>
 #include "IMU.hpp"
 
 int main(int argc, char **argv) {
@@ -21,11 +19,13 @@ int main(int argc, char **argv) {
         const uint16_t CID = (uint16_t) std::stoi(commandlineArguments["cid"]);
         const uint16_t FREQ = (uint16_t) std::stoi(commandlineArguments["freq"]);
         const std::string DEV = commandlineArguments["dev"];
-
         const float STEERING_SCALE = std::stof(commandlineArguments["steering_scale"]);
         const float SPEED_OFFSET = std::stof(commandlineArguments["speed_offset"]);
 
         float steeringInstruction = 0.f, speedInstruction = 0.f;
+        std::shared_ptr<cluon::OD4Session> od4;
+        std::shared_ptr<opendlv::proxy::miniature::MPU9250Device> imu;
+
         imu = std::make_shared<opendlv::proxy::miniature::MPU9250Device>(DEV);
         od4 = std::make_shared<cluon::OD4Session>(CID,
               [&steeringInstruction, &speedInstruction](cluon::data::Envelope &&envelope) noexcept {
@@ -45,7 +45,7 @@ int main(int argc, char **argv) {
         });
 
         // Repeat at FREQ:
-        auto atFrequency{[&od4, &imu]() -> bool {
+        auto atFrequency{[&od4, &imu, &steeringInstruction, &speedInstruction, &SPEED_OFFSET, STEERING_SCALE]() -> bool {
             // Read IMU:
             opendlv::proxy::AccelerationReading accelerationReading = imu->readAccelerometer();
             opendlv::proxy::AngularVelocityReading angularVelocityReading = imu->readGyroscope();

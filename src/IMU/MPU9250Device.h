@@ -24,6 +24,13 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <fcntl.h>
+#include <linux/i2c-dev.h>
+#include <sys/ioctl.h>
+#include <cmath>
+#include <iostream>
+#include <fstream>
+#include <unistd.h>
 
 #include "IMUMessages.hpp"
 
