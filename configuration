@@ -8,3 +8,6 @@ odcockpit.directoriesForSharedLibaries = /opt/opendlv.miniature
 proxy-miniature-pwm-motor.names = steering,propulsion
 proxy-miniature-pwm-motor.types = servo,esc
 proxy-miniature-pwm-motor.channels = 1,2
+
+proxy-miniature-imu.type = mpu9250
+proxy-miniature-imu.mpu9250.device_node = /dev/i2c-2

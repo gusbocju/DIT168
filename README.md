@@ -30,8 +30,8 @@ Thanks to Travis CI, the latest Docker image (originating *master*) can be fetch
 
 `$ docker pull gusbocju/dit168.marble:latest` <sub><sup>(Alpine 3.7 x86_64)</sup></sub>\
 `$ docker pull gusbocju/dit168.marble:latest-armhf` <sub><sup>(Alpine 3.7 armhf)</sup></sub>\
-`$ docker pull gusbocju/dit168.marble:latest-ubuntu` <sub><sup>(Ubuntu 16.04 x86_64 / incl. signal-viewer and MARBLE.DS4)</sup></sub>\
-`$ docker pull gusbocju/dit168.marble:latest-ubuntu-armhf` <sub><sup>(Ubuntu 16.04 armhf / incl. signal-viewer and MARBLE.DS4)</sup></sub>
+`$ docker pull gusbocju/dit168.marble:latest-ubuntu` <sub><sup>(Ubuntu 16.04 x86_64 / incl. signal-viewer, MARBLE.DS4 and MARBLE.IMU)</sup></sub>\
+`$ docker pull gusbocju/dit168.marble:latest-ubuntu-armhf` <sub><sup>(Ubuntu 16.04 armhf / incl. signal-viewer, MARBLE.DS4 and MARBLE.IMU)</sup></sub>
 
 Use the following snippets to save and/ or restore a local Docker image whenever needed:
 
@@ -43,7 +43,8 @@ Running different modules/ features from any of our Docker images can be done us
 
 ##### MODULES AND FEATURES
 `$ docker run --rm -ti --net=host dit168.marble /opt/MARBLE.DS4`\
-`$ docker run --rm -ti --net=host dit168.marble /opt/MARBLE.V2V`
+`$ docker run --rm -ti --net=host dit168.marble /opt/MARBLE.V2V`\
+`$ docker run --rm -ti --net=host dit168.marble /opt/MARBLE.IMU`
 
 ##### DEMOS
 `$ docker run --rm -ti --net=host dit168.marble /opt/MARBLE.DS4.Demo`\
