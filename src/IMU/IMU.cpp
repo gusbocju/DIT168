@@ -52,6 +52,8 @@ int main(int argc, char **argv) {
             }
         });
 
+        float rad_to_deg = (180.0f/3.141592653589793238463f);
+
         // Repeat at FREQ:
         auto atFrequency{[&od4, &imu, &steeringInstruction, &speedInstruction, &SPEED_OFFSET, STEERING_SCALE, &AX, &AY, &AZ]() -> bool {
             // Read IMU:
@@ -67,8 +69,8 @@ int main(int argc, char **argv) {
             // Share estimated corrections:
             MARBLE::IMU::Correction::PedalPosition pedalPosition;
             pedalPosition.pedalCorrection(speedInstruction +SPEED_OFFSET);
-            float correction = fabsf(angularVelocityReading.angularVelocityZ()) /STEERING_SCALE;
-            correction *= angularVelocityReading.angularVelocityZ() > 0 ? -1.f : 1.f;
+            float correction = (fabsf(angularVelocityReading.angularVelocityX())*rad_to_deg)/STEERING_SCALE;
+            correction *= angularVelocityReading.angularVelocityX() > 0 ? -1.f : 1.f;
             MARBLE::IMU::Correction::GroundSteering groundSteering;
             groundSteering.steeringCorrection(speedInstruction == 0 ? steeringInstruction +correction : steeringInstruction);
             return true;
