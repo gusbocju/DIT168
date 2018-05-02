@@ -52,10 +52,10 @@ int main(int argc, char **argv) {
             }
         });
 
-        float rad_to_deg = (180.0f/3.141592653589793238463f);
+        const float RAD_TO_DEG = (180.0f /3.141592653589793238463f);
 
         // Repeat at FREQ:
-        auto atFrequency{[&od4, &imu, &steeringInstruction, &speedInstruction, &SPEED_OFFSET, STEERING_SCALE, &AX, &AY, &AZ]() -> bool {
+        auto atFrequency{[&od4, &imu, &steeringInstruction, &speedInstruction, &SPEED_OFFSET, STEERING_SCALE, &AX, &AY, &AZ, &RAD_TO_DEG]() -> bool {
             // Read IMU:
             opendlv::proxy::AccelerationReading accelerationReading = imu->readAccelerometer();
             opendlv::proxy::AngularVelocityReading angularVelocityReading = imu->readGyroscope();
@@ -69,10 +69,12 @@ int main(int argc, char **argv) {
             // Share estimated corrections:
             MARBLE::IMU::Correction::PedalPosition pedalPosition;
             pedalPosition.pedalCorrection(speedInstruction +SPEED_OFFSET);
-            float correction = (fabsf(angularVelocityReading.angularVelocityX())*rad_to_deg)/STEERING_SCALE;
+            od4->send(pedalPosition);
+            float correction = (fabsf(angularVelocityReading.angularVelocityX()) *RAD_TO_DEG) /STEERING_SCALE;
             correction *= angularVelocityReading.angularVelocityX() > 0 ? -1.f : 1.f;
             MARBLE::IMU::Correction::GroundSteering groundSteering;
             groundSteering.steeringCorrection(speedInstruction == 0 ? steeringInstruction +correction : steeringInstruction);
+            od4->send(groundSteering);
             return true;
         }};
         od4->timeTrigger(FREQ, atFrequency);
