@@ -16,6 +16,8 @@ RUN cd /opt/sources && \
     make && \
     cd src/V2V/ && \
     cp MARBLE.V2V /tmp && \
+    cd ../IMU/ && \
+    cp MARBLE.IMU /tmp && \
     cd ../DS4/ && \
     cp MARBLE.DS4 /tmp && \
     cd ../demo/ds4/ && \
@@ -41,6 +43,7 @@ RUN mkdir /opt/signal-viewer
 ADD opendlv-signal-viewer/ /opt/signal-viewer
 WORKDIR /opt
 COPY --from=builder /tmp/MARBLE.V2V .
+COPY --from=builder /tmp/MARBLE.IMU .
 COPY --from=builder /tmp/MARBLE.DS4 .
 COPY --from=builder /tmp/MARBLE.DS4.Demo .
 COPY --from=builder /tmp/MARBLE.Networking.Demo.Sender .
