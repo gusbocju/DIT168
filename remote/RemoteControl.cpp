@@ -36,7 +36,7 @@ int main(int argc, char** argv) {
             std::cout << "direction = " << msg.direction() << ", group # = " << msg.v2vgroup() << std::endl;
             SteeringInstruction ins;
             switch (msg.direction().at(0)) {
-                case 'w':   ins.pedalPosition(0.5);
+                case 'w':   ins.pedalPosition(0.15);
                             ins.steeringAngle(0);   break;
                 case 'a':   ins.pedalPosition(0.25);
                             ins.steeringAngle(45);  break;
@@ -44,7 +44,7 @@ int main(int argc, char** argv) {
                             ins.steeringAngle(0);   break;
                 case 'd':   ins.pedalPosition(0.25);
                             ins.steeringAngle(-45); break;
-                default:    ins.pedalPosition(0);
+                default:    ins.pedalPosition(-0.45);
                             ins.steeringAngle(0);
             }
             std::cout << "sending " << ins.pedalPosition() << " / " << ins.steeringAngle() << " ..." << std::endl;
@@ -58,4 +58,3 @@ int main(int argc, char** argv) {
 
     return 0;
 }
-

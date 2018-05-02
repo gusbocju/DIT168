@@ -21,10 +21,21 @@ Window {
         height: 30
         fillMode: Image.PreserveAspectFit
         source: "res/resources/forwardImg.png"
+        Timer{
+          id: loop
+          interval: 100
+          running: false
+          repeat: true
+          onTriggered: backend.moveW()
+          triggeredOnStart: true
+        }
         MouseArea {
             anchors.fill: parent
-            //onClicked: backend.moveW();
-            onPressedChanged: pressed ? backend.moveW() : backend.stop();
+            onPressedChanged: parent.source = pressed
+            ? "res/resources/forwardImgPressed.png"
+            : "res/resources/forwardImg.png"
+            onPressed: loop.start()
+            onReleased: loop.stop()
         }
     }
 
@@ -36,10 +47,21 @@ Window {
         height: 30
         fillMode: Image.PreserveAspectFit
         source: "res/resources/rightImg.png"
+        Timer{
+          id: loop2
+          interval: 100
+          running: false
+          repeat: true
+          onTriggered: backend.moveD()
+          triggeredOnStart: true
+        }
         MouseArea {
             anchors.fill: parent
-           // onClicked: backend.moveD();
-            onPressedChanged: pressed ? backend.moveD() : backend.stop();
+           onPressedChanged: parent.source = pressed
+           ? "res/resources/rightImgPressed.png"
+           : "res/resources/rightImg.png"
+           onPressed: loop2.start()
+           onReleased: loop2.stop()
         }
 
     }
@@ -52,10 +74,21 @@ Window {
         height: 30
         fillMode: Image.PreserveAspectFit
         source: "res/resources/reverseImg.png"
+        Timer{
+          id: loop3
+          interval: 100
+          running: false
+          repeat: true
+          onTriggered: backend.moveS()
+          triggeredOnStart: true
+        }
         MouseArea {
             anchors.fill: parent
-            //onClicked: backend.moveS();
-            onPressedChanged: pressed ? backend.moveS() : backend.stop();
+           onPressedChanged: parent.source = pressed
+           ? "res/resources/reverseImgPressed.png"
+           : "res/resources/reverseImg.png"
+           onPressed: loop3.start()
+           onReleased: loop3.stop()
         }
 
     }
@@ -68,10 +101,21 @@ Window {
         height: 30
         fillMode: Image.PreserveAspectFit
         source: "res/resources/leftImg.png"
+        Timer{
+          id: loop4
+          interval: 100
+          running: false
+          repeat: true
+          onTriggered: backend.moveA()
+          triggeredOnStart: true
+        }
         MouseArea {
             anchors.fill: parent
-            //onClicked: backend.moveA();
-            onPressedChanged: pressed ? backend.moveA() : backend.stop();
+           onPressedChanged: parent.source = pressed
+           ? "res/resources/leftImgPressed.png"
+           : "res/resources/leftImg.png"
+           onPressed: loop4.start()
+           onReleased: loop4.stop()
         }
 
     }
