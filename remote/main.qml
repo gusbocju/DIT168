@@ -35,7 +35,62 @@ Window {
             ? "res/resources/forwardImgPressed.png"
             : "res/resources/forwardImg.png"
             onPressed: loop.start()
-            onReleased: loop.stop()
+            onReleased: {
+              loop.stop()
+              backend.stopZ()
+            }
+        }
+
+
+        focus: true
+        Keys.onPressed: {
+          if (event.key == Qt.Key_W) {
+            image1.source = "res/resources/forwardImgPressed.png"
+            backend.moveW();
+            event.accepted = true;
+          }
+          else if(event.key == Qt.Key_A){
+            image4.source = "res/resources/leftImgPressed.png"
+            backend.moveA();
+            event.accepted = true;
+          }
+          else if(event.key == Qt.Key_S){
+            image3.source = "res/resources/reverseImgPressed.png"
+            backend.moveS();
+            event.accepted = true;
+          }
+          else if(event.key == Qt.Key_D){
+            image2.source = "res/resources/rightImgPressed.png"
+            backend.moveD();
+            event.accepted = true;
+          }
+        }
+
+        Keys.onReleased: {
+          if (event.key == Qt.Key_W) {
+            if(event.isAutoRepeat) return
+            image1.source = "res/resources/forwardImg.png"
+            backend.stopZ();  
+            event.accepted = true;
+          }
+          else if(event.key == Qt.Key_A){
+            if(event.isAutoRepeat) return
+            image4.source = "res/resources/leftImg.png"
+            backend.stopX();
+            event.accepted = true;
+          }
+          else if(event.key == Qt.Key_S){
+            if(event.isAutoRepeat) return
+            image3.source = "res/resources/reverseImg.png"
+            backend.stopZ();
+            event.accepted = true;
+          }
+          else if(event.key == Qt.Key_D){
+            if(event.isAutoRepeat) return
+            image2.source = "res/resources/rightImg.png"
+            backend.stopX();
+            event.accepted = true;
+          }
         }
     }
 
@@ -88,7 +143,10 @@ Window {
            ? "res/resources/reverseImgPressed.png"
            : "res/resources/reverseImg.png"
            onPressed: loop3.start()
-           onReleased: loop3.stop()
+           onReleased: {
+             loop3.stop()
+             backend.stopZ()
+           }
         }
 
     }
@@ -121,12 +179,16 @@ Window {
     }
 
     Image {
-        id: image
+        id: image5
         x: 101
         y: 75
         width: 30
         height: 30
         source: "res/resources/stopButton.png"
+        MouseArea{
+        anchors.fill: parent
+        onClicked: backend.stop();
+        }
     }
 
     Text {

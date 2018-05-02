@@ -21,6 +21,8 @@ public slots:
     void moveS();
     void moveD();
     void stop();
+    void stopZ();
+    void stopX();
     void startV2V();
     void stopV2V();
     bool connection(int n);

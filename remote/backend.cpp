@@ -59,12 +59,36 @@ void BackEnd::moveD(){
     //std::cout << "moved! - D" << std::endl;
 }
 
+void BackEnd::stopX(){
+  cluon::OD4Session od4(222, [](cluon::data::Envelope /*&&envelope*/) noexcept {});
+
+  if(od4.isRunning()){
+      UIMessage msg;
+      msg.v2vgroup(0);
+      msg.direction("x");
+      od4.send(msg);
+  }
+}
+void BackEnd::stopZ(){
+  cluon::OD4Session od4(222, [](cluon::data::Envelope /*&&envelope*/) noexcept {});
+
+  if(od4.isRunning()){
+      UIMessage msg;
+      msg.v2vgroup(0);
+      msg.direction("z");
+      od4.send(msg);
+  }
+}
+
 void BackEnd::stop(){
-    //SteeringInstruction ins;
-    //ins.pedalPosition(0.0);
-    //ins.steeringAngle(0);
-    //std::cout << "sending " << ins.pedalPosition() << " / " << ins.steeringAngle() << " ..." << std::endl;
-    //od4 -> send(ins);
+  cluon::OD4Session od4(222, [](cluon::data::Envelope /*&&envelope*/) noexcept {});
+
+  if(od4.isRunning()){
+      UIMessage msg;
+      msg.v2vgroup(0);
+      msg.direction("x");
+      od4.send(msg);
+  }
     std::cout << "stopping" << std::endl;
 }
 

@@ -28,23 +28,31 @@ int main(int argc, char** argv) {
         uint16_t const CID = (uint16_t) std::stoi(commandlineArguments["cid"]);
 /*        uint16_t const GID = (uint16_t) std::stoi(commandlineArguments["gid"]);*/
         uint16_t const GID = 222;
-
+        SteeringInstruction ins;
+        ins.pedalPosition(0);
+        ins.steeringAngle(0);
         cluon::OD4Session od41(CID, [](cluon::data::Envelope /*&&envelope*/) noexcept {});
-        cluon::OD4Session od42(GID, [&od41](cluon::data::Envelope &&envelope) noexcept {
+        cluon::OD4Session od42(GID, [&od41, &ins](cluon::data::Envelope &&envelope) noexcept {
 
             UIMessage msg = cluon::extractMessage<UIMessage>(std::move(envelope));
             std::cout << "direction = " << msg.direction() << ", group # = " << msg.v2vgroup() << std::endl;
-            SteeringInstruction ins;
+
             switch (msg.direction().at(0)) {
                 case 'w':   ins.pedalPosition(0.15);
-                            ins.steeringAngle(0);   break;
-                case 'a':   ins.pedalPosition(0.25);
-                            ins.steeringAngle(45);  break;
-                case 's':   ins.pedalPosition(0);
-                            ins.steeringAngle(0);   break;
-                case 'd':   ins.pedalPosition(0.25);
-                            ins.steeringAngle(-45); break;
-                default:    ins.pedalPosition(-0.45);
+                            break;
+                case 'a':   ins.steeringAngle(45);
+                            break;
+                case 's':   ins.pedalPosition(-0.45);
+                            break;
+                case 'd':   ins.steeringAngle(-45);
+                            break;
+                case 'z':   // reset pedal position
+                            ins.pedalPosition(0);
+                            break;
+                case 'x':   // reset steering angle
+                            ins.steeringAngle(0);
+                            break;
+                default:    ins.pedalPosition(0);
                             ins.steeringAngle(0);
             }
             std::cout << "sending " << ins.pedalPosition() << " / " << ins.steeringAngle() << " ..." << std::endl;
