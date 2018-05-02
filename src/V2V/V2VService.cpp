@@ -42,15 +42,15 @@ int main(int argc, char **argv) {
                     steeringAngle = gsr.groundSteering();
                 } break;
                 case 9001: {
-                    MARBLE::StartFollow sf = cluon::extractMessage<MARBLE::StartFollow>(std::move(envelope));
+                    MARBLE::V2V::StartFollow sf = cluon::extractMessage<MARBLE::V2V::StartFollow>(std::move(envelope));
                     v2vService->followRequest(v2vService->presentCars[std::to_string(sf.groupId())]);
                 } break;
                 case 9002: {
-                    MARBLE::StopFollow sf = cluon::extractMessage<MARBLE::StopFollow>(std::move(envelope));
+                    MARBLE::V2V::StopFollow sf = cluon::extractMessage<MARBLE::V2V::StopFollow>(std::move(envelope));
                     v2vService->stopFollow(v2vService->getLeader());
                 } break;
                 case 9003: {
-                    MARBLE::StopLead sl = cluon::extractMessage<MARBLE::StopLead>(std::move(envelope));
+                    MARBLE::V2V::StopLead sl = cluon::extractMessage<MARBLE::V2V::StopLead>(std::move(envelope));
                     v2vService->stopFollow(v2vService->getFollower());
                 } break;
                 default: break;

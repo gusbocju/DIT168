@@ -23,3 +23,19 @@ message opendlv.proxy.AltitudeReading [id = 1033] {
 message opendlv.proxy.TemperatureReading [id = 1035] {
   float temperature [id = 1];
 }
+
+message MARBLE.Steering.Instruction.GroundSteering [id = 9010] {
+ float groundSteering [id = 1];
+}
+
+message MARBLE.Steering.Instruction.PedalPosition [id = 9011] {
+ float pedalPosition [id = 1];
+}
+
+message MARBLE.Steering.Correction.GroundSteering [id = 9012] {
+ float steeringCorrection [id = 1];
+}
+
+message MARBLE.Steering.Correction.PedalPosition [id = 9013] {
+ float pedalCorrection [id = 1];
+}
