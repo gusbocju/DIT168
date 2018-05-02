@@ -18,7 +18,7 @@ services:
         volumes:
         - /sys/:/sys/
         - /dev/:/dev/
-        command: "/opt/opendlv.miniature/bin/opendlv-proxy-miniature-pwm-motor --cid=160 --freq=50 --id=1"
+        command: "/opt/opendlv.miniature/bin/opendlv-proxy-miniature-pwm-motor --cid=160 --freq=60 --id=1"
 
     MARBLE.DS4:
         image: gusbocju/dit168.marble:latest-ubuntu-armhf
@@ -26,13 +26,13 @@ services:
         restart: always
         devices:
         - /dev/input/js0:/dev/input/js0
-        command: "/opt/MARBLE.DS4 --cid=160 --freq=100 --safety-distance=35 --dev=/dev/input/js0"
+        command: "/opt/MARBLE.DS4 --cid=160 --freq=60 --safety-distance=35 --dev=/dev/input/js0"
 
     MARBLE.V2V:
         image: gusbocju/dit168.marble:latest-armhf
         network_mode: "host"
         restart: always
-        command: "/opt/MARBLE.V2V --cid=160 --freq=10 --safety-distance=35 --ip=172.20.10.12 --id=5"
+        command: "/opt/MARBLE.V2V --cid=160 --freq=8 --safety-distance=35 --ip=172.20.10.12 --id=5"
 
     opendlv-signal-viewer:
         image: gusbocju/dit168.marble:latest-ubuntu-armhf
@@ -56,4 +56,4 @@ services:
         devices:
         - /dev/i2c-2:/dev/i2c-2
         restart: always
-        command: "/opt/MARBLE.IMU --cid=160 --freq=8 --dev=/dev/i2c-2"
+        command: "/opt/MARBLE.IMU --cid=160 --freq=8 --dev=/dev/i2c-2 --steering_scale=30 --speed_offset=0.6 --a_x=0.03 --a_y=-0.39 --a_z=0.875"
