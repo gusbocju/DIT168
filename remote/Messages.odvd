@@ -1,0 +1,27 @@
+message AnnouncePresence [id = 1001] {
+  string vehicleIp [id = 1];
+  string groupId [id = 3];
+}
+
+message FollowRequest [id = 1002] {
+  uint8 empty [id = 1];
+}
+
+message FollowResponse [id = 1003] {
+  uint8 empty [id = 1];
+}
+
+message StopFollow [id = 1004] {
+  uint8 empty [id = 1];
+}
+
+message LeaderStatus [id = 2001] {
+  uint64 timestamp [id = 1];
+  float speed [id = 2];
+  float steeringAngle [id = 3];
+  uint8 distanceTraveled [id = 4];
+}
+
+message FollowerStatus [id = 3001] {
+  uint8 empty [id = 1];
+}
