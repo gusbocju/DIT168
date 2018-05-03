@@ -12,9 +12,9 @@ int main(int argc, char** argv)
         0 == commandlineArguments.count("cid") || 0 == commandlineArguments.count("safety-distance")) {
         std::cerr << argv[0] << " reads (wireless) controller input from the specified path and relays it to components on the BeagleBone."
                   << std::endl;
-        std::cerr << "Usage:   " << argv[0] << " --dev=<path toController> --freq=<int pollingRate> --cid=<OD4Session toComponents> --safety-distance=<int cm> --fixed-speed=<(optional)> --fixed-turning=<(optional)>"
+        std::cerr << "Usage:   " << argv[0] << " --dev=<path toController> --freq=<int pollingRate> --cid=<OD4Session toComponents> --safety-distance=<int cm> --fixed-speed=<(optional)> --fixed-turning=<(optional)> --steering-correction=<(optional)>"
                   << std::endl;
-        std::cerr << "Example: " << argv[0] << " --dev=/dev/input/js0 --freq=50 --cid=111 --safety-distance=20 --fixed-speed=0.12 --fixed-turning=0.45" << std::endl;
+        std::cerr << "Example: " << argv[0] << " --dev=/dev/input/js0 --freq=50 --cid=111 --safety-distance=20 --fixed-speed=0.12 --fixed-turning=0.45 --steering-correction=0.0" << std::endl;
         retVal = 1;
     } else {
         const std::string DEV = commandlineArguments["dev"];
@@ -26,13 +26,10 @@ int main(int argc, char** argv)
         int lastCmd = 0, targetGroup = 0, correctionEnabled = 0;
         float steering = 0.f, steeringCorrection = 0.f, speed = 0.f, speedCorrection = 0.f;
 
-        float FIXED_SPEED = 0;
-        if (0 != commandlineArguments.count("fixed-speed"))
-            FIXED_SPEED = std::stof(commandlineArguments["fixed-speed"]);
-
-        float FIXED_TURNING = 0;
-        if (0 != commandlineArguments.count("fixed-turning"))
-            FIXED_TURNING = std::stof(commandlineArguments["fixed-turning"]);
+        float FIXED_SPEED = 0, FIXED_TURNING = 0, STEERING_CORRECTION = 0;
+        if (0 != commandlineArguments.count("fixed-speed")) FIXED_SPEED = std::stof(commandlineArguments["fixed-speed"]);
+        if (0 != commandlineArguments.count("fixed-turning")) FIXED_TURNING = std::stof(commandlineArguments["fixed-turning"]);
+        if (0 != commandlineArguments.count("steering-correction")) STEERING_CORRECTION = std::stof(commandlineArguments["steering-correction"]);
 
         std::shared_ptr<cluon::OD4Session> od4 = std::make_shared<cluon::OD4Session>(CID,
         [&od4, &distance, &speedCorrection, &steeringCorrection, &steering, &correctionEnabled](cluon::data::Envelope &&envelope) noexcept {
@@ -62,7 +59,7 @@ int main(int argc, char** argv)
         });
 
         auto atFrequency{[&correctionEnabled, &speed, &speedCorrection, &steering, &steeringCorrection, &FIXED_SPEED, &FIXED_TURNING,
-                          &od4, &direction, &distance, &lastCmd, &targetGroup, &DEV, &FREQ, &CID, &SAFETY_DISTANCE]() -> bool {
+                          &od4, &direction, &distance, &lastCmd, &targetGroup, &DEV, &FREQ, &CID, &SAFETY_DISTANCE, &STEERING_CORRECTION]() -> bool {
             FILE *file = fopen(DEV.c_str(), "rb");
             if (file != nullptr) {
                 DS4Event *event = (DS4Event *)malloc(sizeof(DS4Event));
@@ -123,14 +120,13 @@ int main(int argc, char** argv)
                             switch (event->id) {
                                 case LStickX: {
                                     steering = absToPercentage(event->data)*(-1);
-                                    if (FIXED_TURNING && steering != 0)
-                                        steering = steering > 0 ? FIXED_TURNING : -FIXED_TURNING;
+                                    if (FIXED_TURNING && steering != 0) steering = steering > 0 ? FIXED_TURNING : -FIXED_TURNING;
                                     MARBLE::Steering::Instruction::GroundSteering steeringInstruction;
                                     steeringInstruction.groundSteering(steering);
                                     od4->send(steeringInstruction);
                                     if (!correctionEnabled) {
                                         opendlv::proxy::GroundSteeringReading groundSteeringReading;
-                                        groundSteeringReading.groundSteering(steering);
+                                        groundSteeringReading.groundSteering(steering == 0 ? STEERING_CORRECTION : steering);
                                         od4->send(groundSteeringReading);
                                     }
                                     else {

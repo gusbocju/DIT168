@@ -9,7 +9,7 @@ int main(int argc, char **argv) {
         std::cerr << argv[0] << " sends and receives follower-/leader-status in accordance to the DIT168 V2V protocol."
                   << std::endl;
         std::cerr << "Usage:   " << argv[0]
-                  << " --cid=<OD4Session components> --freq=<frequency> --ip=<onV2VNetwork> --id=<DIT168Group> --safety-distance=<cm> --turn-delay=<ms (optional)> --steering-correction=<float (optional)> --speed-correction=<float (optional)>"
+                  << " --cid=<OD4Session components> --freq=<frequency> --ip=<onV2VNetwork> --id=<DIT168Group> --safety-distance=<cm> --turn-delay=<(optional)> --steering-correction=<(optional)> --speed-correction=<(optional)>"
                   << std::endl;
         std::cerr << "Example: " << argv[0] << " --cid=111 --freq=10 --ip=127.0.0.1 --id=5 --safety-distance=20 --turn-delay=2000 --steering-correction=0.0 --speed-correction=0.0" << std::endl;
         retVal = 1;
@@ -113,7 +113,7 @@ int main(int argc, char **argv) {
             if (VERBOSE) std::cout << v2vService->cmdQueue.size() << std::endl;
             return true;
         }};
-        od4->timeTrigger(FREQ*2, atFrequency);
+        od4->timeTrigger(FREQ, atFrequency);
     }
 }
 
