@@ -12,9 +12,9 @@ int main(int argc, char** argv)
         0 == commandlineArguments.count("cid") || 0 == commandlineArguments.count("safety-distance")) {
         std::cerr << argv[0] << " reads (wireless) controller input from the specified path and relays it to components on the BeagleBone."
                   << std::endl;
-        std::cerr << "Usage:   " << argv[0] << " --dev=<path toController> --freq=<int pollingRate> --cid=<OD4Session toComponents> --safety-distance=<int cm>"
+        std::cerr << "Usage:   " << argv[0] << " --dev=<path toController> --freq=<int pollingRate> --cid=<OD4Session toComponents> --safety-distance=<int cm> --fixed_speed=<(optional)>"
                   << std::endl;
-        std::cerr << "Example: " << argv[0] << " --dev=/dev/input/js0 --freq=50 --cid=111 --safety-distance=20" << std::endl;
+        std::cerr << "Example: " << argv[0] << " --dev=/dev/input/js0 --freq=50 --cid=111 --safety-distance=20 --fixed_speed=0.11" << std::endl;
         retVal = 1;
     } else {
         const std::string DEV = commandlineArguments["dev"];
@@ -25,6 +25,9 @@ int main(int argc, char** argv)
         float direction = 1.f, distance = 0.f;
         int lastCmd = 0, targetGroup = 0, correctionEnabled = 0;
         float steering = 0.f, steeringCorrection = 0.f, speed = 0.f, speedCorrection = 0.f;
+
+        float FIXED_SPEED = 0;
+        if (0 != commandlineArguments.count("fixed_speed")) FIXED_SPEED = std::stof(commandlineArguments["fixed_speed"]);
 
         std::shared_ptr<cluon::OD4Session> od4 = std::make_shared<cluon::OD4Session>(CID,
         [&od4, &distance, &speedCorrection, &steeringCorrection, &steering, &correctionEnabled](cluon::data::Envelope &&envelope) noexcept {
@@ -53,7 +56,7 @@ int main(int argc, char** argv)
             }
         });
 
-        auto atFrequency{[&correctionEnabled, &speed, &speedCorrection, &steering, &steeringCorrection,
+        auto atFrequency{[&correctionEnabled, &speed, &speedCorrection, &steering, &steeringCorrection, &FIXED_SPEED,
                           &od4, &direction, &distance, &lastCmd, &targetGroup, &DEV, &FREQ, &CID, &SAFETY_DISTANCE]() -> bool {
             FILE *file = fopen(DEV.c_str(), "rb");
             if (file != nullptr) {
@@ -138,9 +141,14 @@ int main(int argc, char** argv)
                                 case RStickY: break;
                                 case R2Y: {
                                     speed  = (1.f +absToPercentage(event->data)) /20.f;
-                                    speed += speed >= 0.0025f ? 0.1f : 0.f;
-                                    speed *= direction;
-                                    speed = speed < 0 || distance > SAFETY_DISTANCE ? speed : 0;
+                                    if (FIXED_SPEED && speed >= 0.0025f) {
+                                        speed = FIXED_SPEED;
+                                    }
+                                    else {
+                                        speed += speed >= 0.0025f ? 0.1f : 0.f;
+                                        speed *= direction;
+                                        speed = speed < 0 || distance > SAFETY_DISTANCE ? speed : 0;
+                                    }
                                     MARBLE::Steering::Instruction::PedalPosition pedalInstruction;
                                     pedalInstruction.pedalPosition(speed);
                                     od4->send(pedalInstruction);
