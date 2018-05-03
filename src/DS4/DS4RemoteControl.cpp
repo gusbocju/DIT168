@@ -61,7 +61,7 @@ int main(int argc, char** argv)
             }
         });
 
-        auto atFrequency{[&correctionEnabled, &speed, &speedCorrection, &steering, &steeringCorrection, &FIXED_SPEED,
+        auto atFrequency{[&correctionEnabled, &speed, &speedCorrection, &steering, &steeringCorrection, &FIXED_SPEED, &FIXED_TURNING,
                           &od4, &direction, &distance, &lastCmd, &targetGroup, &DEV, &FREQ, &CID, &SAFETY_DISTANCE]() -> bool {
             FILE *file = fopen(DEV.c_str(), "rb");
             if (file != nullptr) {
