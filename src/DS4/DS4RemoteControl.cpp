@@ -14,7 +14,7 @@ int main(int argc, char** argv)
                   << std::endl;
         std::cerr << "Usage:   " << argv[0] << " --dev=<path toController> --freq=<int pollingRate> --cid=<OD4Session toComponents> --safety-distance=<int cm> --fixed_speed=<(optional)>"
                   << std::endl;
-        std::cerr << "Example: " << argv[0] << " --dev=/dev/input/js0 --freq=50 --cid=111 --safety-distance=20 --fixed_speed=0.11" << std::endl;
+        std::cerr << "Example: " << argv[0] << " --dev=/dev/input/js0 --freq=50 --cid=111 --safety-distance=20 --fixed_speed=0.12" << std::endl;
         retVal = 1;
     } else {
         const std::string DEV = commandlineArguments["dev"];
@@ -141,14 +141,10 @@ int main(int argc, char** argv)
                                 case RStickY: break;
                                 case R2Y: {
                                     speed  = (1.f +absToPercentage(event->data)) /20.f;
-                                    if (FIXED_SPEED && speed >= 0.0025f) {
-                                        speed = FIXED_SPEED;
-                                    }
-                                    else {
-                                        speed += speed >= 0.0025f ? 0.1f : 0.f;
-                                        speed *= direction;
-                                        speed = speed < 0 || distance > SAFETY_DISTANCE ? speed : 0;
-                                    }
+                                    if (FIXED_SPEED && speed >= 0.0025f) speed = FIXED_SPEED;
+                                    else speed += speed >= 0.0025f ? 0.1f : 0.f;
+                                    speed *= direction;
+                                    speed = speed < 0 || distance > SAFETY_DISTANCE ? speed : 0;
                                     MARBLE::Steering::Instruction::PedalPosition pedalInstruction;
                                     pedalInstruction.pedalPosition(speed);
                                     od4->send(pedalInstruction);
