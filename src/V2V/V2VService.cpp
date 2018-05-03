@@ -9,9 +9,9 @@ int main(int argc, char **argv) {
         std::cerr << argv[0] << " sends and receives follower-/leader-status in accordance to the DIT168 V2V protocol."
                   << std::endl;
         std::cerr << "Usage:   " << argv[0]
-                  << " --cid=<OD4Session components> --freq=<frequency> --ip=<onV2VNetwork> --id=<DIT168Group> --safety-distance=<cm> --turn-delay=<ms (optional)> --steering-correction=<(optional)> --speed-correction=<(optional)>"
+                  << " --cid=<OD4Session components> --freq=<frequency> --ip=<onV2VNetwork> --id=<DIT168Group> --safety-distance=<cm> --turn-delay=<ms (optional)> --steering-correction=<float (optional)> --speed-correction=<float (optional)>"
                   << std::endl;
-        std::cerr << "Example: " << argv[0] << " --cid=111 --freq=10 --ip=127.0.0.1 --id=5 --safety-distance=20 --turn-delay=2000 --steering-correction=0 --speed-correction=0" << std::endl;
+        std::cerr << "Example: " << argv[0] << " --cid=111 --freq=10 --ip=127.0.0.1 --id=5 --safety-distance=20 --turn-delay=2000 --steering-correction=0.0 --speed-correction=0.0" << std::endl;
         retVal = 1;
     } else {
         const uint16_t CID = (uint16_t) std::stoi(commandlineArguments["cid"]);
@@ -22,7 +22,7 @@ int main(int argc, char **argv) {
 
         int TURN_DELAY = 0;
         float SPEED_CORRECTION = 0, STEERING_CORRECTION = 0;
-        if (0 != commandlineArguments.count("turn-delay")) TURN_DELAY = std::stoi(commandlineArguments["turn_delay"]);
+        if (0 != commandlineArguments.count("turn-delay")) TURN_DELAY = std::stoi(commandlineArguments["turn-delay"]);
         if (0 != commandlineArguments.count("speed-correction")) SPEED_CORRECTION = std::stof(commandlineArguments["speed-correction"]);
         if (0 != commandlineArguments.count("steering-correction")) STEERING_CORRECTION = std::stof(commandlineArguments["steering-correction"]);
 

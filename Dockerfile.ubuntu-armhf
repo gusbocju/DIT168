@@ -20,15 +20,15 @@ RUN cd /opt/sources && \
     cd ../IMU/ && \
     cp MARBLE.IMU /tmp && \
     cd ../DS4/ && \
-    cp MARBLE.DS4 /tmp && \
-    cd ../demo/ds4/ && \
-    cp MARBLE.DS4.Demo /tmp && \
-    cd ../networking/ && \
-    cp MARBLE.Networking.Demo.Sender /tmp && \
-    cp MARBLE.Networking.Demo.Receiver /tmp && \
-    cd ../safety-check/ && \
-    cp MARBLE.SafetyCheck.Main /tmp && \
-    cp MARBLE.SafetyCheck.RemoteControl /tmp
+    cp MARBLE.DS4 /tmp
+#    cd ../demo/ds4/ && \
+#    cp MARBLE.DS4.Demo /tmp && \
+#    cd ../networking/ && \
+#    cp MARBLE.Networking.Demo.Sender /tmp && \
+#    cp MARBLE.Networking.Demo.Receiver /tmp && \
+#    cd ../safety-check/ && \
+#    cp MARBLE.SafetyCheck.Main /tmp && \
+#    cp MARBLE.SafetyCheck.RemoteControl /tmp
 RUN ["cross-build-end"]
 
 # Deploy.
@@ -48,10 +48,10 @@ WORKDIR /opt
 COPY --from=builder /tmp/MARBLE.V2V .
 COPY --from=builder /tmp/MARBLE.IMU .
 COPY --from=builder /tmp/MARBLE.DS4 .
-COPY --from=builder /tmp/MARBLE.DS4.Demo .
-COPY --from=builder /tmp/MARBLE.Networking.Demo.Sender .
-COPY --from=builder /tmp/MARBLE.Networking.Demo.Receiver .
-COPY --from=builder /tmp/MARBLE.SafetyCheck.Main .
-COPY --from=builder /tmp/MARBLE.SafetyCheck.RemoteControl .
+# COPY --from=builder /tmp/MARBLE.DS4.Demo .
+# COPY --from=builder /tmp/MARBLE.Networking.Demo.Sender .
+# COPY --from=builder /tmp/MARBLE.Networking.Demo.Receiver .
+# COPY --from=builder /tmp/MARBLE.SafetyCheck.Main .
+# COPY --from=builder /tmp/MARBLE.SafetyCheck.RemoteControl .
 RUN [ "cross-build-end" ]
 CMD ["/bin/sh"]
