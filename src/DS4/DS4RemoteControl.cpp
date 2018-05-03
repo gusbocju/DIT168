@@ -91,7 +91,7 @@ int main(int argc, char** argv)
                                     if (event->data == 1) {
                                         correctionEnabled = correctionEnabled ? 0 : 1;
                                         MARBLE::DS4::CorrectionToggle correctionToggle;
-                                        correctionToggle.enabled(correctionEnabled);
+                                        correctionToggle.enabled((uint8_t)correctionEnabled);
                                         od4->send(correctionToggle);
                                         std::cout << "[DS4] Steering correction: " << (correctionEnabled ? "ON" : "OFF") << std::endl;
                                     }
