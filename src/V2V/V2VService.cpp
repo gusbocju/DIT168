@@ -104,7 +104,7 @@ int main(int argc, char **argv) {
                     }
                 }
             }
-            if (lastCmd.timestamp() != cmdProcessed || v2vService->cmdQueue.empty()) {
+            if (lastCmd.timestamp() != cmdProcessed || (!v2vService->getLeader().empty() && v2vService->cmdQueue.empty())) {
                 opendlv::proxy::GroundSteeringReading steeringReading;
                 steeringReading.groundSteering(lastCmd.steeringAngle() == 0 ? STEERING_CORRECTION : lastCmd.steeringAngle());
                 od4->send(steeringReading);
