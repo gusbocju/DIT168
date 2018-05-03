@@ -1,1 +1,0 @@
-/usr/bin/c++  -g   CMakeFiles/MARBLE.DS4.dir/DS4RemoteControl.cpp.o CMakeFiles/MARBLE.DS4.dir/RemoteControlMessages.cpp.o  -o MARBLE.DS4 -Wl,-rpath,/usr/local/lib /usr/local/lib/libcluon.so -lpthread 
