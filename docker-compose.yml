@@ -33,8 +33,8 @@ services:
         image: gusbocju/dit168.marble:experimental-armhf
         network_mode: "host"
         restart: always
-        command: "/opt/MARBLE.V2V --cid=160 --freq=12 --safety-distance=-1 --ip=172.20.10.2 --id=5 --turn-delay=1500 --speed-correction=-0.02 --steering-correction=0.0"
-#        command: "/opt/MARBLE.V2V --cid=160 --freq=12 --safety-distance=-1 --ip=172.20.10.12 --id=5 --turn-delay=1500 --speed-correction=-0.02 --steering-correction=0.0"
+        command: "/opt/MARBLE.V2V --cid=160 --freq=12 --safety-distance=-1 --ip=172.20.10.2 --id=5 --turn-delay=1500 --speed-correction=-0.02 --steering-correction=0.0 --verbose=1"
+#        command: "/opt/MARBLE.V2V --cid=160 --freq=12 --safety-distance=-1 --ip=172.20.10.12 --id=5 --turn-delay=1500 --speed-correction=-0.02 --steering-correction=0.0 --verbose=0"
 
     opendlv-signal-viewer:
         image: gusbocju/dit168.marble:experimental-ubuntu-armhf

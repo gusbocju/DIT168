@@ -20,15 +20,12 @@ int main(int argc, char **argv) {
         const std::string ID = commandlineArguments["id"];
         const float SAFETY_DISTANCE = std::stoi(commandlineArguments["safety-distance"]) /100.f;
 
-        int TURN_DELAY = 0;
+        int TURN_DELAY = 0, VERBOSE = 0;
         float SPEED_CORRECTION = 0, STEERING_CORRECTION = 0;
+        if (0 != commandlineArguments.count("verbose")) VERBOSE = std::stoi(commandlineArguments["verbose"]);
         if (0 != commandlineArguments.count("turn-delay")) TURN_DELAY = std::stoi(commandlineArguments["turn-delay"]);
         if (0 != commandlineArguments.count("speed-correction")) SPEED_CORRECTION = std::stof(commandlineArguments["speed-correction"]);
         if (0 != commandlineArguments.count("steering-correction")) STEERING_CORRECTION = std::stof(commandlineArguments["steering-correction"]);
-
-        std::cout << "TURN_DELAY " << TURN_DELAY << std::endl;
-        std::cout << "SPEED_CORRECTION " << SPEED_CORRECTION << std::endl;
-        std::cout << "STEERING_CORRECTION " << STEERING_CORRECTION << std::endl;
 
         std::shared_ptr<V2VService> v2vService = std::make_shared<V2VService>(IP, ID, SAFETY_DISTANCE);
         float pedalPos = 0, steeringAngle = 0, distance = 0;
@@ -72,7 +69,7 @@ int main(int argc, char **argv) {
         uint64_t cmdQueuedSince, cmdProcessed = v2vService->getTime();
 
         // Repeat at FREQ:
-        auto atFrequency{[&v2vService, &pedalPos, &steeringAngle, &lastCmd, &cmdQueuedSince, &cmdProcessed, &TURN_DELAY, &SPEED_CORRECTION, &STEERING_CORRECTION]() -> bool {
+        auto atFrequency{[&v2vService, &pedalPos, &steeringAngle, &lastCmd, &cmdQueuedSince, &cmdProcessed, &TURN_DELAY, &SPEED_CORRECTION, &STEERING_CORRECTION, &VERBOSE]() -> bool {
             // Check for potentially lost connections:
             if (!v2vService->getLeader().empty() && V2VService::getTime() - v2vService->lastLeaderStatus >= 1000) {
                 std::cout << "[V2V] StopFollow --> Leader" << std::endl;
@@ -84,10 +81,11 @@ int main(int argc, char **argv) {
             }
             // Spam announcePresence(), followerStatus() and leaderStatus():
             // TODO: implement acquired 'distanceTraveled' from IMU!
-            v2vService->announcePresence();
-            v2vService->followerStatus();
-            v2vService->leaderStatus(pedalPos, steeringAngle, 0);
-
+            if (i %2 == 1) {
+                v2vService->announcePresence();
+                v2vService->followerStatus();
+                v2vService->leaderStatus(pedalPos, steeringAngle, 0);
+            }
             if (!v2vService->cmdQueue.empty()) {
                 if (cmdQueuedSince != 0 && v2vService->getTime() -cmdQueuedSince >= TURN_DELAY) {
                     lastCmd = v2vService->cmdQueue.front();
@@ -113,10 +111,10 @@ int main(int argc, char **argv) {
                 od4->send(pedalPositionReading);
                 lastCmd.timestamp(cmdProcessed);
             }
-            std::cout << v2vService->cmdQueue.size() << std::endl;
+            if (VERBOSE) std::cout << v2vService->cmdQueue.size() << std::endl;
             return true;
         }};
-        od4->timeTrigger(FREQ, atFrequency);
+        od4->timeTrigger(FREQ*2, atFrequency);
     }
 }
 
