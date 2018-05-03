@@ -1,3 +1,4 @@
+#include <queue>
 #include "V2VService.hpp"
 
 int main(int argc, char **argv) {
@@ -8,9 +9,9 @@ int main(int argc, char **argv) {
         std::cerr << argv[0] << " sends and receives follower-/leader-status in accordance to the DIT168 V2V protocol."
                   << std::endl;
         std::cerr << "Usage:   " << argv[0]
-                  << " --cid=<OD4Session components> --freq=<frequency> --ip=<onV2VNetwork> --id=<DIT168Group> --safety-distance=<int cm>"
+                  << " --cid=<OD4Session components> --freq=<frequency> --ip=<onV2VNetwork> --id=<DIT168Group> --safety-distance=<cm> --turn-delay=<ms (optional)> --steering-correction=<(optional)> --speed-correction=<(optional)>"
                   << std::endl;
-        std::cerr << "Example: " << argv[0] << " --cid=111 --freq=10 --ip=127.0.0.1 --id=5 --safety-distance=20" << std::endl;
+        std::cerr << "Example: " << argv[0] << " --cid=111 --freq=10 --ip=127.0.0.1 --id=5 --safety-distance=20 --turn-delay=2000 --steering-correction=0 --speed-correction=0" << std::endl;
         retVal = 1;
     } else {
         const uint16_t CID = (uint16_t) std::stoi(commandlineArguments["cid"]);
@@ -18,6 +19,12 @@ int main(int argc, char **argv) {
         const std::string IP = commandlineArguments["ip"];
         const std::string ID = commandlineArguments["id"];
         const float SAFETY_DISTANCE = std::stoi(commandlineArguments["safety-distance"]) /100.f;
+
+        int TURN_DELAY = 0;
+        float SPEED_CORRECTION = 0, STEERING_CORRECTION = 0;
+        if (0 != commandlineArguments.count("turn-delay")) TURN_DELAY = std::stoi(commandlineArguments["turn_delay"]);
+        if (0 != commandlineArguments.count("speed-correction")) SPEED_CORRECTION = std::stof(commandlineArguments["speed-correction"]);
+        if (0 != commandlineArguments.count("steering-correction")) STEERING_CORRECTION = std::stof(commandlineArguments["steering-correction"]);
 
         std::shared_ptr<V2VService> v2vService = std::make_shared<V2VService>(IP, ID, SAFETY_DISTANCE);
         float pedalPos = 0, steeringAngle = 0, distance = 0;
@@ -57,8 +64,11 @@ int main(int argc, char **argv) {
             }
         });
 
+        LeaderStatus lastCmd;
+        uint64_t cmdQueuedSince;
+
         // Repeat at FREQ:
-        auto atFrequency{[&v2vService, &pedalPos, &steeringAngle]() -> bool {
+        auto atFrequency{[&v2vService, &pedalPos, &steeringAngle, &lastCmd, &cmdQueuedSince, &TURN_DELAY, &SPEED_CORRECTION, &STEERING_CORRECTION]() -> bool {
             // Check for potentially lost connections:
             if (!v2vService->getLeader().empty() && V2VService::getTime() - v2vService->lastLeaderStatus >= 1000) {
                 std::cout << "[V2V] StopFollow --> Leader" << std::endl;
@@ -69,12 +79,41 @@ int main(int argc, char **argv) {
                 v2vService->stopFollow(v2vService->getFollower());
             }
             // Spam announcePresence(), followerStatus() and leaderStatus():
+            // TODO: implement acquired 'distanceTraveled' from IMU!
             v2vService->announcePresence();
             v2vService->followerStatus();
-
-            // TODO: implement acquired 'distanceTraveled' from IMU!
-
             v2vService->leaderStatus(pedalPos, steeringAngle, 0);
+
+            if (!v2vService->cmdQueue.empty()) {
+                if (cmdQueuedSince != 0 && v2vService->getTime() -cmdQueuedSince >= TURN_DELAY) {
+                    lastCmd = v2vService->cmdQueue.front();
+                    v2vService->cmdQueue.pop();
+                    cmdQueuedSince = 0;
+
+                }
+                else if (cmdQueuedSince == 0 && (lastCmd.steeringAngle() == 0 &&
+                         v2vService->cmdQueue.front().steeringAngle() == 0 || lastCmd.steeringAngle() != 0 )) {
+                    lastCmd = v2vService->cmdQueue.front();
+                    v2vService->cmdQueue.pop();
+                    cmdQueuedSince = 0;
+                }
+                else if (lastCmd.steeringAngle() == 0 && cmdQueuedSince == 0 && v2vService->cmdQueue.front().steeringAngle() != 0) {
+                    cmdQueuedSince = v2vService->getTime();
+                }
+
+                if (lastCmd.timestamp() != 0) {
+                    // if there's a cmd waiting for execution, execute it:
+                    opendlv::proxy::GroundSteeringReading steeringReading;
+                    steeringReading.groundSteering(lastCmd.steeringAngle() == 0 ? STEERING_CORRECTION : lastCmd.steeringAngle());
+                    od4->send(steeringReading);
+                    opendlv::proxy::PedalPositionReading pedalPositionReading;
+                    pedalPositionReading.position(lastCmd.speed() +SPEED_CORRECTION);
+                    od4->send(pedalPositionReading);
+                    // then, invalidate lastCmd (as it has been processed):
+                    lastCmd.timestamp(0);
+                }
+            }
+
             return true;
         }};
         od4->timeTrigger(FREQ, atFrequency);
@@ -170,18 +209,18 @@ V2VService::V2VService(std::string ip, std::string id, float sd) {
              }
              case LEADER_STATUS: {
                  LeaderStatus leaderStatus = decode<LeaderStatus>(msg.second);
+                 cmdQueue.push(leaderStatus);
                  lastLeaderStatus = getTime();
+                 od4->send(leaderStatus);
 
                  /* TODO: implement (proper) follow logic! */
-
+                 /*
                  MARBLE::Steering::Instruction::GroundSteering gsi;
                  gsi.groundSteering(leaderStatus.steeringAngle());
                  od4->send(gsi);
                  MARBLE::Steering::Instruction::PedalPosition ppi;
                  ppi.pedalPosition(leaderStatus.speed() < 0 || _CURRENT_DISTANCE > _SAFETY_DISTANCE ? leaderStatus.speed() : 0);
-                 od4->send(ppi);
-
-                 od4->send(leaderStatus);
+                 od4->send(ppi); */
                  break;
              }
              default: std::cout << "[UDP] ¯\\_(ツ)_/¯" << std::endl;
@@ -209,6 +248,7 @@ void V2VService::announcePresence() {
  */
 void V2VService::followRequest(std::string vehicleIp) {
     if (!leaderIp.empty() || vehicleIp.empty()) return;
+    while (!cmdQueue.empty()) cmdQueue.pop();
     std::cout << "[UDP] FollowRequest --> " << vehicleIp << std::endl;
     leaderIp = vehicleIp;
     toLeader = std::make_shared<cluon::UDPSender>(leaderIp, DEFAULT_PORT);

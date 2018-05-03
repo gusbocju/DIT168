@@ -51,6 +51,7 @@ public:
     uint64_t lastFollowerStatus;
 
     std::map <std::string, std::string> presentCars;
+    std::queue<LeaderStatus> cmdQueue;
 
 private:
     float _SAFETY_DISTANCE;
