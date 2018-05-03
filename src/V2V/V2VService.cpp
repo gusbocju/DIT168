@@ -104,7 +104,7 @@ int main(int argc, char **argv) {
                     }
                 }
             }
-            if (lastCmd.timestamp() != cmdProcessed || (!v2vService->getLeader().empty() && v2vService->cmdQueue.empty())) {
+            if (lastCmd.timestamp() != cmdProcessed) {
                 opendlv::proxy::GroundSteeringReading steeringReading;
                 steeringReading.groundSteering(lastCmd.steeringAngle() == 0 ? STEERING_CORRECTION : lastCmd.steeringAngle());
                 od4->send(steeringReading);
@@ -113,6 +113,7 @@ int main(int argc, char **argv) {
                 od4->send(pedalPositionReading);
                 lastCmd.timestamp(cmdProcessed);
             }
+            std::cout << v2vService->cmdQueue.size() << std::endl;
             return true;
         }};
         od4->timeTrigger(FREQ, atFrequency);
