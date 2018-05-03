@@ -1,6 +1,7 @@
 # docker run --rm -ti -v $PWD:/opt/sources ubuntu:16.04 /bin/sh
-FROM ubuntu:16.04 AS builder
+FROM pipill/armhf-ubuntu:16.04 AS builder
 MAINTAINER Julian Bock gusbocju@student.gu.se
+RUN ["cross-build-start"]
 RUN apt-get update && \
     apt-get install build-essential cmake -y && \
     apt-get install software-properties-common -y && \
@@ -28,17 +29,19 @@ RUN cd /opt/sources && \
     cd ../safety-check/ && \
     cp MARBLE.SafetyCheck.Main /tmp && \
     cp MARBLE.SafetyCheck.RemoteControl /tmp
+RUN ["cross-build-end"]
 
 # Deploy.
-FROM ubuntu:16.04
+FROM pipill/armhf-ubuntu:16.04
 MAINTAINER Julian Bock gusbocju@student.gu.se
+RUN [ "cross-build-start" ]
 RUN apt-get update && \
     apt-get install software-properties-common -y && \
     apt-add-repository ppa:chrberger/libcluon && \
     apt-get update && \
     apt-get install libcluon -y && \
     apt-get install wget -y
-RUN mkdir -p /opt/bin && wget -O /opt/bin/websocketd https://github.com/se-research/websocketd-alpine/raw/master/x86_64/websocketd && chmod 755 /opt/bin/websocketd
+RUN mkdir -p /opt/bin && wget -O /opt/bin/websocketd https://github.com/se-research/websocketd-alpine/raw/master/armhf/websocketd && chmod 755 /opt/bin/websocketd
 RUN mkdir /opt/signal-viewer
 ADD opendlv-signal-viewer/ /opt/signal-viewer
 WORKDIR /opt
@@ -50,4 +53,5 @@ COPY --from=builder /tmp/MARBLE.Networking.Demo.Sender .
 COPY --from=builder /tmp/MARBLE.Networking.Demo.Receiver .
 COPY --from=builder /tmp/MARBLE.SafetyCheck.Main .
 COPY --from=builder /tmp/MARBLE.SafetyCheck.RemoteControl .
+RUN [ "cross-build-end" ]
 CMD ["/bin/sh"]

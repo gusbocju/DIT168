@@ -21,15 +21,39 @@ services:
         command: "/opt/opendlv.miniature/bin/opendlv-proxy-miniature-pwm-motor --cid=160 --freq=50 --id=1"
 
     MARBLE.DS4:
-        image: dit168.local
+        image: gusbocju/dit168.marble:latest-ubuntu-armhf
         network_mode: "host"
         restart: always
         devices:
         - /dev/input/js0:/dev/input/js0
-        command: "/opt/MARBLE.DS4 --cid=160 --freq=100 --dev=/dev/input/js0"
+        command: "/opt/MARBLE.DS4 --cid=160 --freq=60 --safety-distance=35 --dev=/dev/input/js0"
 
     MARBLE.V2V:
-        image: dit168.local
+        image: gusbocju/dit168.marble:latest-armhf
         network_mode: "host"
         restart: always
-        command: "/opt/MARBLE.V2V --cid=160 --freq=10 --ip=172.20.10.12 --id=5"
+        command: "/opt/MARBLE.V2V --cid=160 --freq=8 --safety-distance=35 --ip=172.20.10.12 --id=5"
+
+    opendlv-signal-viewer:
+        image: gusbocju/dit168.marble:latest-ubuntu-armhf
+        network_mode: "host"
+        ports:
+        - 8081:8081
+        restart: always
+        command: "/opt/bin/websocketd --staticdir=/opt/signal-viewer --port=8081 --binary=true /usr/bin/cluon-OD4toStdout --cid=160"
+
+    device-ultrasonic-srf08-front:
+        image: chalmersrevere/opendlv-device-ultrasonic-srf08-armhf:v0.0.6
+        network_mode: "host"
+        devices:
+        - /dev/i2c-1:/dev/i2c-1
+        restart: always
+        command: "/usr/bin/opendlv-device-ultrasonic-srf08 --dev=/dev/i2c-1 --bus-address=113 --cid=160 --freq=8 --id=0"
+
+    MARBLE.IMU:
+        image: gusbocju/dit168.marble:latest-ubuntu-armhf
+        network_mode: "host"
+        devices:
+        - /dev/i2c-2:/dev/i2c-2
+        restart: always
+        command: "/opt/MARBLE.IMU --cid=160 --freq=8 --dev=/dev/i2c-2"

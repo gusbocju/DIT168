@@ -12,11 +12,6 @@
 #include "RemoteControlMessages.hpp"
 #include <iostream>
 
-/** ADD YOUR CAR_IP AND GROUP_ID HERE:  *****************/
-
-// static const std::string YOUR_CAR_IP    = "172.20.10.6";
-// static const std::string YOUR_GROUP_ID  = "5";
-
 /********************************************************/
 /** DON'T CHANGE STUFF BELOW THIS LINE. *****************/
 /********************************************************/
@@ -31,11 +26,11 @@ static const int STOP_FOLLOW = 1004;
 static const int LEADER_STATUS = 2001;
 static const int FOLLOWER_STATUS = 3001;
 
+std::shared_ptr<cluon::OD4Session> od4;
+
 class V2VService {
 public:
-    std::map <std::string, std::string> presentCars;
-
-    V2VService(std::string ip, std::string id);
+    V2VService(std::string ip, std::string id, float sd);
 
     void announcePresence();
     void followRequest(std::string vehicleIp);
@@ -44,7 +39,21 @@ public:
     void leaderStatus(float speed, float steeringAngle, uint8_t distanceTraveled);
     void followerStatus();
 
+    static uint64_t getTime();
+
+    std::string getLeader();
+    std::string getFollower();
+
+    float _CURRENT_DISTANCE;
+
+    uint64_t lastLeaderStatus;
+    uint64_t lastFollowerStatus;
+
+    std::map <std::string, std::string> presentCars;
+
 private:
+    float _SAFETY_DISTANCE;
+
     std::string _IP;
     std::string _ID;
     
@@ -56,7 +65,6 @@ private:
     std::shared_ptr<cluon::UDPSender>   toLeader;
     std::shared_ptr<cluon::UDPSender>   toFollower;
 
-    static uint32_t getTime();
     static std::pair<int16_t, std::string> extract(std::string data);
     template <class T>
     static std::string encode(T msg);
