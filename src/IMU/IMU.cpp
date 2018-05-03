@@ -30,7 +30,7 @@ int main(int argc, char **argv) {
         const float AY = std::stof(commandlineArguments["a_y"]);
         const float AZ = std::stof(commandlineArguments["a_z"]);
 
-        int   assistEnabled = 0;
+        int   assistEnabled = false;
         float accumulatedOffset[3], accumulatedSpeed[3];
         float steeringInstruction = 0.f, speedInstruction = 0.f;
 
@@ -40,7 +40,6 @@ int main(int argc, char **argv) {
         imu = std::make_shared<opendlv::proxy::miniature::MPU9250Device>(DEV);
         od4 = std::make_shared<cluon::OD4Session>(CID,
               [&steeringInstruction, &speedInstruction, &assistEnabled, &accumulatedOffset, &accumulatedSpeed](cluon::data::Envelope &&envelope) noexcept {
-            std::cout << "[OD4] " << std::endl;
             switch (envelope.dataType()) {
                 case 9010: {
                     MARBLE::Steering::Instruction::GroundSteering steering =
@@ -56,7 +55,6 @@ int main(int argc, char **argv) {
                     speedInstruction = speed.pedalPosition();
                 } break;
                 case 9015: {
-                    std::cout << " CorrectionToggle!" << std::endl;
                     MARBLE::DS4::CorrectionToggle correctionToggle =
                             cluon::extractMessage<MARBLE::DS4::CorrectionToggle>(std::move(envelope));
                     assistEnabled = correctionToggle.enabled();
@@ -67,7 +65,7 @@ int main(int argc, char **argv) {
                     accumulatedSpeed[1] =  0.f;
                     accumulatedSpeed[2] =  0.f;
                 } break;
-                default: std::cout << " idk dude, IDK!" << std::endl; break;
+                default: break;
             }
         });
 
@@ -90,14 +88,14 @@ int main(int argc, char **argv) {
             od4->send(accelerationReading);
             od4->send(angularVelocityReading);
             // Accumulate readings:
-            accumulatedOffset[0] += angularVelocityReading.angularVelocityX() *TIMEFRAME;
-            accumulatedOffset[1] += angularVelocityReading.angularVelocityY() *TIMEFRAME;
-            accumulatedOffset[2] += angularVelocityReading.angularVelocityZ() *TIMEFRAME;
+            accumulatedOffset[0] += (angularVelocityReading.angularVelocityX() *TIMEFRAME);
+            accumulatedOffset[1] += (angularVelocityReading.angularVelocityY() *TIMEFRAME);
+            accumulatedOffset[2] += (angularVelocityReading.angularVelocityZ() *TIMEFRAME);
             if (assistEnabled) {
                 // Share estimated corrections:
                 // -- steeringAngle -->
                 float correction = (fabsf(accumulatedOffset[0]) * RAD_TO_DEG) / STEERING_SCALE;
-                correction *= accumulatedOffset[0] > 0 ? -1.f : 1.f;
+                correction *= (accumulatedOffset[0] > 0 ? -1.f : 1.f);
                 MARBLE::IMU::Correction::GroundSteering groundSteering;
                 groundSteering.steeringCorrection(steeringInstruction == 0 ? correction : steeringInstruction);
                 od4->send(groundSteering);
