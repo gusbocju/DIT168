@@ -1,0 +1,23 @@
+<RCC>
+    <qresource prefix="/res">
+        <file>res_file.qrc</file>
+        <file>cmake-build-debug/CMakeFiles/3.10.3/CompilerIdCXX/CMakeCXXCompilerId.cpp</file>
+        <file>cmake-build-debug/CMakeFiles/feature_tests.cxx</file>
+        <file>resources/forwardImg.png</file>
+        <file>resources/forwardImgPressed.png</file>
+        <file>resources/leftImg.png</file>
+        <file>resources/leftImgPressed.png</file>
+        <file>resources/reverseImg.png</file>
+        <file>resources/reverseImgPressed.png</file>
+        <file>resources/rightImg.png</file>
+        <file>resources/rightImgPressed.png</file>
+        <file>resources/stateConnected.png</file>
+        <file>resources/stateDisconnected.png</file>
+        <file>resources/stopButton.png</file>
+        <file>backend.cpp</file>
+        <file>backend.h</file>
+        <file>Main.cpp</file>
+        <file>main_window.cpp</file>
+        <file>RemoteControl.cpp</file>
+    </qresource>
+</RCC>
