@@ -81,11 +81,10 @@ int main(int argc, char **argv) {
             }
             // Spam announcePresence(), followerStatus() and leaderStatus():
             // TODO: implement acquired 'distanceTraveled' from IMU!
-            if (i %2 == 1) {
-                v2vService->announcePresence();
-                v2vService->followerStatus();
-                v2vService->leaderStatus(pedalPos, steeringAngle, 0);
-            }
+            v2vService->announcePresence();
+            v2vService->followerStatus();
+            v2vService->leaderStatus(pedalPos, steeringAngle, 0);
+
             if (!v2vService->cmdQueue.empty()) {
                 if (cmdQueuedSince != 0 && v2vService->getTime() -cmdQueuedSince >= TURN_DELAY) {
                     lastCmd = v2vService->cmdQueue.front();
