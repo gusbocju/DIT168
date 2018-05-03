@@ -26,6 +26,10 @@ int main(int argc, char **argv) {
         if (0 != commandlineArguments.count("speed-correction")) SPEED_CORRECTION = std::stof(commandlineArguments["speed-correction"]);
         if (0 != commandlineArguments.count("steering-correction")) STEERING_CORRECTION = std::stof(commandlineArguments["steering-correction"]);
 
+        std::cout << "TURN_DELAY " << TURN_DELAY << std::endl;
+        std::cout << "SPEED_CORRECTION " << SPEED_CORRECTION << std::endl;
+        std::cout << "STEERING_CORRECTION " << STEERING_CORRECTION << std::endl;
+
         std::shared_ptr<V2VService> v2vService = std::make_shared<V2VService>(IP, ID, SAFETY_DISTANCE);
         float pedalPos = 0, steeringAngle = 0, distance = 0;
 
@@ -65,10 +69,10 @@ int main(int argc, char **argv) {
         });
 
         LeaderStatus lastCmd;
-        uint64_t cmdQueuedSince;
+        uint64_t cmdQueuedSince, cmdProcessed = v2vService->getTime();
 
         // Repeat at FREQ:
-        auto atFrequency{[&v2vService, &pedalPos, &steeringAngle, &lastCmd, &cmdQueuedSince, &TURN_DELAY, &SPEED_CORRECTION, &STEERING_CORRECTION]() -> bool {
+        auto atFrequency{[&v2vService, &pedalPos, &steeringAngle, &lastCmd, &cmdQueuedSince, &cmdProcessed, &TURN_DELAY, &SPEED_CORRECTION, &STEERING_CORRECTION]() -> bool {
             // Check for potentially lost connections:
             if (!v2vService->getLeader().empty() && V2VService::getTime() - v2vService->lastLeaderStatus >= 1000) {
                 std::cout << "[V2V] StopFollow --> Leader" << std::endl;
@@ -89,31 +93,26 @@ int main(int argc, char **argv) {
                     lastCmd = v2vService->cmdQueue.front();
                     v2vService->cmdQueue.pop();
                     cmdQueuedSince = 0;
-
                 }
-                else if (cmdQueuedSince == 0 && (lastCmd.steeringAngle() == 0 &&
-                         v2vService->cmdQueue.front().steeringAngle() == 0 || lastCmd.steeringAngle() != 0 )) {
-                    lastCmd = v2vService->cmdQueue.front();
-                    v2vService->cmdQueue.pop();
-                    cmdQueuedSince = 0;
-                }
-                else if (lastCmd.steeringAngle() == 0 && cmdQueuedSince == 0 && v2vService->cmdQueue.front().steeringAngle() != 0) {
-                    cmdQueuedSince = v2vService->getTime();
-                }
-
-                if (lastCmd.timestamp() != 0) {
-                    // if there's a cmd waiting for execution, execute it:
-                    opendlv::proxy::GroundSteeringReading steeringReading;
-                    steeringReading.groundSteering(lastCmd.steeringAngle() == 0 ? STEERING_CORRECTION : lastCmd.steeringAngle());
-                    od4->send(steeringReading);
-                    opendlv::proxy::PedalPositionReading pedalPositionReading;
-                    pedalPositionReading.position(lastCmd.speed() +SPEED_CORRECTION);
-                    od4->send(pedalPositionReading);
-                    // then, invalidate lastCmd (as it has been processed):
-                    lastCmd.timestamp(0);
+                else if (cmdQueuedSince == 0) {
+                    if (lastCmd.steeringAngle() == 0 && v2vService->cmdQueue.front().steeringAngle() != 0) {
+                        cmdQueuedSince = v2vService->getTime();
+                    }
+                    else {
+                        lastCmd = v2vService->cmdQueue.front();
+                        v2vService->cmdQueue.pop();
+                    }
                 }
             }
-
+            if (lastCmd.timestamp() != cmdProcessed || v2vService->cmdQueue.empty()) {
+                opendlv::proxy::GroundSteeringReading steeringReading;
+                steeringReading.groundSteering(lastCmd.steeringAngle() == 0 ? STEERING_CORRECTION : lastCmd.steeringAngle());
+                od4->send(steeringReading);
+                opendlv::proxy::PedalPositionReading pedalPositionReading;
+                pedalPositionReading.position(lastCmd.speed() == 0 ? lastCmd.speed() : lastCmd.speed() +SPEED_CORRECTION);
+                od4->send(pedalPositionReading);
+                lastCmd.timestamp(cmdProcessed);
+            }
             return true;
         }};
         od4->timeTrigger(FREQ, atFrequency);
