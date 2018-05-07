@@ -1,4 +1,3 @@
-#include <queue>
 #include "V2VService.hpp"
 
 int main(int argc, char **argv) {
@@ -149,7 +148,6 @@ V2VService::V2VService(std::string ip, std::string id, float sd) {
             case ANNOUNCE_PRESENCE: {
                 AnnouncePresence ap = cluon::extractMessage<AnnouncePresence>(std::move(envelope));
                 presentCars[ap.groupId()] = ap.vehicleIp();
-
                 od4->send(ap);
                 break;
             }
@@ -178,14 +176,12 @@ V2VService::V2VService(std::string ip, std::string id, float sd) {
                      toFollower = std::make_shared<cluon::UDPSender>(followerIp, DEFAULT_PORT);
                      followResponse();
                  }
-
                  od4->send(followRequest);
                  break;
              }
              case FOLLOW_RESPONSE: {
                  FollowResponse followResponse = decode<FollowResponse>(msg.second);
                  std::cout << "[UDP] " << sender << " --> FollowResponse" << std::endl;
-
                  od4->send(followResponse);
                  break;
              }
@@ -206,14 +202,12 @@ V2VService::V2VService(std::string ip, std::string id, float sd) {
                      toLeader.reset();
                  }
                  else std::cout << "(Unknown)" << std::endl;
-
                  od4->send(stopFollow);
                  break;
              }
              case FOLLOWER_STATUS: {
                  FollowerStatus followerStatus = decode<FollowerStatus>(msg.second);
                  lastFollowerStatus = getTime();
-
                  od4->send(followerStatus);
                  break;
              }
@@ -222,15 +216,6 @@ V2VService::V2VService(std::string ip, std::string id, float sd) {
                  cmdQueue.push(leaderStatus);
                  lastLeaderStatus = getTime();
                  od4->send(leaderStatus);
-
-                 /* TODO: implement (proper) follow logic! */
-                 /*
-                 MARBLE::Steering::Instruction::GroundSteering gsi;
-                 gsi.groundSteering(leaderStatus.steeringAngle());
-                 od4->send(gsi);
-                 MARBLE::Steering::Instruction::PedalPosition ppi;
-                 ppi.pedalPosition(leaderStatus.speed() < 0 || _CURRENT_DISTANCE > _SAFETY_DISTANCE ? leaderStatus.speed() : 0);
-                 od4->send(ppi); */
                  break;
              }
              default: std::cout << "[UDP] ¯\\_(ツ)_/¯" << std::endl;

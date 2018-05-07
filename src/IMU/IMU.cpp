@@ -70,7 +70,7 @@ int main(int argc, char **argv) {
         });
 
         const float RAD_TO_DEG = (180.0f /3.141592653589793238463f);
-        const float TIMEFRAME = 1000 /FREQ;
+        const float TIMEFRAME = 1.f /FREQ;
 
         // TODO: monitor changes over time (... properly)!
 
