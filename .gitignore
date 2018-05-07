@@ -8,6 +8,8 @@
 /out/
 /cmake-build-debug/
 /build/
+/build-remote-*/
+/remote/cmake-build-debug/
 
 # Compiled sources #
 ####################

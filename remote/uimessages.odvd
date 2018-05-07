@@ -1,0 +1,4 @@
+message UIMessage [id = 666] {
+    string direction [id = 1];
+    uint32 v2vgroup  [id = 2];
+}
