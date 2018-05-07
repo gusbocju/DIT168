@@ -81,15 +81,28 @@ int main(int argc, char **argv) {
             }
             // Spam announcePresence(), followerStatus() and leaderStatus():
             // TODO: implement acquired 'distanceTraveled' from IMU!
+
             v2vService->announcePresence();
             v2vService->followerStatus();
             v2vService->leaderStatus(pedalPos, steeringAngle, 0);
 
             if (!v2vService->cmdQueue.empty()) {
-                if (cmdQueuedSince != 0 && v2vService->getTime() -cmdQueuedSince >= TURN_DELAY) {
-                    lastCmd = v2vService->cmdQueue.front();
-                    v2vService->cmdQueue.pop();
-                    cmdQueuedSince = 0;
+                if (cmdQueuedSince != 0) {
+                    if (v2vService->getTime() -cmdQueuedSince >= TURN_DELAY) {
+                        lastCmd = v2vService->cmdQueue.front();
+                        v2vService->cmdQueue.pop();
+                        cmdQueuedSince = 0;
+                    }
+                    else if (lastCmd.steeringAngle() == 0 && lastCmd.speed() == 0 &&
+                             v2vService->cmdQueue.front().steeringAngle() != 0 &&
+                             v2vService->getTime() -cmdQueuedSince < TURN_DELAY) {
+                        opendlv::proxy::GroundSteeringReading steeringReading;
+                        steeringReading.groundSteering(STEERING_CORRECTION);
+                        od4->send(steeringReading);
+                        opendlv::proxy::PedalPositionReading pedalPositionReading;
+                        pedalPositionReading.position(v2vService->cmdQueue.front().speed());
+                        od4->send(pedalPositionReading);
+                    }
                 }
                 else if (cmdQueuedSince == 0) {
                     if (lastCmd.steeringAngle() == 0 && v2vService->cmdQueue.front().steeringAngle() != 0) {
