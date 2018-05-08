@@ -366,14 +366,48 @@ message FollowerStatus [id = 3001] {
 
 /* DS4 */
 
-message MARBLE.StartFollow [id = 9001] {
+message MARBLE.DS4.StartFollow [id = 9001] {
   uint8 groupId [id = 1];
 }
 
-message MARBLE.StopFollow [id = 9002] {
+message MARBLE.DS4.StopFollow [id = 9002] {
   uint8 empty [id = 1];
 }
 
-message MARBLE.StopLead [id = 9003] {
+message MARBLE.DS4.StopLead [id = 9003] {
   uint8 empty [id = 1];
+}
+
+message MARBLE.Steering.Instruction.GroundSteering [id = 9010] {
+ float groundSteering [id = 1];
+}
+
+message MARBLE.Steering.Instruction.PedalPosition [id = 9011] {
+ float pedalPosition [id = 1];
+}
+
+message MARBLE.DS4.CorrectionToggle [id = 9015] {
+ uint8 enabled [id = 1];
+}
+
+/* IMU */
+
+message MARBLE.IMU.Correction.GroundSteering [id = 9012] {
+ float steeringCorrection [id = 1];
+}
+
+message MARBLE.IMU.Correction.PedalPosition [id = 9013] {
+ float pedalCorrection [id = 1];
+}
+
+message MARBLE.IMU.Monitor.Speed [id = 9016] {
+ float speedX [id = 1];
+ float speedY [id = 2];
+ float speedZ [id = 3];
+}
+
+message MARBLE.IMU.Monitor.AngularOffset [id = 9017] {
+ float offsetX [id = 1];
+ float offsetY [id = 2];
+ float offsetZ [id = 3];
 }

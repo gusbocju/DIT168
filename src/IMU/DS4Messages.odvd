@@ -1,0 +1,35 @@
+message opendlv.proxy.PedalPositionReading [id = 1041] {
+  float position [id = 1];
+}
+
+message opendlv.proxy.GroundSteeringReading [id = 1045] {
+  float groundSteering [id = 1];
+}
+
+message opendlv.proxy.DistanceReading [id = 1039] {
+  float distance [id = 1];
+}
+
+message MARBLE.DS4.StartFollow [id = 9001] {
+  uint8 groupId [id = 1];
+}
+
+message MARBLE.DS4.StopFollow [id = 9002] {
+  uint8 empty [id = 1];
+}
+
+message MARBLE.DS4.StopLead [id = 9003] {
+  uint8 empty [id = 1];
+}
+
+message MARBLE.Steering.Instruction.GroundSteering [id = 9010] {
+ float groundSteering [id = 1];
+}
+
+message MARBLE.Steering.Instruction.PedalPosition [id = 9011] {
+ float pedalPosition [id = 1];
+}
+
+message MARBLE.DS4.CorrectionToggle [id = 9015] {
+ uint8 enabled [id = 1];
+}

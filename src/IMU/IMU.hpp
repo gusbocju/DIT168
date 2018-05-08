@@ -6,19 +6,17 @@
 #define PROJECT_IMU_H
 
 #include <iostream>
-
+#include <math.h>
 #include "cluon/OD4Session.hpp"
 #include "cluon/UDPSender.hpp"
 #include "cluon/UDPReceiver.hpp"
 #include "cluon/Envelope.hpp"
 #include "IMUMessages.hpp"
-#include "MPU9250Device.h"
+#include "DS4Messages.hpp"
+#include "MPU9250Device.hpp"
 
 class IMU {
 
 };
-
-std::shared_ptr<cluon::OD4Session> od4;
-std::shared_ptr<opendlv::proxy::miniature::MPU9250Device> imu;
 
 #endif //PROJECT_IMU_H

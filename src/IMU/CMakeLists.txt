@@ -16,9 +16,15 @@ add_custom_command(OUTPUT ${CMAKE_BINARY_DIR}/IMUMessages.cpp
         COMMAND cluon-msc --cpp-headers --out=${CMAKE_BINARY_DIR}/IMUMessages.hpp ${CMAKE_CURRENT_SOURCE_DIR}/IMUMessages.odvd
         DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/IMUMessages.odvd)
 
+add_custom_command(OUTPUT ${CMAKE_BINARY_DIR}/DS4Messages.cpp
+        WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
+        COMMAND cluon-msc --cpp-sources --cpp-add-include-file=DS4Messages.hpp --out=${CMAKE_BINARY_DIR}/DS4Messages.cpp ${CMAKE_CURRENT_SOURCE_DIR}/DS4Messages.odvd
+        COMMAND cluon-msc --cpp-headers --out=${CMAKE_BINARY_DIR}/DS4Messages.hpp ${CMAKE_CURRENT_SOURCE_DIR}/DS4Messages.odvd
+        DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/DS4Messages.odvd)
+
 include_directories(SYSTEM ${CMAKE_BINARY_DIR})
 
-add_executable(${PROJECT_NAME} IMU.cpp MPU9250Device.cpp ${CMAKE_BINARY_DIR}/IMUMessages.cpp)
+add_executable(${PROJECT_NAME} IMU.cpp MPU9250Device.cpp ${CMAKE_BINARY_DIR}/IMUMessages.cpp ${CMAKE_BINARY_DIR}/DS4Messages.cpp)
 target_link_libraries(${PROJECT_NAME} ${CLUON_LIBRARIES})
 
 # enable_testing()

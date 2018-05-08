@@ -8,9 +8,9 @@ int main(int argc, char **argv) {
         std::cerr << argv[0] << " sends and receives follower-/leader-status in accordance to the DIT168 V2V protocol."
                   << std::endl;
         std::cerr << "Usage:   " << argv[0]
-                  << " --cid=<OD4Session components> --freq=<frequency> --ip=<onV2VNetwork> --id=<DIT168Group> --safety-distance=<int cm>"
+                  << " --cid=<OD4Session components> --freq=<frequency> --ip=<onV2VNetwork> --id=<DIT168Group> --safety-distance=<cm> --turn-delay=<(optional)> --steering-correction=<(optional)> --speed-correction=<(optional)>"
                   << std::endl;
-        std::cerr << "Example: " << argv[0] << " --cid=111 --freq=10 --ip=127.0.0.1 --id=5 --safety-distance=20" << std::endl;
+        std::cerr << "Example: " << argv[0] << " --cid=111 --freq=10 --ip=127.0.0.1 --id=5 --safety-distance=20 --turn-delay=2000 --steering-correction=0.0 --speed-correction=0.0" << std::endl;
         retVal = 1;
     } else {
         const uint16_t CID = (uint16_t) std::stoi(commandlineArguments["cid"]);
@@ -18,6 +18,13 @@ int main(int argc, char **argv) {
         const std::string IP = commandlineArguments["ip"];
         const std::string ID = commandlineArguments["id"];
         const float SAFETY_DISTANCE = std::stoi(commandlineArguments["safety-distance"]) /100.f;
+
+        int TURN_DELAY = 0, VERBOSE = 0;
+        float SPEED_CORRECTION = 0, STEERING_CORRECTION = 0;
+        if (0 != commandlineArguments.count("verbose")) VERBOSE = std::stoi(commandlineArguments["verbose"]);
+        if (0 != commandlineArguments.count("turn-delay")) TURN_DELAY = std::stoi(commandlineArguments["turn-delay"]);
+        if (0 != commandlineArguments.count("speed-correction")) SPEED_CORRECTION = std::stof(commandlineArguments["speed-correction"]);
+        if (0 != commandlineArguments.count("steering-correction")) STEERING_CORRECTION = std::stof(commandlineArguments["steering-correction"]);
 
         std::shared_ptr<V2VService> v2vService = std::make_shared<V2VService>(IP, ID, SAFETY_DISTANCE);
         float pedalPos = 0, steeringAngle = 0, distance = 0;
@@ -31,34 +38,37 @@ int main(int argc, char **argv) {
                             cluon::extractMessage<opendlv::proxy::DistanceReading>(std::move(envelope));
                     v2vService->_CURRENT_DISTANCE = dr.distance();
                 } break;
-                case 1041: {
-                    opendlv::proxy::PedalPositionReading ppr =
-                            cluon::extractMessage<opendlv::proxy::PedalPositionReading>(std::move(envelope));
-                    pedalPos = ppr.position();
+                case 9010: {
+                    MARBLE::Steering::Instruction::GroundSteering groundSteering =
+                            cluon::extractMessage<MARBLE::Steering::Instruction::GroundSteering>(std::move(envelope));
+                    steeringAngle = groundSteering.groundSteering();
                 } break;
-                case 1045: {
-                    opendlv::proxy::GroundSteeringReading gsr =
-                            cluon::extractMessage<opendlv::proxy::GroundSteeringReading>(std::move(envelope));
-                    steeringAngle = gsr.groundSteering();
+                case 9011: {
+                    MARBLE::Steering::Instruction::PedalPosition pedalPosition =
+                            cluon::extractMessage<MARBLE::Steering::Instruction::PedalPosition>(std::move(envelope));
+                    pedalPos = pedalPosition.pedalPosition();
                 } break;
                 case 9001: {
-                    MARBLE::StartFollow sf = cluon::extractMessage<MARBLE::StartFollow>(std::move(envelope));
+                    MARBLE::DS4::StartFollow sf = cluon::extractMessage<MARBLE::DS4::StartFollow>(std::move(envelope));
                     v2vService->followRequest(v2vService->presentCars[std::to_string(sf.groupId())]);
                 } break;
                 case 9002: {
-                    MARBLE::StopFollow sf = cluon::extractMessage<MARBLE::StopFollow>(std::move(envelope));
+                    MARBLE::DS4::StopFollow sf = cluon::extractMessage<MARBLE::DS4::StopFollow>(std::move(envelope));
                     v2vService->stopFollow(v2vService->getLeader());
                 } break;
                 case 9003: {
-                    MARBLE::StopLead sl = cluon::extractMessage<MARBLE::StopLead>(std::move(envelope));
+                    MARBLE::DS4::StopLead sl = cluon::extractMessage<MARBLE::DS4::StopLead>(std::move(envelope));
                     v2vService->stopFollow(v2vService->getFollower());
                 } break;
                 default: break;
             }
         });
 
+        LeaderStatus lastCmd;
+        uint64_t cmdQueuedSince, cmdProcessed = v2vService->getTime();
+
         // Repeat at FREQ:
-        auto atFrequency{[&v2vService, &pedalPos, &steeringAngle]() -> bool {
+        auto atFrequency{[&v2vService, &pedalPos, &steeringAngle, &lastCmd, &cmdQueuedSince, &cmdProcessed, &TURN_DELAY, &SPEED_CORRECTION, &STEERING_CORRECTION, &VERBOSE]() -> bool {
             // Check for potentially lost connections:
             if (!v2vService->getLeader().empty() && V2VService::getTime() - v2vService->lastLeaderStatus >= 1000) {
                 std::cout << "[V2V] StopFollow --> Leader" << std::endl;
@@ -69,11 +79,50 @@ int main(int argc, char **argv) {
                 v2vService->stopFollow(v2vService->getFollower());
             }
             // Spam announcePresence(), followerStatus() and leaderStatus():
+            // TODO: implement acquired 'distanceTraveled' from IMU!
+
             v2vService->announcePresence();
             v2vService->followerStatus();
-
-            // TODO: implement acquired 'distanceTraveled' from IMU!
             v2vService->leaderStatus(pedalPos, steeringAngle, 0);
+
+            if (!v2vService->cmdQueue.empty()) {
+                if (cmdQueuedSince != 0) {
+                    if (v2vService->getTime() -cmdQueuedSince >= TURN_DELAY) {
+                        lastCmd = v2vService->cmdQueue.front();
+                        v2vService->cmdQueue.pop();
+                        cmdQueuedSince = 0;
+                    }
+                    else if (lastCmd.steeringAngle() == 0 && lastCmd.speed() == 0 &&
+                             v2vService->cmdQueue.front().steeringAngle() != 0 &&
+                             v2vService->getTime() -cmdQueuedSince < TURN_DELAY) {
+                        opendlv::proxy::GroundSteeringReading steeringReading;
+                        steeringReading.groundSteering(STEERING_CORRECTION);
+                        od4->send(steeringReading);
+                        opendlv::proxy::PedalPositionReading pedalPositionReading;
+                        pedalPositionReading.position(v2vService->cmdQueue.front().speed());
+                        od4->send(pedalPositionReading);
+                    }
+                }
+                else if (cmdQueuedSince == 0) {
+                    if (lastCmd.steeringAngle() == 0 && v2vService->cmdQueue.front().steeringAngle() != 0) {
+                        cmdQueuedSince = v2vService->getTime();
+                    }
+                    else {
+                        lastCmd = v2vService->cmdQueue.front();
+                        v2vService->cmdQueue.pop();
+                    }
+                }
+            }
+            if (lastCmd.timestamp() != cmdProcessed) {
+                opendlv::proxy::GroundSteeringReading steeringReading;
+                steeringReading.groundSteering(lastCmd.steeringAngle() == 0 ? STEERING_CORRECTION : lastCmd.steeringAngle());
+                od4->send(steeringReading);
+                opendlv::proxy::PedalPositionReading pedalPositionReading;
+                pedalPositionReading.position(lastCmd.speed() == 0 ? lastCmd.speed() : lastCmd.speed() +SPEED_CORRECTION);
+                od4->send(pedalPositionReading);
+                lastCmd.timestamp(cmdProcessed);
+            }
+            if (VERBOSE) std::cout << v2vService->cmdQueue.size() << std::endl;
             return true;
         }};
         od4->timeTrigger(FREQ, atFrequency);
@@ -99,7 +148,6 @@ V2VService::V2VService(std::string ip, std::string id, float sd) {
             case ANNOUNCE_PRESENCE: {
                 AnnouncePresence ap = cluon::extractMessage<AnnouncePresence>(std::move(envelope));
                 presentCars[ap.groupId()] = ap.vehicleIp();
-
                 od4->send(ap);
                 break;
             }
@@ -128,14 +176,12 @@ V2VService::V2VService(std::string ip, std::string id, float sd) {
                      toFollower = std::make_shared<cluon::UDPSender>(followerIp, DEFAULT_PORT);
                      followResponse();
                  }
-
                  od4->send(followRequest);
                  break;
              }
              case FOLLOW_RESPONSE: {
                  FollowResponse followResponse = decode<FollowResponse>(msg.second);
                  std::cout << "[UDP] " << sender << " --> FollowResponse" << std::endl;
-
                  od4->send(followResponse);
                  break;
              }
@@ -156,29 +202,19 @@ V2VService::V2VService(std::string ip, std::string id, float sd) {
                      toLeader.reset();
                  }
                  else std::cout << "(Unknown)" << std::endl;
-
                  od4->send(stopFollow);
                  break;
              }
              case FOLLOWER_STATUS: {
                  FollowerStatus followerStatus = decode<FollowerStatus>(msg.second);
                  lastFollowerStatus = getTime();
-
                  od4->send(followerStatus);
                  break;
              }
              case LEADER_STATUS: {
                  LeaderStatus leaderStatus = decode<LeaderStatus>(msg.second);
+                 cmdQueue.push(leaderStatus);
                  lastLeaderStatus = getTime();
-
-                 /* TODO: implement (proper) follow logic! */
-                 opendlv::proxy::PedalPositionReading ppr;
-                 ppr.position(leaderStatus.speed() < 0 || _CURRENT_DISTANCE > _SAFETY_DISTANCE ? leaderStatus.speed() : 0);
-                 od4->send(ppr);
-                 opendlv::proxy::GroundSteeringReading gsr;
-                 gsr.groundSteering(leaderStatus.steeringAngle());
-                 od4->send(gsr);
-
                  od4->send(leaderStatus);
                  break;
              }
@@ -207,6 +243,7 @@ void V2VService::announcePresence() {
  */
 void V2VService::followRequest(std::string vehicleIp) {
     if (!leaderIp.empty() || vehicleIp.empty()) return;
+    while (!cmdQueue.empty()) cmdQueue.pop();
     std::cout << "[UDP] FollowRequest --> " << vehicleIp << std::endl;
     leaderIp = vehicleIp;
     toLeader = std::make_shared<cluon::UDPSender>(leaderIp, DEFAULT_PORT);

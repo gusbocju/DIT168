@@ -17,17 +17,7 @@
  * USA.
  */
 
-// Libraries required for i2c-bus
-#include <fcntl.h>
-#include <linux/i2c-dev.h>
-#include <sys/ioctl.h>
-
-#include <cmath>
-#include <iostream>
-#include <fstream>
-#include <unistd.h>
-
-#include "MPU9250Device.h"
+#include "MPU9250Device.hpp"
 
 namespace opendlv {
 namespace proxy {
