@@ -21,7 +21,7 @@ services:
         command: "/opt/opendlv.miniature/bin/opendlv-proxy-miniature-pwm-motor --cid=160 --freq=60 --id=1"
 
     MARBLE.DS4:
-        image: gusbocju/dit168.marble:experimental-ubuntu-armhf
+        image: gusbocju/dit168.marble:latest-ubuntu-armhf
         network_mode: "host"
         restart: always
         devices:
@@ -30,14 +30,14 @@ services:
 #        command: "/opt/MARBLE.DS4 --cid=160 --freq=24 --safety-distance=-1 --dev=/dev/input/js0 --fixed-speed=0.12 --fixed-turning=1 --steering-correction=0.075"
 
     MARBLE.V2V:
-        image: gusbocju/dit168.marble:experimental-armhf
+        image: gusbocju/dit168.marble:latest-armhf
         network_mode: "host"
         restart: always
         command: "/opt/MARBLE.V2V --cid=160 --freq=10 --safety-distance=-1 --ip=172.20.10.2 --id=5 --turn-delay=1000 --speed-correction=-0.025 --steering-correction=0.075 --verbose=0"
 #        command: "/opt/MARBLE.V2V --cid=160 --freq=12 --safety-distance=-1 --ip=172.20.10.12 --id=5 --turn-delay=1500 --speed-correction=-0.02 --steering-correction=0.075 --verbose=0"
 
     opendlv-signal-viewer:
-        image: gusbocju/dit168.marble:experimental-ubuntu-armhf
+        image: gusbocju/dit168.marble:latest-ubuntu-armhf
         network_mode: "host"
         ports:
         - 8081:8081
@@ -53,7 +53,7 @@ services:
 #        command: "/usr/bin/opendlv-device-ultrasonic-srf08 --dev=/dev/i2c-1 --bus-address=113 --cid=160 --freq=2 --id=0"
 
 #    MARBLE.IMU:
-#        image: gusbocju/dit168.marble:experimental-ubuntu-armhf
+#        image: gusbocju/dit168.marble:latest-ubuntu-armhf
 #        network_mode: "host"
 #        devices:
 #        - /dev/i2c-2:/dev/i2c-2
