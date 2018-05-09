@@ -13,6 +13,13 @@ find_package(libcluon REQUIRED)
 
 include_directories(SYSTEM ${CLION_INCLUDE_DIRS})
 
+#
+add_custom_command(OUTPUT ${CMAKE_BINARY_DIR}/DesktopMessages.cpp
+        WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
+        COMMAND cluon-msc --cpp-sources --cpp-add-include-file=DesktopMessages.hpp --out=${CMAKE_BINARY_DIR}/DesktopMessages.cpp ${CMAKE_CURRENT_SOURCE_DIR}/DesktopMessages.odvd
+        COMMAND cluon-msc --cpp-headers --out=${CMAKE_BINARY_DIR}/DesktopMessages.hpp ${CMAKE_CURRENT_SOURCE_DIR}/DesktopMessages.odvd
+        DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/DesktopMessages.odvd)
+
 # REMOTE CONTROL MESSAGES (needed for anything in contact with Main)
 add_custom_command(OUTPUT ${CMAKE_BINARY_DIR}/RemoteControlMessages.cpp
     WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
@@ -22,7 +29,7 @@ add_custom_command(OUTPUT ${CMAKE_BINARY_DIR}/RemoteControlMessages.cpp
 
 # MESSAGES (V2V)
 add_custom_command(OUTPUT ${CMAKE_BINARY_DIR}/Messages.cpp
-        WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
+      WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
         COMMAND cluon-msc --cpp-sources --cpp-add-include-file=Messages.hpp --out=${CMAKE_BINARY_DIR}/Messages.cpp ${CMAKE_CURRENT_SOURCE_DIR}/Messages.odvd
         COMMAND cluon-msc --cpp-headers --out=${CMAKE_BINARY_DIR}/Messages.hpp ${CMAKE_CURRENT_SOURCE_DIR}/Messages.odvd
         DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/Messages.odvd)
@@ -43,7 +50,7 @@ add_executable(${PROJECT_NAME}.Remote RemoteControl.cpp ${CMAKE_BINARY_DIR}/Remo
 target_link_libraries(${PROJECT_NAME}.Remote ${CLUON_LIBRARIES})
 
 #WINDOW EXECUTABLE
-add_executable(${PROJECT_NAME}.Window main_window.cpp qml.qrc res_file.qrc
+add_executable(${PROJECT_NAME}.Window main_window.cpp main.qml qml.qrc res_file.qrc
                                       backend.cpp backend.h
                                       ${CMAKE_BINARY_DIR}/uimessages.cpp)
 target_link_libraries(${PROJECT_NAME}.Window ${CLUON_LIBRARIES} Qt5::Core Qt5::Quick)

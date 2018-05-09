@@ -1,0 +1,45 @@
+message opendlv.proxy.AccelerationReading [id = 1030] {
+  float accelerationX [id = 1];
+  float accelerationY [id = 2];
+  float accelerationZ [id = 3];
+}
+
+message opendlv.proxy.AngularVelocityReading [id = 1031] {
+  float angularVelocityX [id = 1];
+  float angularVelocityY [id = 2];
+  float angularVelocityZ [id = 3];
+}
+
+message opendlv.proxy.MagneticFieldReading [id = 1032] {
+  float magneticFieldX [id = 1];
+  float magneticFieldY [id = 2];
+  float magneticFieldZ [id = 3];
+}
+
+message opendlv.proxy.AltitudeReading [id = 1033] {
+  float altitude [id = 1];
+}
+
+message opendlv.proxy.TemperatureReading [id = 1035] {
+  float temperature [id = 1];
+}
+
+message MARBLE.IMU.Correction.GroundSteering [id = 9012] {
+ float steeringCorrection [id = 1];
+}
+
+message MARBLE.IMU.Correction.PedalPosition [id = 9013] {
+ float pedalCorrection [id = 1];
+}
+
+message MARBLE.IMU.Monitor.Speed [id = 9016] {
+ float speedX [id = 1];
+ float speedY [id = 2];
+ float speedZ [id = 3];
+}
+
+message MARBLE.IMU.Monitor.AngularOffset [id = 9017] {
+ float offsetX [id = 1];
+ float offsetY [id = 2];
+ float offsetZ [id = 3];
+}
