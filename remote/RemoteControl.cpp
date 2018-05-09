@@ -8,7 +8,6 @@
 #include "RemoteControlMessages.hpp"
 #include "../build/uimessages.hpp"
 
-std::string control="nothing";
 
 int main(int argc, char** argv) {
 
