@@ -17,16 +17,16 @@ int main(int argc, char** argv) {
             0 == commandlineArguments.count("gid") */) {
         std::cerr << argv[0] << " sends (not just) steering instructions to the BeagleBone."
                   << std::endl;
-        std::cerr << "Usage:   " << argv[0] << " --cid=<OD4Session toBeagleBone> /*--gid=<OD4Session to the UI>*/"
+        std::cerr << "Usage:   " << argv[0] << " --cid=<OD4Session toBeagleBone>"
                   << std::endl;
-        std::cerr << "Example: " << argv[0] << " --cid=111 /*--gid=222*/" << std::endl;
+        std::cerr << "Example: " << argv[0] << " --cid=111" << std::endl;
         retVal = 1;
     }
     else{
         //std::cout << "help" << std::endl;
         uint16_t const CID = (uint16_t) std::stoi(commandlineArguments["cid"]);
 /*        uint16_t const GID = (uint16_t) std::stoi(commandlineArguments["gid"]);*/
-        uint16_t const GID = 222;
+        uint16_t const GID = 160;
         SteeringInstruction ins;
         ins.pedalPosition(0);
         ins.steeringAngle(0);

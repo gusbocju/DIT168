@@ -1,0 +1,1 @@
+/usr/bin/g++     CMakeFiles/remote.RemoteControl.dir/remote.RemoteControl_autogen/mocs_compilation.cpp.o  -o remote.RemoteControl 

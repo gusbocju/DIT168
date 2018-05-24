@@ -1,0 +1,33 @@
+# Directories and files
+set(AM_CMAKE_BINARY_DIR "/home/vinny/ada/Projects/DIT168/build-remote-Desktop_Qt_5_9_3_GCC_64bit-Default/")
+set(AM_CMAKE_SOURCE_DIR "/home/vinny/ada/Projects/DIT168/remote/")
+set(AM_CMAKE_CURRENT_SOURCE_DIR "/home/vinny/ada/Projects/DIT168/remote/")
+set(AM_CMAKE_CURRENT_BINARY_DIR "/home/vinny/ada/Projects/DIT168/build-remote-Desktop_Qt_5_9_3_GCC_64bit-Default/")
+set(AM_CMAKE_INCLUDE_DIRECTORIES_PROJECT_BEFORE "")
+set(AM_BUILD_DIR "/home/vinny/ada/Projects/DIT168/build-remote-Desktop_Qt_5_9_3_GCC_64bit-Default/remote_autogen")
+set(AM_SOURCES "/home/vinny/ada/Projects/DIT168/remote/main.cpp;/home/vinny/ada/Projects/DIT168/remote/backend.cpp")
+set(AM_HEADERS "/home/vinny/ada/Projects/DIT168/remote/backend.h")
+# Qt environment
+set(AM_QT_VERSION_MAJOR "5")
+set(AM_QT_MOC_EXECUTABLE "/home/vinny/Qt/5.9.3/gcc_64/bin/moc")
+set(AM_QT_UIC_EXECUTABLE )
+set(AM_QT_RCC_EXECUTABLE "/home/vinny/Qt/5.9.3/gcc_64/bin/rcc")
+# MOC settings
+set(AM_MOC_SKIP "")
+set(AM_MOC_DEFINITIONS "QT_CORE_LIB;QT_GUI_LIB;QT_NETWORK_LIB;QT_NO_DEBUG;QT_QML_LIB;QT_QUICK_LIB")
+set(AM_MOC_INCLUDES "/home/vinny/ada/Projects/DIT168/build-remote-Desktop_Qt_5_9_3_GCC_64bit-Default;/home/vinny/ada/Projects/DIT168/remote;/home/vinny/ada/Projects/DIT168/build-remote-Desktop_Qt_5_9_3_GCC_64bit-Default/remote_autogen/include;/home/vinny/Qt/5.9.3/gcc_64/include;/home/vinny/Qt/5.9.3/gcc_64/include/QtCore;/home/vinny/Qt/5.9.3/gcc_64/./mkspecs/linux-g++;/home/vinny/Qt/5.9.3/gcc_64/include/QtQuick;/home/vinny/Qt/5.9.3/gcc_64/include/QtQml;/home/vinny/Qt/5.9.3/gcc_64/include/QtNetwork;/home/vinny/Qt/5.9.3/gcc_64/include/QtGui;/usr/include")
+set(AM_MOC_OPTIONS "")
+set(AM_MOC_RELAXED_MODE "FALSE")
+set(AM_MOC_DEPEND_FILTERS "")
+set(AM_MOC_PREDEFS_CMD "/usr/bin/g++;-dM;-E;-c;/usr/share/cmake-3.9/Modules/CMakeCXXCompilerABI.cpp")
+# UIC settings
+set(AM_UIC_SKIP )
+set(AM_UIC_TARGET_OPTIONS )
+set(AM_UIC_OPTIONS_FILES )
+set(AM_UIC_OPTIONS_OPTIONS )
+set(AM_UIC_SEARCH_PATHS )
+# RCC settings
+set(AM_RCC_SOURCES "/home/vinny/ada/Projects/DIT168/remote/qml.qrc;/home/vinny/ada/Projects/DIT168/remote/res_file.qrc" )
+set(AM_RCC_INPUTS "{/home/vinny/ada/Projects/DIT168/remote/V2VPopUp.qml@LSEP@/home/vinny/ada/Projects/DIT168/remote/main.qml};{/home/vinny/ada/Projects/DIT168/remote/leftImg.png@LSEP@/home/vinny/ada/Projects/DIT168/remote/stateConnected.png@LSEP@/home/vinny/ada/Projects/DIT168/remote/rightImg.png@LSEP@/home/vinny/ada/Projects/DIT168/remote/reverseImgPressed.png@LSEP@/home/vinny/ada/Projects/DIT168/remote/stateDisconnected.png@LSEP@/home/vinny/ada/Projects/DIT168/remote/res_file.qrc@LSEP@/home/vinny/ada/Projects/DIT168/remote/stopButton.png@LSEP@/home/vinny/ada/Projects/DIT168/remote/rightImgPressed.png@LSEP@/home/vinny/ada/Projects/DIT168/remote/reverseImg.png@LSEP@/home/vinny/ada/Projects/DIT168/remote/forwardImgPressed.png@LSEP@/home/vinny/ada/Projects/DIT168/remote/leftImgPressed.png@LSEP@/home/vinny/ada/Projects/DIT168/remote/forwardImg.png}")
+set(AM_RCC_OPTIONS_FILES "")
+set(AM_RCC_OPTIONS_OPTIONS "")
