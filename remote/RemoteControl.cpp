@@ -34,7 +34,6 @@ int main(int argc, char** argv) {
         cluon::OD4Session od42(GID, [&od41, &ins](cluon::data::Envelope &&envelope) noexcept {
 
             UIMessage msg = cluon::extractMessage<UIMessage>(std::move(envelope));
-            std::cout << "direction = " << msg.direction() << ", group # = " << msg.v2vgroup() << std::endl;
 
             switch (msg.direction().at(0)) {
                 case 'w':   ins.pedalPosition(0.15);
