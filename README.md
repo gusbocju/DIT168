@@ -2,7 +2,7 @@
 
 # DIT168 V18 Project: Industrial IT and Embedded Systems
 
-During the spring term of 2018 - and as part of DIT168 V18 at the University of Gothenburg, this repository will be used to design and implement software for a mini car to drive autonomously under stable conditions. The car should be able to, in addition to self-driving, follow a line, do safe handling of intersections, pass other vehicles and park. To accomplish this the car is equipped with sensors. The project will be done in C/C++ and built upon [OpenDaVINCI](http://opendavinci.cse.chalmers.se/www/) - with a high focus on quality assurance, effective design and testing throughout. 
+During the spring term of 2018 - and as part of DIT168 V18 at the University of Gothenburg, this repository will be used to design and implement software for a mini car to communicate with other vehicles by following the leader, or sending isntructions to a following car. The objective of this project is to achieve vehicle-to-vehicle communication. The project will be done in C/C++ and built upon [OpenDaVINCI](http://opendavinci.cse.chalmers.se/www/) - with a high focus on quality assurance, effective design and testing throughout. 
 
 ## GIT LAYOUT
 
