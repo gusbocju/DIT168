@@ -37,7 +37,7 @@ Window {
             onPressed: loop.start()
             onReleased: {
               loop.stop()
-              backend.stopZ()
+              backend.stopY()
             }
         }
 
@@ -70,7 +70,7 @@ Window {
           if (event.key == Qt.Key_W) {
             if(event.isAutoRepeat) return
             image1.source = "res/resources/forwardImg.png"
-            backend.stopZ();  
+            backend.stopY();
             event.accepted = true;
           }
           else if(event.key == Qt.Key_A){
@@ -82,7 +82,7 @@ Window {
           else if(event.key == Qt.Key_S){
             if(event.isAutoRepeat) return
             image3.source = "res/resources/reverseImg.png"
-            backend.stopZ();
+            backend.stopY();
             event.accepted = true;
           }
           else if(event.key == Qt.Key_D){
@@ -145,7 +145,7 @@ Window {
            onPressed: loop3.start()
            onReleased: {
              loop3.stop()
-             backend.stopZ()
+             backend.stopY()
            }
         }
 

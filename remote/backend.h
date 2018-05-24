@@ -21,7 +21,7 @@ public slots:
     void moveS();
     void moveD();
     void stop();
-    void stopZ();
+    void stopY();
     void stopX();
     void startV2V();
     void stopV2V();

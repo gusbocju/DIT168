@@ -1,0 +1,1 @@
+/usr/bin/g++     CMakeFiles/remote.Logic.dir/RemoteControlMessages.cpp.o CMakeFiles/remote.Logic.dir/RemoteControl.cpp.o CMakeFiles/remote.Logic.dir/remote.Logic_autogen/mocs_compilation.cpp.o  -o remote.Logic -Wl,-rpath,/usr/local/lib /usr/local/lib/libcluon.so -lpthread 

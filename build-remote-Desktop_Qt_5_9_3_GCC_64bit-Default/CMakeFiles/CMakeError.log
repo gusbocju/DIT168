@@ -1,0 +1,55 @@
+Determining if the pthread_create exist failed with the following output:
+Change Dir: /home/vinny/ada/Projects/DIT168/build-remote-Desktop_Qt_5_9_3_GCC_64bit-Default/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_a269c/fast"
+/usr/bin/make -f CMakeFiles/cmTC_a269c.dir/build.make CMakeFiles/cmTC_a269c.dir/build
+make[1]: Entering directory '/home/vinny/ada/Projects/DIT168/build-remote-Desktop_Qt_5_9_3_GCC_64bit-Default/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_a269c.dir/CheckSymbolExists.cxx.o
+/usr/bin/g++     -o CMakeFiles/cmTC_a269c.dir/CheckSymbolExists.cxx.o -c /home/vinny/ada/Projects/DIT168/build-remote-Desktop_Qt_5_9_3_GCC_64bit-Default/CMakeFiles/CMakeTmp/CheckSymbolExists.cxx
+Linking CXX executable cmTC_a269c
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_a269c.dir/link.txt --verbose=1
+/usr/bin/g++       CMakeFiles/cmTC_a269c.dir/CheckSymbolExists.cxx.o  -o cmTC_a269c 
+CMakeFiles/cmTC_a269c.dir/CheckSymbolExists.cxx.o: In function `main':
+CheckSymbolExists.cxx:(.text+0x1b): undefined reference to `pthread_create'
+collect2: error: ld returned 1 exit status
+CMakeFiles/cmTC_a269c.dir/build.make:97: recipe for target 'cmTC_a269c' failed
+make[1]: *** [cmTC_a269c] Error 1
+make[1]: Leaving directory '/home/vinny/ada/Projects/DIT168/build-remote-Desktop_Qt_5_9_3_GCC_64bit-Default/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_a269c/fast' failed
+make: *** [cmTC_a269c/fast] Error 2
+
+File /home/vinny/ada/Projects/DIT168/build-remote-Desktop_Qt_5_9_3_GCC_64bit-Default/CMakeFiles/CMakeTmp/CheckSymbolExists.cxx:
+/* */
+#include <pthread.h>
+
+int main(int argc, char** argv)
+{
+  (void)argv;
+#ifndef pthread_create
+  return ((int*)(&pthread_create))[argc];
+#else
+  (void)argc;
+  return 0;
+#endif
+}
+
+Determining if the function pthread_create exists in the pthreads failed with the following output:
+Change Dir: /home/vinny/ada/Projects/DIT168/build-remote-Desktop_Qt_5_9_3_GCC_64bit-Default/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_c7239/fast"
+/usr/bin/make -f CMakeFiles/cmTC_c7239.dir/build.make CMakeFiles/cmTC_c7239.dir/build
+make[1]: Entering directory '/home/vinny/ada/Projects/DIT168/build-remote-Desktop_Qt_5_9_3_GCC_64bit-Default/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_c7239.dir/CheckFunctionExists.cxx.o
+/usr/bin/g++    -DCHECK_FUNCTION_EXISTS=pthread_create   -o CMakeFiles/cmTC_c7239.dir/CheckFunctionExists.cxx.o -c /home/vinny/ada/Projects/DIT168/build-remote-Desktop_Qt_5_9_3_GCC_64bit-Default/CMakeFiles/CheckLibraryExists/CheckFunctionExists.cxx
+Linking CXX executable cmTC_c7239
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_c7239.dir/link.txt --verbose=1
+/usr/bin/g++   -DCHECK_FUNCTION_EXISTS=pthread_create    CMakeFiles/cmTC_c7239.dir/CheckFunctionExists.cxx.o  -o cmTC_c7239 -lpthreads 
+/usr/bin/ld: cannot find -lpthreads
+collect2: error: ld returned 1 exit status
+CMakeFiles/cmTC_c7239.dir/build.make:97: recipe for target 'cmTC_c7239' failed
+make[1]: *** [cmTC_c7239] Error 1
+make[1]: Leaving directory '/home/vinny/ada/Projects/DIT168/build-remote-Desktop_Qt_5_9_3_GCC_64bit-Default/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_c7239/fast' failed
+make: *** [cmTC_c7239/fast] Error 2
+
+

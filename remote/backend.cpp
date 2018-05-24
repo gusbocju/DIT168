@@ -15,11 +15,10 @@ void BackEnd::moveW(){
     //ins.steeringAngle(0);
     //std::cout << "sending " << ins.pedalPosition() << " / " << ins.steeringAngle() << " ..." << std::endl;
 
-    cluon::OD4Session od4(222, [](cluon::data::Envelope /*&&envelope*/) noexcept {});
+    cluon::OD4Session od4(160, [](cluon::data::Envelope /*&&envelope*/) noexcept {});
 
     if(od4.isRunning()){
         UIMessage msg;
-        msg.v2vgroup(0);
         msg.direction("w");
         od4.send(msg);
     }
@@ -27,33 +26,30 @@ void BackEnd::moveW(){
 
 }
 void BackEnd::moveA(){
-    cluon::OD4Session od4(222, [](cluon::data::Envelope /*&&envelope*/) noexcept {});
+    cluon::OD4Session od4(160, [](cluon::data::Envelope /*&&envelope*/) noexcept {});
 
     if(od4.isRunning()){
         UIMessage msg;
-        msg.v2vgroup(0);
         msg.direction("a");
         od4.send(msg);
     }
     //std::cout << "moved! - A" << std::endl;
 }
 void BackEnd::moveS(){
-    cluon::OD4Session od4(222, [](cluon::data::Envelope /*&&envelope*/) noexcept {});
+    cluon::OD4Session od4(160, [](cluon::data::Envelope /*&&envelope*/) noexcept {});
 
     if(od4.isRunning()){
         UIMessage msg;
-        msg.v2vgroup(0);
         msg.direction("s");
         od4.send(msg);
     }
    // std::cout << "moved! - S" << std::endl;
 }
 void BackEnd::moveD(){
-    cluon::OD4Session od4(222, [](cluon::data::Envelope /*&&envelope*/) noexcept {});
+    cluon::OD4Session od4(160, [](cluon::data::Envelope /*&&envelope*/) noexcept {});
 
     if(od4.isRunning()){
         UIMessage msg;
-        msg.v2vgroup(0);
         msg.direction("d");
         od4.send(msg);
     }
@@ -61,32 +57,29 @@ void BackEnd::moveD(){
 }
 
 void BackEnd::stopX(){
-  cluon::OD4Session od4(222, [](cluon::data::Envelope /*&&envelope*/) noexcept {});
+  cluon::OD4Session od4(160, [](cluon::data::Envelope /*&&envelope*/) noexcept {});
 
   if(od4.isRunning()){
       UIMessage msg;
-      msg.v2vgroup(0);
       msg.direction("x");
       od4.send(msg);
   }
 }
-void BackEnd::stopZ(){
-  cluon::OD4Session od4(222, [](cluon::data::Envelope /*&&envelope*/) noexcept {});
+void BackEnd::stopY(){
+  cluon::OD4Session od4(160, [](cluon::data::Envelope /*&&envelope*/) noexcept {});
 
   if(od4.isRunning()){
       UIMessage msg;
-      msg.v2vgroup(0);
       msg.direction("z");
       od4.send(msg);
   }
 }
 
 void BackEnd::stop(){
-  cluon::OD4Session od4(222, [](cluon::data::Envelope /*&&envelope*/) noexcept {});
+  cluon::OD4Session od4(160, [](cluon::data::Envelope /*&&envelope*/) noexcept {});
 
   if(od4.isRunning()){
       UIMessage msg;
-      msg.v2vgroup(0);
       msg.direction("x");
       od4.send(msg);
   }
