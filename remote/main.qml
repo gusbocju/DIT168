@@ -145,7 +145,7 @@ Window {
            onPressed: loop3.start()
            onReleased: {
              loop3.stop()
-             backend.stopZ()
+             backend.stopY()
            }
         }
 
