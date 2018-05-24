@@ -19,7 +19,6 @@ void BackEnd::moveW(){
 
     if(od4.isRunning()){
         UIMessage msg;
-        msg.v2vgroup(0);
         msg.direction("w");
         od4.send(msg);
     }
@@ -31,7 +30,6 @@ void BackEnd::moveA(){
 
     if(od4.isRunning()){
         UIMessage msg;
-        msg.v2vgroup(0);
         msg.direction("a");
         od4.send(msg);
     }
@@ -42,7 +40,6 @@ void BackEnd::moveS(){
 
     if(od4.isRunning()){
         UIMessage msg;
-        msg.v2vgroup(0);
         msg.direction("s");
         od4.send(msg);
     }
@@ -53,7 +50,6 @@ void BackEnd::moveD(){
 
     if(od4.isRunning()){
         UIMessage msg;
-        msg.v2vgroup(0);
         msg.direction("d");
         od4.send(msg);
     }
@@ -65,7 +61,6 @@ void BackEnd::stopX(){
 
   if(od4.isRunning()){
       UIMessage msg;
-      msg.v2vgroup(0);
       msg.direction("x");
       od4.send(msg);
   }
@@ -75,7 +70,6 @@ void BackEnd::stopY(){
 
   if(od4.isRunning()){
       UIMessage msg;
-      msg.v2vgroup(0);
       msg.direction("z");
       od4.send(msg);
   }
@@ -86,7 +80,6 @@ void BackEnd::stop(){
 
   if(od4.isRunning()){
       UIMessage msg;
-      msg.v2vgroup(0);
       msg.direction("x");
       od4.send(msg);
   }
